@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="./tenuki/tenuki.css">
+<script src="./tenuki/tenuki.js"></script>
+<style>
+* { box-sizing: border-box;}
+.container {display:flex; flex-direction:row; height:100%; width: 100%;}
+.control { padding: 10px; }
+</style>
+</head>
+<body>
+
+
+<div class="container"><div class="tenuki-board"></div>
+    <div class="control">
+        <button onClick="pass()">Pass</button>
+        <button onClick="restart()">Reset</button>
+        <div id="log"></div>
+    </div>
+</div>
+</body>
+
+<script>
+var josekis = [
+    ['3,15', '5,16', '2,13', '3,17', '2,16', '8,16'],
+    ['pass', '3,15', '5,16', '2,13', '3,17', '2,16', '8,16'],
+];
+var tree;
+var game;
+
+function pass() {
+    game.pass();
+}
+
+function restart() {
+
+
+    tree = {};
+    for (const joseki of josekis){
+        var cur_tree = tree;
+        for (const move of joseki) {
+            if (! (move in cur_tree)) {
+                cur_tree[move] = {};
+            }
+            cur_tree = cur_tree[move];
+        }
+    }
+
+    var cont = document.querySelector(".container");
+    cont.removeChild(cont.childNodes[0]);
+    var boardElement = document.createElement("div");
+    boardElement.className = "tenuki-board";
+    cont.insertBefore(boardElement, cont.firstChild);
+    game = new tenuki.Game({ element: boardElement });
+
+    game.callbacks.postRender = function(game) {
+        var move = "";
+        if (game.currentState().pass) {
+            move = "pass";
+        }
+        if (game.currentState().playedPoint) {
+                move = game.currentState().playedPoint.y + "," + game.currentState().playedPoint.x;
+        }
+        document.getElementById('log').innerHTML = game.currentState().color + " " + move;
+
+        //Check move
+        if (move in tree) {
+            tree = tree[move];
+        
+                const possibleMoves = Object.keys(tree);
+                if(possibleMoves.length > 0) {
+
+                    if (game.currentState().color == 'black') {
+                        const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                        var coords = chosenMove.split(",");
+                        game.playAt(parseInt(coords[0]), parseInt(coords[1]));
+                    }
+                }else{
+                    document.getElementById('log').innerHTML = "DONE!";
+                }
+
+            }else{
+                document.getElementById('log').innerHTML = "FAIL";
+            }
+    };
+
+}
+
+restart();
+</script>
+</html>
