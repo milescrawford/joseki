@@ -17,6 +17,7 @@
         <button onClick="pass()">Pass</button>
         <button onClick="restart()">Reset</button>
         <div id="log"></div>
+        <div id="msg"></div>
     </div>
 </div>
 </body>
@@ -25,13 +26,13 @@
 var josekis = [
     ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
     ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
+    ['15,3', '16,3', '18,0', '15,4', '18,1', '14,3', '18,2', '15,2', '18,3'],
     ['pass', '15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
 ];
 var tree;
 var board;
 
 function pass() {
-    handleMove("pass");
 }
 
 function restart() {
@@ -62,10 +63,12 @@ function restart() {
         left: 8,
         bottom:8 
     }
-});
+    });
 
 
-board.addEventListener("click", function(x, y) {handleMove(x + "," + y); });
+    board.addEventListener("click", handleMove);
+    document.getElementById('log').innerHTML = '';
+    document.getElementById('msg').innerHTML = '';
 }
 
 function parseMove(move) {
@@ -73,13 +76,10 @@ function parseMove(move) {
     return [parseInt(coords[0]), parseInt(coords[1])];
 }
 
-function handleMove(move) {
-    document.getElementById('log').innerHTML = "black: " + move;
-
-    if(move != "pass"){
-        let [x,y] = parseMove(move);
+function handleMove(x, y) {
+        let move = x+","+y;
         board.addObject({ x: x, y: y, c: WGo.B });
-    }
+        document.getElementById('log').innerHTML += "black: " + move +"<br>";;
 
         if (move in tree) {
             tree = tree[move];
@@ -89,17 +89,18 @@ function handleMove(move) {
                 const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
                 let [x,y] = parseMove(chosenMove);
                 board.addObject({ x: x, y: y, c: WGo.W });
+                document.getElementById('log').innerHTML += "White: " + chosenMove +"<br>";;
                 tree = tree[chosenMove];
             }
 
-            console.log(tree)
 
             if(Object.keys(tree).length == 0){
-                document.getElementById('log').innerHTML = "DONE!";
+                document.getElementById('msg').innerHTML = "DONE!";
+                board.removeEventListener('click', handleMove);
             }
         }else{
-            document.getElementById('log').innerHTML = "FAIL";
-            console.log("here");
+            board.removeEventListener('click', handleMove);
+            document.getElementById('msg').innerHTML = "FAIL";
             let [x,y] = parseMove(move);
             board.removeObjectsAt(x, y);
             board.addObject({ x: x, y: y, type: 'MA' });
