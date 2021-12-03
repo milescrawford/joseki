@@ -27,7 +27,7 @@ var josekis = [
     ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
     ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
     ['15,3', '16,3', '18,0', '15,4', '18,1', '14,3', '18,2', '15,2', '18,3'],
-    ['pass', '15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+    //['pass', '15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
 ];
 var tree;
 var board;
@@ -38,9 +38,26 @@ function pass() {
 
 function restart() {
 
+    var rotated = [];
+    for (const joseki of josekis){
+        var rot = [];
+        for (const move of joseki){
+            let [x,y] = parseMove(move);
+
+            let newy = (x - 18) * -1;
+            let newx = 18 - ((0-y) * -1);
+
+            let rotMove = newx +"," + newy;
+            rot.push(rotMove);
+        }
+        rotated.push(rot);
+    }
+
+    let expandedJosekis = josekis.concat(rotated);
+
 
     tree = {};
-    for (const joseki of josekis){
+    for (const joseki of expandedJosekis){
         var cur_tree = tree;
         for (const move of joseki) {
             if (! (move in cur_tree)) {
@@ -49,6 +66,7 @@ function restart() {
             cur_tree = cur_tree[move];
         }
     }
+    console.log(tree);
 
     var cont = document.querySelector(".container");
     cont.removeChild(cont.childNodes[0]);
@@ -89,6 +107,8 @@ function play(x, y) {
                 board.removeObjectsAt(cap.x, cap.y);
             }
         }
+    } else {
+        alert("Illegal move");
     }
 }
 
