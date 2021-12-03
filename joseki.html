@@ -31,6 +31,7 @@ var josekis = [
 ];
 var tree;
 var board;
+var game;
 
 function pass() {
 }
@@ -64,6 +65,7 @@ function restart() {
         bottom:8 
     }
     });
+    game = new WGo.Game();
 
 
     board.addEventListener("click", handleMove);
@@ -76,10 +78,23 @@ function parseMove(move) {
     return [parseInt(coords[0]), parseInt(coords[1])];
 }
 
+function play(x, y) {
+    let turn = game.turn;
+    let result = game.play(x,y);
+    if (Array.isArray(result)) {
+        board.addObject({ x: x, y: y, c: turn });
+        document.getElementById('log').innerHTML += turn + ": " + x + ","+y+"<br>";;
+        if (result.length) {
+            for (const cap of result) {
+                board.removeObjectsAt(cap.x, cap.y);
+            }
+        }
+    }
+}
+
 function handleMove(x, y) {
         let move = x+","+y;
-        board.addObject({ x: x, y: y, c: WGo.B });
-        document.getElementById('log').innerHTML += "black: " + move +"<br>";;
+        play(x,y);
 
         if (move in tree) {
             tree = tree[move];
@@ -88,8 +103,7 @@ function handleMove(x, y) {
             if(possibleMoves.length > 0) {
                 const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
                 let [x,y] = parseMove(chosenMove);
-                board.addObject({ x: x, y: y, c: WGo.W });
-                document.getElementById('log').innerHTML += "White: " + chosenMove +"<br>";;
+                play(x,y);
                 tree = tree[chosenMove];
             }
 
