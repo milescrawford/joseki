@@ -23,12 +23,18 @@
 </body>
 
 <script>
+
+const PASS = 'pass';
+const DELAY_MS = 250;
+
 var josekis = [
     ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
     ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
     ['15,3', '16,3', '18,0', '15,4', '18,1', '14,3', '18,2', '15,2', '18,3'],
-    ['15,3', 'pass', '16,5', '13,2', '15,1',],
+    ['15,3', PASS, '16,5', '13,2', '15,1',],
 ];
+
+
 var tree;
 var board;
 var game;
@@ -40,8 +46,8 @@ function reset() {
     for (const joseki of josekis){
         var rot = [];
         for (const move of joseki){
-            if (move == 'pass') {
-                rot.push('pass');
+            if (move == PASS) {
+                rot.push(PASS);
             } else {
                 let [x,y] = parseMove(move);
                 let newy = (x - 18) * -1;
@@ -57,7 +63,7 @@ function reset() {
     // Augment with white leads joseki
     var whiteBegins = [];
     for (const joseki of expandedJosekis){
-        whiteBegins.push(['pass'].concat(joseki));
+        whiteBegins.push([PASS].concat(joseki));
     }
     expandedJosekis = expandedJosekis.concat(whiteBegins);
 
@@ -123,29 +129,20 @@ function handleMove(x, y) {
         play(WGo.B,x,y);
 
         if (move in tree) {
-
             // Correct move
             tree = tree[move];
             respond();
-
-                // Joseki is done if nothing left
-            if(Object.keys(tree).length == 0){
-                document.getElementById('msg').innerHTML = "DONE!";
-                board.removeEventListener('click', handleMove);
-            }
-
         }else{
            fail(move); 
         }
 }
-
-
+//
 function pass() {
-    if ('pass' in tree) {
-        tree = tree['pass'];
+    if (PASS in tree) {
+        tree = tree[PASS];
         respond();
     } else {
-        fail('pass');
+        fail(PASS);
     }
 }
 
@@ -154,7 +151,7 @@ function fail(move) {
     board.removeEventListener('click', handleMove);
     document.getElementById('msg').innerHTML = "FAIL";
 
-    if(move != 'pass'){
+    if(move != PASS){
         let [x,y] = parseMove(move);
         board.removeObjectsAt(x, y);
         board.addObject({ x: x, y: y, type: 'MA' });
@@ -167,16 +164,23 @@ function fail(move) {
 
 
 // Make a reply if we can
-function respond() {
+async function respond() {
+    await new Promise(r => setTimeout(r, DELAY_MS));
     const possibleMoves = Object.keys(tree);
     if(possibleMoves.length > 0) {
         const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
         tree = tree[chosenMove];
 
-        if (chosenMove != 'pass'){
+        if (chosenMove != PASS){
             let [x,y] = parseMove(chosenMove);
             play(WGo.W, x,y);
         }
+    }
+    
+     // Joseki is done if nothing left
+    if(Object.keys(tree).length == 0){
+        document.getElementById('msg').innerHTML = "DONE!";
+        board.removeEventListener('click', handleMove);
     }
 }
 
