@@ -24,6 +24,7 @@
 <script>
 var josekis = [
     ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+    ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
     ['pass', '15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
 ];
 var tree;
@@ -98,6 +99,15 @@ function handleMove(move) {
             }
         }else{
             document.getElementById('log').innerHTML = "FAIL";
+            console.log("here");
+            let [x,y] = parseMove(move);
+            board.removeObjectsAt(x, y);
+            board.addObject({ x: x, y: y, type: 'MA' });
+            for (const correct of Object.keys(tree)) {
+                let [x,y] = parseMove(correct);
+                board.addObject({x: x, y:y, type: 'CR'});
+            }
+            
         }
 }
 
