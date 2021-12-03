@@ -11,8 +11,7 @@
 <body>
 
 
-<div class="container">
-<div id="board"></div>
+<div class="container"><div id="board"></div>
 
     <div class="control">
         <button onClick="pass()">Pass</button>
@@ -24,14 +23,14 @@
 
 <script>
 var josekis = [
-    ['3,15', '5,16', '2,13', '3,17', '2,16', '8,16'],
-    ['pass', '3,15', '5,16', '2,13', '3,17', '2,16', '8,16'],
+    ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+    ['pass', '15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
 ];
 var tree;
 var board;
 
 function pass() {
-    game.pass();
+    handleMove("pass");
 }
 
 function restart() {
@@ -48,6 +47,12 @@ function restart() {
         }
     }
 
+    var cont = document.querySelector(".container");
+    cont.removeChild(cont.childNodes[0]);
+    var boardElement = document.createElement("div");
+    boardElement.id = "board";
+    cont.insertBefore(boardElement, cont.firstChild);
+
     board = new WGo.Board(document.getElementById("board"), {
     width: 600,
     section: {
@@ -59,40 +64,43 @@ function restart() {
 });
 
 
+board.addEventListener("click", function(x, y) {handleMove(x + "," + y); });
+}
 
-   /* game.callbacks.postRender = function(game) {
-        var move = "";
-        if (game.currentState().pass) {
-            move = "pass";
-        }
-        if (game.currentState().playedPoint) {
-                move = game.currentState().playedPoint.y + "," + game.currentState().playedPoint.x;
-        }
-        document.getElementById('log').innerHTML = game.currentState().color + " " + move;
+function parseMove(move) {
+    var coords = move.split(",");
+    return [parseInt(coords[0]), parseInt(coords[1])];
+}
 
-        //Check move
+function handleMove(move) {
+    document.getElementById('log').innerHTML = "black: " + move;
+
+    if(move != "pass"){
+        let [x,y] = parseMove(move);
+        board.addObject({ x: x, y: y, c: WGo.B });
+    }
+
         if (move in tree) {
             tree = tree[move];
-        
-                const possibleMoves = Object.keys(tree);
-                if(possibleMoves.length > 0) {
 
-                    if (game.currentState().color == 'black') {
-                        const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
-                        var coords = chosenMove.split(",");
-                        game.playAt(parseInt(coords[0]), parseInt(coords[1]));
-                    }
-                }else{
-                    document.getElementById('log').innerHTML = "DONE!";
-                }
-
-            }else{
-                document.getElementById('log').innerHTML = "FAIL";
+            const possibleMoves = Object.keys(tree);
+            if(possibleMoves.length > 0) {
+                const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                let [x,y] = parseMove(chosenMove);
+                board.addObject({ x: x, y: y, c: WGo.W });
+                tree = tree[chosenMove];
             }
-    };
-    */
 
+            console.log(tree)
+
+            if(Object.keys(tree).length == 0){
+                document.getElementById('log').innerHTML = "DONE!";
+            }
+        }else{
+            document.getElementById('log').innerHTML = "FAIL";
+        }
 }
+
 
 restart();
 </script>
