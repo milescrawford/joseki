@@ -5,15 +5,137 @@ const DELAY_MS = 250;
 var josekis = [
     ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
     ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
-    ['15,3', '16,3', '18,0', '15,4', '18,1', '14,3', '18,2', '15,2', '18,3'],
     ['15,3', PASS, '16,5', '13,2', '15,1',],
 ];
+
 
 
 var tree;
 var board;
 var game;
+var sessionAttempts = 0;
+var sessionSuccess = 0;
+var currentEditJoseki;
 
+////////// Edit ///////////
+
+function initEdit() {
+
+    // Main Editor
+    var cont = document.getElementById("container");
+    cont.removeChild(cont.childNodes[0]);
+    var boardElement = document.createElement("div");
+    boardElement.id = "board";
+    cont.insertBefore(boardElement, cont.firstChild);
+
+    board = new WGo.Board(document.getElementById("board"), {
+        width: 600,
+        section: {
+            top: 0,
+            right: 0,
+            left: 8,
+            bottom:8 
+        }
+    });
+    board.addEventListener("click", handleEditAdd);
+    game = new WGo.Game();
+    currentEditJoseki = [];
+    displayCurrentEdit();
+
+
+    // Existing menu
+    for (const joseki of josekis) {
+        var existing = document.getElementById("existingList");
+        var boardElement = document.createElement("div");
+        boardElement.className = "existing";
+        existing.appendChild(boardElement);
+        var existingBoard = new WGo.Board(boardElement, {
+            width: 100,
+            section: {
+                top: 0,
+                right: 0,
+                left: 8,
+                bottom:8 
+            }
+        });
+        var color = WGo.B;
+        for (const move of joseki) {
+            let [x,y] = parseMove(move);
+            existingBoard.addObject({ x: x, y: y, c: color});
+            color = color == WGo.B ? WGo.W : WGo.B;
+        }
+    }
+}
+
+function handleEditAdd(x,y) {
+    let color = game.turn;
+    let result = game.play(x,y,color);
+    if (Array.isArray(result)) {
+        currentEditJoseki.push(x +","+y);
+        displayCurrentEdit();
+
+        board.addObject({ x: x, y: y, c: color});
+        if (result.length) {
+            for (const cap of result) {
+                board.removeObjectsAt(cap.x, cap.y);
+            }
+        }
+    }
+}
+
+function displayCurrentEdit(){
+    var color = WGo.B;
+    var log = document.getElementById('log');
+    log.innerHTML = '';
+    for( const move of currentEditJoseki){
+        log.innerHTML += color == WGo.B ? "Black: " : "White: ";
+        log.innerHTML += move;
+        log.innerHTML += "<br>";
+        color = color == WGo.B ? WGo.W : WGo.B;
+    }
+}
+
+function editRemove() {
+    currentEditJoseki.pop();
+    game.popPosition();
+    displayGame(game, board);
+    displayCurrentEdit();
+}
+
+function handleMove(x, y) {
+    let move = x+","+y;
+    play(WGo.B,x,y);
+
+    if (move in tree) {
+        // Correct move
+        tree = tree[move];
+        respond();
+    }else{
+        fail(move); 
+    }
+}
+
+function displayGame(){
+    board.removeAllObjects();
+    for ( var x = 0; x < game.size; x++) {
+        for ( var y = 0; y < game.size; y++) {
+            var obj = game.getStone(x,y);
+            if (obj){
+                console.log(x,y,obj);
+                board.addObject({x:x,y:y,c:obj});
+            }
+        }
+    }
+}
+
+
+
+////////// Play ///////////
+
+function init() {
+    displayRatio();
+    reset();
+}
 
 function reset() {
     // Augment with rotated joseki
@@ -54,9 +176,9 @@ function reset() {
             cur_tree = cur_tree[move];
         }
     }
-    console.log(tree);
 
-    var cont = document.querySelector(".container");
+    // Setup frsh board
+    var cont = document.getElementById("container");
     cont.removeChild(cont.childNodes[0]);
     var boardElement = document.createElement("div");
     boardElement.id = "board";
@@ -74,9 +196,11 @@ function reset() {
     game = new WGo.Game();
 
 
-    board.addEventListener("click", handleMove);
+    // Update info/stats
     document.getElementById('log').innerHTML = '';
     document.getElementById('msg').innerHTML = '';
+
+    board.addEventListener("click", handleMove);
 }
 
 function parseMove(move) {
@@ -135,6 +259,28 @@ function fail(move) {
         let [x,y] = parseMove(correct);
         board.addObject({x: x, y:y, type: 'CR'});
     }
+
+    updateRatio(false);
+}
+
+function succeed() {
+    document.getElementById('msg').innerHTML = "DONE!";
+    board.removeEventListener('click', handleMove);
+    updateRatio(true);
+}
+
+function updateRatio(successful) {
+    sessionAttempts +=1;
+    if(successful){
+        sessionSuccess +=1;
+    }
+    displayRatio();
+}
+
+function displayRatio() {
+    let ratio = sessionAttempts == 0 ? 0 : Math.round((sessionSuccess / sessionAttempts) * 100.0);
+    document.getElementById('ratio').innerHTML = ratio;
+    document.getElementById('tries').innerHTML = sessionAttempts;
 }
 
 
@@ -154,8 +300,7 @@ async function respond() {
 
     // Joseki is done if nothing left
     if(Object.keys(tree).length == 0){
-        document.getElementById('msg').innerHTML = "DONE!";
-        board.removeEventListener('click', handleMove);
+        succeed();
     }
 }
 

@@ -2,13 +2,22 @@
     box-sizing: border-box;
 }
 
-.container {
+div {
+    border: thin black solid;
+    margin: 10px;
+}
+
+#container {
     display:flex; 
     flex-direction:row; 
     height:100%; 
     width: 100%;
 }
 
-.control {
-    padding: 10px;
+#control {
+    display:flex; 
+    flex-direction:row; 
+}
+
+.existing {
 }

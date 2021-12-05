@@ -5,7 +5,7 @@
         <script src="joseki.js"></script>
         <link rel="stylesheet" href="joseki.css"></style>
     </head>
-    <body onLoad="init();">
+    <body onLoad="initEdit();">
         <div class="nav">
             <a href="joseki.html">Play</a>
             <a href="edit.html">Edit</a>
@@ -14,12 +14,12 @@
 
             <div id="control">
                 <div>
-                    <button onClick="pass()">Pass / Tenuki</button>
-                    <button onClick="reset()">Reset</button>
+                <button onClick="editPass()">Pass / Tenuki</button>
+                <button onClick="editRemove()">Backup</button>
                 </div>
-                <div><span id="ratio"></span>% successful of <span id="tries"></span> tries this session!</div>
-                <div id="log"></div>
                 <div id="msg"></div>
+                <div id="log"></div>
+                <div id="existingList"></div>
             </div>
         </div>
     </body>
