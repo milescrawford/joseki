@@ -44,8 +44,9 @@ function initEdit() {
 
 
     // Existing menu
+    var existing = document.getElementById("existingList");
+    existing.innerHTML = '';
     for (const joseki of josekis) {
-        var existing = document.getElementById("existingList");
         var boardElement = document.createElement("div");
         boardElement.className = "existing";
         existing.appendChild(boardElement);
@@ -121,13 +122,16 @@ function displayGame(){
         for ( var y = 0; y < game.size; y++) {
             var obj = game.getStone(x,y);
             if (obj){
-                console.log(x,y,obj);
                 board.addObject({x:x,y:y,c:obj});
             }
         }
     }
 }
 
+function editSave() {
+    josekis.unshift(currentEditJoseki);
+    initEdit();
+}
 
 
 ////////// Play ///////////
