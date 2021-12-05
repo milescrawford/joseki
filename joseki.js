@@ -40,7 +40,7 @@ function initEdit() {
     board.addEventListener("click", handleEditAdd);
     game = new WGo.Game();
     currentEditJoseki = [];
-    displayCurrentEdit();
+    redraw();
 
 
     // Existing menu
@@ -73,8 +73,6 @@ function handleEditAdd(x,y) {
     let result = game.play(x,y,color);
     if (Array.isArray(result)) {
         currentEditJoseki.push(x +","+y);
-        displayCurrentEdit();
-
         board.addObject({ x: x, y: y, c: color});
         if (result.length) {
             for (const cap of result) {
@@ -82,9 +80,29 @@ function handleEditAdd(x,y) {
             }
         }
     }
+    redraw();
 }
 
-function displayCurrentEdit(){
+function editRemove() {
+    currentEditJoseki.pop();
+    game.popPosition();
+    redraw();
+}
+
+function redraw(){
+
+    // Board
+    board.removeAllObjects();
+    for ( var x = 0; x < game.size; x++) {
+        for ( var y = 0; y < game.size; y++) {
+            var obj = game.getStone(x,y);
+            if (obj){
+                board.addObject({x:x,y:y,c:obj});
+            }
+        }
+    }
+
+    // Log
     var color = WGo.B;
     var log = document.getElementById('log');
     log.innerHTML = '';
@@ -96,41 +114,17 @@ function displayCurrentEdit(){
     }
 }
 
-function editRemove() {
-    currentEditJoseki.pop();
-    game.popPosition();
-    displayGame(game, board);
-    displayCurrentEdit();
-}
 
-function handleMove(x, y) {
-    let move = x+","+y;
-    play(WGo.B,x,y);
-
-    if (move in tree) {
-        // Correct move
-        tree = tree[move];
-        respond();
-    }else{
-        fail(move); 
-    }
-}
-
-function displayGame(){
-    board.removeAllObjects();
-    for ( var x = 0; x < game.size; x++) {
-        for ( var y = 0; y < game.size; y++) {
-            var obj = game.getStone(x,y);
-            if (obj){
-                board.addObject({x:x,y:y,c:obj});
-            }
-        }
-    }
-}
 
 function editSave() {
     josekis.unshift(currentEditJoseki);
     initEdit();
+}
+
+function editPass() {
+    currentEditJoseki.push(PASS);
+    game.turn = game.turn == WGo.B ? WGo.W : WGo.B;
+    redraw();
 }
 
 
@@ -201,7 +195,6 @@ function reset() {
 
 
     // Update info/stats
-    document.getElementById('log').innerHTML = '';
     document.getElementById('msg').innerHTML = '';
 
     board.addEventListener("click", handleMove);
@@ -216,7 +209,6 @@ function play(color, x, y) {
     let result = game.play(x,y,color);
     if (Array.isArray(result)) {
         board.addObject({ x: x, y: y, c: color});
-        document.getElementById('log').innerHTML += color + ": " + x + ","+y+"<br>";;
         if (result.length) {
             for (const cap of result) {
                 board.removeObjectsAt(cap.x, cap.y);
