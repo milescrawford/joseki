@@ -1,0 +1,14 @@
+* { 
+    box-sizing: border-box;
+}
+
+.container {
+    display:flex; 
+    flex-direction:row; 
+    height:100%; 
+    width: 100%;
+}
+
+.control {
+    padding: 10px;
+}
