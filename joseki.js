@@ -123,11 +123,13 @@ const STORAGE_KEY = 'josekis';
     }
 
     function editRemove() {
-        let removed = currentEditJoseki.moves.pop();
-        if(removed != PASS) {
-            game.popPosition();
+        if(currentEditJoseki.moves.length > 0) {
+            let removed = currentEditJoseki.moves.pop();
+            if(removed != PASS) {
+                game.popPosition();
+            }
+            redraw();
         }
-        redraw();
     }
 
     function redraw(){
