@@ -5,29 +5,20 @@
         <script src="joseki.js"></script>
         <link rel="stylesheet" href="style.css"></style>
     </head>
-    <body onLoad="initEdit();">
+    <body onLoad="init();">
         <div class="nav">
             <a href="index.html">Play</a>
             <a href="edit.html">Edit</a>
         </div>
         <div id="layout">
-            <div id="existingList"></div>
             <div id="container"><div id="board"></div></div>
-
             <div>
-                <p>
-                <button onClick="editPass()">Pass / Tenuki</button>
+                <button onClick="pass()">Pass / Tenuki</button>
                 <br>
-                <button onClick="editRemove()">Remove Last Move</button>
-                </p>
-
-                <p>
-                <textarea id="comment"></textarea>
-                <button onClick="editSave()">Save</button>
-                </p>
+                <button onClick="reset()">Reset</button>
             </div>
+            <div><span id="ratio"></span>% successful of <span id="tries"></span> tries this session!</div>
             <div id="msg"></div>
-            <div id="log"></div>
         </div>
         </div>
     </body>
