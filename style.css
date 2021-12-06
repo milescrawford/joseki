@@ -21,17 +21,14 @@ div {
     width: 100%;
 }
 
-#control {
-}
-
 #existingList {
     max-height: 800px;
     overflow: scroll;
 }
 
 .josekiMenu {
-    text-overflow:ellipsis;
     width:150px;
+    height:150px;
 }
 
 .selected {

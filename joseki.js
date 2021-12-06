@@ -154,7 +154,7 @@ function redraw(){
 
 
 function editSave() {
-    currentEditJoseki.comment = document.getElementById('comment').value;
+    currentEditJoseki.comment = document.getElementById('comment').value || "#" + currentEditJoseki.id;
     if(josekis.find(function(a){ return a.id == currentEditJoseki.id})) {
         var index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
         josekis[index] = currentEditJoseki;
@@ -177,10 +177,7 @@ function editPass() {
 }
 
 function newJoseki() {
-    var maxId = josekis.reduce(function(a, b) {
-        return Math.max(a.id, b.id);
-    }, 0);
-
+    var maxId = Math.max(...josekis.map(function(a) {return a.id}));
     return {'id': maxId +1, 'comment':'', 'moves': []};
 }
 
