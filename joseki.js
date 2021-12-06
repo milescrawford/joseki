@@ -1,6 +1,7 @@
 
 const PASS = 'pass';
 const DELAY_MS = 250;
+const BOARD_BACK = "#f5ea92"; //TODO custom, can be href. custom stones too.
 
 var josekis = [
     { 'id': 1,
@@ -39,6 +40,7 @@ function initEdit(id) {
 
     board = new WGo.Board(document.getElementById("board"), {
         width: 600,
+        background: BOARD_BACK,
         section: {
             top: 0,
             right: 0,
@@ -70,6 +72,7 @@ function initEdit(id) {
         existing.appendChild(josekiCont);
         var existingBoard = new WGo.Board(boardElement, {
             width: 100,
+            background: BOARD_BACK,
             section: {
                 top: 0,
                 right: 0,
@@ -239,6 +242,7 @@ function reset() {
 
     board = new WGo.Board(document.getElementById("board"), {
         width: 600,
+        background: BOARD_BACK,
         section: {
             top: 0,
             right: 0,
