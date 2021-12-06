@@ -5,7 +5,7 @@ const DELAY_MS = 250;
 var josekis = [
     { 'id': 1,
         'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
-        'comment': 'Approach balance settle',
+        'comment': 'Approach balance settle blah blah blah blah lbah',
     },
     { 'id': 2,
         'moves': ['15,3', PASS, '16,5', '13,2', '15,1',],
@@ -28,7 +28,7 @@ var currentEditJoseki;
 
 ////////// Edit ///////////
 
-function initEdit() {
+function initEdit(id) {
 
     // Main Editor
     var cont = document.getElementById("container");
@@ -49,6 +49,7 @@ function initEdit() {
     board.addEventListener("click", handleEditAdd);
     game = new WGo.Game();
     currentEditJoseki = newJoseki();
+    document.getElementById('comment').value = '';
     redraw();
 
 
@@ -56,9 +57,17 @@ function initEdit() {
     var existing = document.getElementById("existingList");
     existing.innerHTML = '';
     for (const joseki of josekis) {
+        var josekiCont = document.createElement("div");
+        if (joseki.id == id) {
+            josekiCont.className = "josekiMenu selected";
+        } else {
+            josekiCont.className = "josekiMenu";
+            josekiCont.addEventListener('click', function() { initEdit(joseki.id);});
+        }
         var boardElement = document.createElement("div");
-        boardElement.className = "existing";
-        existing.appendChild(boardElement);
+        josekiCont.appendChild(boardElement);
+        josekiCont.appendChild(document.createTextNode(joseki.comment));
+        existing.appendChild(josekiCont);
         var existingBoard = new WGo.Board(boardElement, {
             width: 100,
             section: {
@@ -75,6 +84,23 @@ function initEdit() {
             color = color == WGo.B ? WGo.W : WGo.B;
         }
     }
+
+    if(id) {
+        currentEditJoseki = josekis.find(function(a){ return a.id == id});
+        var moves = currentEditJoseki.moves;
+        currentEditJoseki.moves = [];
+        for (const move of moves){
+            if(move == PASS){
+                editPass();
+            } else {
+                let [x,y] = parseMove(move);
+                handleEditAdd(x,y);
+            }
+        }
+        document.getElementById('comment').value = currentEditJoseki.comment;
+        redraw();
+    }
+
 }
 
 function handleEditAdd(x,y) {
@@ -128,7 +154,14 @@ function redraw(){
 
 
 function editSave() {
-    josekis.unshift(currentEditJoseki);
+    currentEditJoseki.comment = document.getElementById('comment').value;
+    if(josekis.find(function(a){ return a.id == currentEditJoseki.id})) {
+        var index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+        josekis[index] = currentEditJoseki;
+    } else {
+        josekis.unshift(currentEditJoseki);
+    }
+
     initEdit();
 }
 

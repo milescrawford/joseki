@@ -2,12 +2,19 @@
     box-sizing: border-box;
 }
 
-div {
-    border: thin black solid;
-    margin: 10px;
+p {
+    margin:0;
+    margin-bottom:20px;
 }
 
-#container {
+div {
+    /*
+    border: thin black solid;
+    margin: 5px;
+    */
+}
+
+#layout {
     display:flex; 
     flex-direction:row; 
     height:100%; 
@@ -15,9 +22,18 @@ div {
 }
 
 #control {
-    display:flex; 
-    flex-direction:row; 
 }
 
-.existing {
+#existingList {
+    max-height: 800px;
+    overflow: scroll;
+}
+
+.josekiMenu {
+    text-overflow:ellipsis;
+    width:150px;
+}
+
+.selected {
+    background-color:silver;
 }

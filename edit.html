@@ -10,18 +10,25 @@
             <a href="joseki.html">Play</a>
             <a href="edit.html">Edit</a>
         </div>
-        <div id="container"><div id="board"></div>
+        <div id="layout">
+            <div id="existingList"></div>
+            <div id="container"><div id="board"></div></div>
 
-            <div id="control">
-                <div>
+            <div>
+                <p>
                 <button onClick="editPass()">Pass / Tenuki</button>
+                <br>
                 <button onClick="editRemove()">Remove Last Move</button>
+                </p>
+
+                <p>
+                <textarea id="comment"></textarea>
                 <button onClick="editSave()">Save</button>
-                </div>
-                <div id="msg"></div>
-                <div id="log"></div>
-                <div id="existingList"></div>
+                </p>
             </div>
+            <div id="msg"></div>
+            <div id="log"></div>
+        </div>
         </div>
     </body>
 </html>
