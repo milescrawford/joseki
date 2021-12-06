@@ -11,7 +11,10 @@
             <a href="/edit">Edit</a>
         </div>
         <div id="layout">
+            <div id="menu">
+                <button onClick="initEdit();">Create new joseki</button>
             <div id="existingList"></div>
+            </div>
             <div id="container"><div id="board"></div></div>
 
             <div>
@@ -28,6 +31,12 @@
                 <br>
                 <button onClick="editSave()">Save</button>
                 </p>
+
+
+                <p>
+                <button onClick="deleteJoseki()">Delete this Joseki</button>
+                </p>
+
             </div>
             <div id="msg"></div>
             <div id="log"></div>

@@ -1,7 +1,7 @@
 
 const PASS = 'pass';
 const DELAY_MS = 250;
-const BOARD_BACK = "#f5ea92"; //TODO custom, can be href. custom stones too.
+const BOARD_BACK = "#f5ea92";
 const STORAGE_KEY = 'josekis';
 
 {
@@ -185,6 +185,17 @@ const STORAGE_KEY = 'josekis';
     function newJoseki() {
         let maxId = Math.max(...josekis.map(function(a) {return a.id}));
         return {'id': maxId +1, 'comment':'', 'moves': []};
+    }
+
+    function deleteJoseki() {
+        if (confirm("Are you sure you want to delete this joseki?")) {
+            let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+            if (index > -1) {
+                josekis.splice(index, 1);
+            }
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
+            initEdit();
+        }
     }
 
 
