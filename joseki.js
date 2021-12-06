@@ -3,9 +3,18 @@ const PASS = 'pass';
 const DELAY_MS = 250;
 
 var josekis = [
-    ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
-    ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
-    ['15,3', PASS, '16,5', '13,2', '15,1',],
+    { 'id': 1,
+        'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+        'comment': 'Approach balance settle',
+    },
+    { 'id': 2,
+        'moves': ['15,3', PASS, '16,5', '13,2', '15,1',],
+        'comment': 'Approach enclsure',
+    },
+    { 'id': 3,
+        'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
+        'comment': 'Kick',
+    },
 ];
 
 
@@ -39,7 +48,7 @@ function initEdit() {
     });
     board.addEventListener("click", handleEditAdd);
     game = new WGo.Game();
-    currentEditJoseki = [];
+    currentEditJoseki = newJoseki();
     redraw();
 
 
@@ -60,7 +69,7 @@ function initEdit() {
             }
         });
         var color = WGo.B;
-        for (const move of joseki) {
+        for (const move of joseki.moves) {
             let [x,y] = parseMove(move);
             existingBoard.addObject({ x: x, y: y, c: color});
             color = color == WGo.B ? WGo.W : WGo.B;
@@ -72,7 +81,7 @@ function handleEditAdd(x,y) {
     let color = game.turn;
     let result = game.play(x,y,color);
     if (Array.isArray(result)) {
-        currentEditJoseki.push(x +","+y);
+        currentEditJoseki.moves.push(x +","+y);
         board.addObject({ x: x, y: y, c: color});
         if (result.length) {
             for (const cap of result) {
@@ -84,8 +93,10 @@ function handleEditAdd(x,y) {
 }
 
 function editRemove() {
-    currentEditJoseki.pop();
-    game.popPosition();
+    let removed = currentEditJoseki.moves.pop();
+    if(removed != PASS) {
+        game.popPosition();
+    }
     redraw();
 }
 
@@ -106,7 +117,7 @@ function redraw(){
     var color = WGo.B;
     var log = document.getElementById('log');
     log.innerHTML = '';
-    for( const move of currentEditJoseki){
+    for( const move of currentEditJoseki.moves){
         log.innerHTML += color == WGo.B ? "Black: " : "White: ";
         log.innerHTML += move;
         log.innerHTML += "<br>";
@@ -122,9 +133,22 @@ function editSave() {
 }
 
 function editPass() {
-    currentEditJoseki.push(PASS);
-    game.turn = game.turn == WGo.B ? WGo.W : WGo.B;
+    if(
+       currentEditJoseki.moves.length >0 &&
+       currentEditJoseki.moves[currentEditJoseki.moves.length -1] != PASS
+    ){
+        currentEditJoseki.moves.push(PASS);
+        game.turn = game.turn == WGo.B ? WGo.W : WGo.B;
+    }
     redraw();
+}
+
+function newJoseki() {
+    var maxId = josekis.reduce(function(a, b) {
+        return Math.max(a.id, b.id);
+    }, 0);
+
+    return {'id': maxId +1, 'comment':'', 'moves': []};
 }
 
 
@@ -136,9 +160,13 @@ function init() {
 }
 
 function reset() {
+
+    // extract moves
+    var original = josekis.map(function(a) {return a.moves;});
+
     // Augment with rotated joseki
     var rotated = [];
-    for (const joseki of josekis){
+    for (const joseki of original){
         var rot = [];
         for (const move of joseki){
             if (move == PASS) {
@@ -153,19 +181,16 @@ function reset() {
         }
         rotated.push(rot);
     }
-    let expandedJosekis = josekis.concat(rotated);
 
     // Augment with white leads joseki
     var whiteBegins = [];
-    for (const joseki of expandedJosekis){
+    for (const joseki of original.concat(rotated)){
         whiteBegins.push([PASS].concat(joseki));
     }
-    expandedJosekis = expandedJosekis.concat(whiteBegins);
-
 
     // Build move tree
     tree = {};
-    for (const joseki of expandedJosekis){
+    for (const joseki of original.concat(rotated, whiteBegins)){
         var cur_tree = tree;
         for (const move of joseki) {
             if (! (move in cur_tree)) {
@@ -196,8 +221,12 @@ function reset() {
 
     // Update info/stats
     document.getElementById('msg').innerHTML = '';
-
     board.addEventListener("click", handleMove);
+
+    // Half the time, white starts
+    if (Math.floor(Math.random() * 2)){
+        pass();
+    }
 }
 
 function parseMove(move) {
