@@ -307,7 +307,8 @@ function pass() {
 // Failed Joseki
 function fail(move) {
     board.removeEventListener('click', handleMove);
-    document.getElementById('msg').innerHTML = "FAIL";
+    board.addEventListener('click', reset);
+    document.getElementById('msg').innerHTML = "FAIL! Click board to continue.";
 
     if(move != PASS){
         let [x,y] = parseMove(move);
@@ -323,8 +324,9 @@ function fail(move) {
 }
 
 function succeed() {
-    document.getElementById('msg').innerHTML = "DONE!";
+    document.getElementById('msg').innerHTML = "RIGHT! Click board to continue.";
     board.removeEventListener('click', handleMove);
+    board.addEventListener('click', reset);
     updateRatio(true);
 }
 
