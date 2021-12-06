@@ -2,23 +2,24 @@
 const PASS = 'pass';
 const DELAY_MS = 250;
 const BOARD_BACK = "#f5ea92"; //TODO custom, can be href. custom stones too.
-
-let josekis = [
-    { 'id': 1,
-        'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
-        'comment': 'Approach balance settle blah blah blah blah lbah',
-    },
-    { 'id': 2,
-        'moves': ['15,3', PASS, '16,5', '13,2', '15,1',],
-        'comment': 'Approach enclsure',
-    },
-    { 'id': 3,
-        'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
-        'comment': 'Kick',
-    },
-];
+const STORAGE_KEY = 'josekis';
 
 {
+    let josekis = [];
+    if (window.localStorage.getItem(STORAGE_KEY)){
+        josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+    } else {
+        josekis = [
+            { 'id': 1,
+                'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+                'comment': 'Approach 4-4, settle peacefully',
+            },
+            { 'id': 3,
+                'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
+                'comment': 'Kick',
+            },
+        ];
+    }
 
     let tree;
     let board;
@@ -164,6 +165,8 @@ let josekis = [
         } else {
             josekis.unshift(currentEditJoseki);
         }
+
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
 
         initEdit();
     }
