@@ -297,6 +297,7 @@ const STORAGE_KEY = 'josekis';
     }
 
     function handleMove(x, y) {
+        document.getElementById('msg').innerHTML = '';
         let move = x+","+y;
         play(WGo.B,x,y);
 
@@ -367,7 +368,9 @@ const STORAGE_KEY = 'josekis';
             const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
             tree = tree[chosenMove];
 
-            if (chosenMove != PASS){
+            if (chosenMove == PASS){
+                document.getElementById('msg').innerHTML = "White passed.";
+            } else {
                 let [x,y] = parseMove(chosenMove);
                 play(WGo.W, x,y);
             }
