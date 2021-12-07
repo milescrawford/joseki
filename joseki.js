@@ -5,6 +5,7 @@ const BOARD_BACK = "#f5ea92";
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 100;
+const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
 
 {
     let josekis = [];
@@ -36,6 +37,14 @@ const SMALL_SIZE = 100;
     function parseMove(move) {
         let coords = move.split(",");
         return [parseInt(coords[0]), parseInt(coords[1])];
+    }
+
+    function serMove(x,y) {
+        return x + "," + y;
+    }
+
+    function xyToGrid(x,y) {
+        return [LETTERS[x], 19 - y];
     }
 
     function newBoard(element, width=BOARD_SIZE, grid=true) {
@@ -153,7 +162,7 @@ const SMALL_SIZE = 100;
         let color = game.turn;
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
-            currentEditJoseki.moves.push(x +","+y);
+            currentEditJoseki.moves.push(serMove(x,y));
             board.addObject({ x: x, y: y, c: color});
             if (result.length) {
                 for (const cap of result) {
@@ -193,7 +202,7 @@ const SMALL_SIZE = 100;
         log.innerHTML = '';
         for( const move of currentEditJoseki.moves){
             log.innerHTML += color == WGo.B ? "Black: " : "White: ";
-            log.innerHTML += move;
+            log.innerHTML += move == PASS ? 'Pass' : serMove(...xyToGrid(...parseMove(move)));
             log.innerHTML += "<br>";
             color = color == WGo.B ? WGo.W : WGo.B;
         }
@@ -271,7 +280,7 @@ const SMALL_SIZE = 100;
                     let [x,y] = parseMove(move);
                     let newy = (x - 18) * -1;
                     let newx = 18 - ((0-y) * -1);
-                    let rotMove = newx +"," + newy;
+                    let rotMove = serMove(newx, newy);
                     rot.push(rotMove);
                 }
             }
@@ -336,7 +345,7 @@ const SMALL_SIZE = 100;
 
     function handleMove(x, y) {
         document.getElementById('msg').innerHTML = '';
-        let move = x+","+y;
+        let move = serMove(x,y);
 
         if (play(WGo.B,x,y)) {
 
