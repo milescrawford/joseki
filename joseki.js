@@ -3,6 +3,8 @@ const PASS = 'pass';
 const DELAY_MS = 250;
 const BOARD_BACK = "#f5ea92";
 const STORAGE_KEY = 'josekis';
+const BOARD_SIZE = 600;
+const SMALL_SIZE = 100;
 
 {
     let josekis = [];
@@ -28,6 +30,64 @@ const STORAGE_KEY = 'josekis';
     let sessionSuccess = 0;
     let currentEditJoseki;
 
+
+    ////////// Common ///////////
+
+    function parseMove(move) {
+        let coords = move.split(",");
+        return [parseInt(coords[0]), parseInt(coords[1])];
+    }
+
+    function newBoard(element, width=BOARD_SIZE, grid=true) {
+
+        let adjust = grid ? 0.5 : 0;
+
+        let b = new WGo.Board(element, {
+            width: width,
+            background: BOARD_BACK,
+            font: 'Arial',
+            section: {
+                top:   0 - adjust,
+                right: 0 - adjust,
+                left:  8 - adjust,
+                bottom:8 - adjust, 
+            }
+        });
+
+        if(grid){
+            b.addCustomObject( { grid: { draw: function(args, board) {
+                var ch, t, xright, xleft, ytop, ybottom;
+
+                this.fillStyle = "rgba(0,0,0,0.7)";
+                this.textBaseline="middle";
+                this.textAlign="center";
+                this.font = (board.stoneRadius* 0.8)+"px "+(board.font || "");
+
+                xleft = board.getX(0 - adjust);
+                xright = board.getX(board.size - adjust);
+                ytop = board.getY(0 - adjust);
+                ybottom = board.getY(board.size - adjust);
+
+                for(var i = 0; i < board.size; i++) {
+                    ch = i+"A".charCodeAt(0);
+                    if(ch >= "I".charCodeAt(0)) ch++;
+
+                    t = board.getY(i);
+                    this.fillText(board.size-i, xright, t);
+                    this.fillText(board.size-i, xleft, t);
+
+                    t = board.getX(i);
+                    this.fillText(String.fromCharCode(ch), t, ytop);
+                    this.fillText(String.fromCharCode(ch), t, ybottom);
+                }
+
+                this.fillStyle = "black";
+            }}});
+        }
+
+        return b;
+    }
+
     ////////// Edit ///////////
 
     function initEdit(id) {
@@ -39,16 +99,7 @@ const STORAGE_KEY = 'josekis';
         boardElement.id = "board";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = new WGo.Board(document.getElementById("board"), {
-            width: 600,
-            background: BOARD_BACK,
-            section: {
-                top: 0,
-                right: 0,
-                left: 8,
-                bottom:8 
-            }
-        });
+        board = newBoard(document.getElementById('board'));
         board.addEventListener("click", handleEditAdd);
         game = new WGo.Game();
         currentEditJoseki = newJoseki();
@@ -71,16 +122,7 @@ const STORAGE_KEY = 'josekis';
             josekiCont.appendChild(boardElement);
             josekiCont.appendChild(document.createTextNode(joseki.comment));
             existing.appendChild(josekiCont);
-            let existingBoard = new WGo.Board(boardElement, {
-                width: 100,
-                background: BOARD_BACK,
-                section: {
-                    top: 0,
-                    right: 0,
-                    left: 8,
-                    bottom:8 
-                }
-            });
+            let existingBoard = newBoard(boardElement, SMALL_SIZE, false);
             let color = WGo.B;
             for (const move of joseki.moves) {
                 let [x,y] = parseMove(move);
@@ -185,7 +227,12 @@ const STORAGE_KEY = 'josekis';
     }
 
     function newJoseki() {
-        let maxId = Math.max(...josekis.map(function(a) {return a.id}));
+        let maxId;
+        if(josekis.length){
+            maxId = Math.max(...josekis.map(function(a) {return a.id}));
+        }else{
+            maxId = 0;
+        }
         return {'id': maxId +1, 'comment':'', 'moves': []};
     }
 
@@ -256,16 +303,7 @@ const STORAGE_KEY = 'josekis';
         boardElement.id = "board";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = new WGo.Board(document.getElementById("board"), {
-            width: 600,
-            background: BOARD_BACK,
-            section: {
-                top: 0,
-                right: 0,
-                left: 8,
-                bottom:8 
-            }
-        });
+        board = newBoard(document.getElementById('board'));
         game = new WGo.Game();
 
 
@@ -280,10 +318,6 @@ const STORAGE_KEY = 'josekis';
         }
     }
 
-    function parseMove(move) {
-        let coords = move.split(",");
-        return [parseInt(coords[0]), parseInt(coords[1])];
-    }
 
     function play(color, x, y) {
         let result = game.play(x,y,color);
@@ -394,5 +428,7 @@ const STORAGE_KEY = 'josekis';
             succeed();
         }
     }
+
+
 }
 
