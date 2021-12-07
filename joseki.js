@@ -272,6 +272,7 @@ const STORAGE_KEY = 'josekis';
         // Update info/stats
         document.getElementById('msg').innerHTML = '';
         board.addEventListener("click", handleMove);
+        document.getElementById('pass').addEventListener('click', pass);
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
@@ -323,8 +324,7 @@ const STORAGE_KEY = 'josekis';
 
     // Failed Joseki
     function fail(move) {
-        board.removeEventListener('click', handleMove);
-        board.addEventListener('click', reset);
+        shutdown();
         document.getElementById('msg').innerHTML = "FAIL! Click board to continue.";
 
         if(move != PASS){
@@ -341,9 +341,8 @@ const STORAGE_KEY = 'josekis';
     }
 
     function succeed() {
+        shutdown();
         document.getElementById('msg').innerHTML = "RIGHT! Click board to continue.";
-        board.removeEventListener('click', handleMove);
-        board.addEventListener('click', reset);
         updateRatio(true);
     }
 
@@ -361,6 +360,11 @@ const STORAGE_KEY = 'josekis';
         document.getElementById('tries').innerHTML = sessionAttempts;
     }
 
+    function shutdown() {
+        document.getElementById('pass').removeEventListener('click', pass);
+        board.removeEventListener('click', handleMove);
+        board.addEventListener('click', reset);
+    }
 
     // Make a reply if we can
     async function respond() {
