@@ -294,22 +294,25 @@ const STORAGE_KEY = 'josekis';
                     board.removeObjectsAt(cap.x, cap.y);
                 }
             }
+            return true;
         } else {
-            alert("Illegal move");
+            return false;
         }
     }
 
     function handleMove(x, y) {
         document.getElementById('msg').innerHTML = '';
         let move = x+","+y;
-        play(WGo.B,x,y);
 
-        if (move in tree) {
-            // Correct move
-            tree = tree[move];
-            respond();
-        }else{
-            fail(move); 
+        if (play(WGo.B,x,y)) {
+
+            if (move in tree) {
+                // Correct move
+                tree = tree[move];
+                respond();
+            }else{
+                fail(move); 
+            }
         }
     }
 
