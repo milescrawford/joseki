@@ -246,13 +246,17 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     }
 
     function deleteJoseki() {
-        if (confirm("Are you sure you want to delete this joseki?")) {
-            let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-            if (index > -1) {
-                josekis.splice(index, 1);
+        if (josekis.length > 1) {
+            if (confirm("Are you sure you want to delete this joseki?")) {
+                let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+                if (index > -1) {
+                    josekis.splice(index, 1);
+                }
+                window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
+                initEdit();
             }
-            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
-            initEdit();
+        }else {
+            alert("Can't remove last joseki");
         }
     }
 
