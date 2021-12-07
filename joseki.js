@@ -328,7 +328,7 @@ const STORAGE_KEY = 'josekis';
     // Failed Joseki
     function fail(move) {
         shutdown();
-        document.getElementById('msg').innerHTML = "FAIL! Click board to continue.";
+        document.getElementById('msg').innerHTML = "FAIL!";
 
         if(move != PASS){
             let [x,y] = parseMove(move);
@@ -336,8 +336,12 @@ const STORAGE_KEY = 'josekis';
             board.addObject({ x: x, y: y, type: 'MA' });
         }
         for (const correct of Object.keys(tree)) {
-            let [x,y] = parseMove(correct);
-            board.addObject({x: x, y:y, type: 'CR'});
+            if (correct == PASS) {
+                document.getElementById('msg').innerHTML += " Pass/Tenuki was a correct option.";
+            } else {
+                let [x,y] = parseMove(correct);
+                board.addObject({x: x, y:y, type: 'CR'});
+            }
         }
 
         updateRatio(false);
@@ -345,7 +349,7 @@ const STORAGE_KEY = 'josekis';
 
     function succeed() {
         shutdown();
-        document.getElementById('msg').innerHTML = "RIGHT! Click board to continue.";
+        document.getElementById('msg').innerHTML = "CORRECT!";
         updateRatio(true);
     }
 
