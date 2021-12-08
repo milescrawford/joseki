@@ -22,8 +22,8 @@ div {
 #layout {
     display:flex; 
     flex-direction:row; 
-    height:100%; 
     width: 100%;
+    max-width: 1400px;
 }
 
 #existingList {
@@ -37,21 +37,25 @@ div {
 .josekiMenu {
     height:150px;
 }
+.selected {
+    background-color:silver;
+}
 
 #status {
     width: 15%;
 }
-
-.selected {
-    background-color:silver;
-}
 #docs {
-    width:15%;
+    width:35%;
 }
 #container {
     width:50%;
 }
+#menu {
+    width:15%;
+}
 #controls {
     width:20%;
 }
-
+#editDocs{
+    width:15%;
+}

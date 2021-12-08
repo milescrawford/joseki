@@ -34,6 +34,13 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     ////////// Common ///////////
 
+    function boardResize () {
+        if(board) {
+            board.setWidth(document.getElementById('container').clientWidth);
+        }
+    }
+    window.addEventListener('resize', boardResize);
+
     function parseMove(move) {
         let coords = move.split(",");
         return [parseInt(coords[0]), parseInt(coords[1])];
@@ -103,12 +110,15 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
         // Main Editor
         let cont = document.getElementById("container");
-        cont.removeChild(cont.childNodes[0]);
-        let boardElement = document.createElement("div");
+        let boardElement = document.getElementById('board');
+        if(boardElement) {
+            cont.removeChild(boardElement);
+        }
+        boardElement = document.createElement("div");
         boardElement.id = "board";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = newBoard(document.getElementById('board'));
+        board = newBoard(document.getElementById('board'), cont.clientWidth);
         board.addEventListener("click", handleEditAdd);
         game = new WGo.Game();
         currentEditJoseki = newJoseki();
@@ -309,14 +319,17 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             }
         }
 
-        // Setup frsh board
+        // Setup fresh board
         let cont = document.getElementById("container");
-        cont.removeChild(cont.childNodes[0]);
-        let boardElement = document.createElement("div");
+        let boardElement = document.getElementById('board');
+        if(boardElement) {
+            cont.removeChild(boardElement);
+        }
+        boardElement = document.createElement("div");
         boardElement.id = "board";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = newBoard(document.getElementById('board'));
+        board = newBoard(document.getElementById('board'), cont.clientWidth);
         game = new WGo.Game();
 
 

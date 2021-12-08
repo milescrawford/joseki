@@ -15,11 +15,12 @@
                 <button onClick="initEdit();">Create new joseki</button>
                 <div id="existingList"></div>
             </div>
-            <div id="container"><div id="board"></div></div>
-
-            <div>
-                <p>
+            <div id="container">
                 <button onClick="editPass()">Pass / Tenuki</button>
+            </div>
+
+            <div id="controls">
+                <p>
                 <br>
                 <button onClick="editRemove()">Remove Last Move</button>
                 </p>
@@ -36,14 +37,12 @@
                 <p>
                 <button onClick="deleteJoseki()">Delete this Joseki</button>
                 </p>
-
-            </div>
             <div id="msg"></div>
             <div id="log"></div>
-        </div>
-        </div>
-        <div id="footer">
-            <div id="docs">
+
+            </div>
+
+            <div id="editDocs">
                 <p>
                 Enter moves and an optional comment, then hit save to enter a new joseki to pratice. You can click existing joseki on the left to edit them.
                 </p>
@@ -51,6 +50,11 @@
                 All joseki are automatically mirrored left-to-right and played by both colors during pratice sessions - no need to manually enter these variations.
                 </p>
             </div>
+
+
+        </div>
+        </div>
+        <div id="footer">
         </div>
     </body>
 </html>
