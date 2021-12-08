@@ -4,6 +4,7 @@
 
 body {
     font-family: Arial, sans-serif;
+    overflow-y:scroll;
 }
 
 p {
@@ -14,7 +15,7 @@ p {
 div {
     /*
     border: thin black solid;
-    margin: 5px;
+    margin: 2px;
     */
 }
 
@@ -26,15 +27,31 @@ div {
 }
 
 #existingList {
-    max-height: 800px;
+    max-height: 600px;
     overflow: scroll;
 }
 
+#menu {
+    width:15%;
+}
 .josekiMenu {
-    width:150px;
     height:150px;
+}
+
+#status {
+    width: 15%;
 }
 
 .selected {
     background-color:silver;
 }
+#docs {
+    width:15%;
+}
+#container {
+    width:50%;
+}
+#controls {
+    width:20%;
+}
+

@@ -7,24 +7,25 @@
     </head>
     <body onLoad="init();">
         <div class="nav">
-            <a href="/">Play</a>
+            <a href="/" class="selected">Play</a>
             <a href="/edit">Edit</a>
         </div>
         <div id="layout">
-            <div id="container"><div id="board"></div></div>
-            <div>
-                <button id="pass">Pass / Tenuki</button>
-                <br>
-                <br>
+            <div id="status">
                 <span id="ratio"></span>% successful of <span id="tries"></span> tries this session!
                 <br>
                 <span id="msg"></span>
             </div>
-        </div>
-        <div id="footer">
+            <div id="container"><div id="board"></div></div>
+            <div id="controls">
+                <button id="pass">Pass / Tenuki</button>
+            </div>
+
             <div id="docs">
                 You always play black. White leads half the time. Either side may pass to indicate tenuki. Correctly reaching the end of a joseki is success, an incorrect move or pass will fail the attempt and indicate correct variations. Click the board to start the next attempt.
             </div>
+        </div>
+        <div id="footer">
         </div>
     </body>
 </html>

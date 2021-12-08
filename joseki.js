@@ -56,10 +56,10 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             background: BOARD_BACK,
             font: 'Arial',
             section: {
-                top:   0 - adjust,
-                right: 0 - adjust,
-                left:  8 - adjust,
-                bottom:8 - adjust, 
+                top:   8 - adjust,
+                right: 8 - adjust,
+                left:  0 - adjust,
+                bottom:0 - adjust, 
             }
         });
 
