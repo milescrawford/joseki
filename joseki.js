@@ -104,6 +104,47 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         return b;
     }
 
+    function buildTree() {
+        // extract moves
+        let original = josekis.map(function(a) {return a.moves;});
+
+        // Augment with rotated joseki
+        let rotated = [];
+        for (const joseki of original){
+            let rot = [];
+            for (const move of joseki){
+                if (move == PASS) {
+                    rot.push(PASS);
+                } else {
+                    let [x,y] = parseMove(move);
+                    let newy = (x - 18) * -1;
+                    let newx = 18 - ((0-y) * -1);
+                    let rotMove = serMove(newx, newy);
+                    rot.push(rotMove);
+                }
+            }
+            rotated.push(rot);
+        }
+
+        // Augment with white leads joseki
+        let whiteBegins = [];
+        for (const joseki of original.concat(rotated)){
+            whiteBegins.push([PASS].concat(joseki));
+        }
+
+        // Build move tree
+        tree = {};
+        for (const joseki of original.concat(rotated, whiteBegins)){
+            let cur_tree = tree;
+            for (const move of joseki) {
+                if (! (move in cur_tree)) {
+                    cur_tree[move] = {};
+                }
+                cur_tree = cur_tree[move];
+            }
+        }
+    }
+
     ////////// Edit ///////////
 
     function initEdit(id) {
@@ -280,44 +321,8 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     function reset() {
 
-        // extract moves
-        let original = josekis.map(function(a) {return a.moves;});
+        buildTree();
 
-        // Augment with rotated joseki
-        let rotated = [];
-        for (const joseki of original){
-            let rot = [];
-            for (const move of joseki){
-                if (move == PASS) {
-                    rot.push(PASS);
-                } else {
-                    let [x,y] = parseMove(move);
-                    let newy = (x - 18) * -1;
-                    let newx = 18 - ((0-y) * -1);
-                    let rotMove = serMove(newx, newy);
-                    rot.push(rotMove);
-                }
-            }
-            rotated.push(rot);
-        }
-
-        // Augment with white leads joseki
-        let whiteBegins = [];
-        for (const joseki of original.concat(rotated)){
-            whiteBegins.push([PASS].concat(joseki));
-        }
-
-        // Build move tree
-        tree = {};
-        for (const joseki of original.concat(rotated, whiteBegins)){
-            let cur_tree = tree;
-            for (const move of joseki) {
-                if (! (move in cur_tree)) {
-                    cur_tree[move] = {};
-                }
-                cur_tree = cur_tree[move];
-            }
-        }
 
         // Setup fresh board
         let cont = document.getElementById("container");
