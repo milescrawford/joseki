@@ -3,6 +3,10 @@ html {
     font-size: 1.2rem;
 }
 
+.container-fluid {
+    max-width: 1400px;
+}
+
 #boardcontainer {
 background-color: #f5ea92;
 }

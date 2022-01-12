@@ -10,23 +10,29 @@
     </head>
     <body onLoad="init();">
 
-        <div class="container">
+        <div class="container-fluid">
 
             <!-- Nav -->
-            <nav class="navbar navbar-expand navbar-dark bg-info my-4 p-2">
+            <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                <span class="navbar-text h3 text-light">Joseki</span>
+                <h3 class="mx-4 p-0 text-light">Moseki</h3>
 
-                <div class="navbar-nav">
-                    <a class="nav-link active" href="/">Practice Joseki</a>
-                    <a class="nav-link" href="/edit">Edit Joseki</a>
-                </div>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Practice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Edit</a>
+                    </li>
+                </ul>
+
+
+
             </nav>
 
-
             <!-- Status -->
-            <div class="row my-2">
-                <div class="col-2">
+            <div class="row g-2">
+                <div class="col-3">
                     <div class="card border-info mb-3">
                         <div class="card-header"><h4>Practice Session<h4></div>
                         <div class="card-body">
@@ -65,15 +71,15 @@
 
 
                 <!-- board -->
-                <div class="col-8">
+                <div class="col-6">
                     <div id="boardcontainer" class="card boder-primary p-2"></div>
                     <div class="text-center"><button class="btn btn-info mt-1" id="pass">Pass / Tenuki</button></div>
                 </div>
 
 
                 <!-- Docs -->
-                <div class="col-2">
-                    <div class="card border-info mb-3">
+                <div class="col-3">
+                    <div class="card border-info">
                         <div class="card-header"><h4>Instructions<h4></div>
                         <div class="card-body">
                             <p class="card-text">
