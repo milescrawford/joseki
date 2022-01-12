@@ -1,5 +1,6 @@
 
 const PASS = 'pass';
+const DONE = 'done';
 const DELAY_MS = 250;
 const BOARD_BACK = "#f5ea92";
 const STORAGE_KEY = 'josekis';
@@ -103,24 +104,27 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
         return b;
     }
+    function clone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
 
     function buildTree() {
-        // extract moves
-        let original = josekis.map(function(a) {return a.moves;});
+        let original = clone(josekis);
 
         // Augment with rotated joseki
         let rotated = [];
         for (const joseki of original){
-            let rot = [];
-            for (const move of joseki){
+            let rot = clone(joseki); 
+            rot.moves = [];
+            for (const move of joseki.moves){
                 if (move == PASS) {
-                    rot.push(PASS);
+                    rot.moves.push(PASS);
                 } else {
                     let [x,y] = parseMove(move);
                     let newy = (x - 18) * -1;
                     let newx = 18 - ((0-y) * -1);
                     let rotMove = serMove(newx, newy);
-                    rot.push(rotMove);
+                    rot.moves.push(rotMove);
                 }
             }
             rotated.push(rot);
@@ -129,19 +133,22 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         // Augment with white leads joseki
         let whiteBegins = [];
         for (const joseki of original.concat(rotated)){
-            whiteBegins.push([PASS].concat(joseki));
+            let wb = clone(joseki);
+            wb.moves.unshift(PASS);
+            whiteBegins.push(wb);
         }
 
         // Build move tree
         tree = {};
         for (const joseki of original.concat(rotated, whiteBegins)){
             let cur_tree = tree;
-            for (const move of joseki) {
+            for (const move of joseki.moves) {
                 if (! (move in cur_tree)) {
                     cur_tree[move] = {};
                 }
                 cur_tree = cur_tree[move];
             }
+            cur_tree[DONE] = cur_tree[DONE] ? cur_tree[DONE] += " " + joseki.comment : joseki.comment;
         }
     }
 
@@ -412,9 +419,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         updateRatio(false);
     }
 
-    function succeed() {
+    function succeed(msg) {
         shutdown();
-        document.getElementById('msg').innerHTML = "CORRECT!";
+        document.getElementById('msg').innerHTML = "CORRECT! " + msg;
         updateRatio(true);
     }
 
@@ -441,8 +448,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     // Make a reply if we can
     async function respond() {
         await new Promise(r => setTimeout(r, DELAY_MS));
-        const possibleMoves = Object.keys(tree);
-        if(possibleMoves.length > 0) {
+        const possibleMoves = Object.keys(tree).filter(move => move != DONE);;
+
+        if (possibleMoves.length > 0){
             const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
             tree = tree[chosenMove];
 
@@ -455,11 +463,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         }
 
         // Joseki is done if nothing left
-        if(Object.keys(tree).length == 0){
-            succeed();
+        if(DONE in tree){
+            succeed(tree[DONE]);
         }
     }
-
-
 }
 
