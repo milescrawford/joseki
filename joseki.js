@@ -346,6 +346,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
 
         // Update info/stats
+        document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
         document.getElementById('msg').innerHTML = '';
         board.addEventListener("click", handleMove);
         document.getElementById('pass').addEventListener('click', pass);
