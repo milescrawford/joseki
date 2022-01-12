@@ -2,7 +2,6 @@
 const PASS = 'pass';
 const DONE = 'done';
 const DELAY_MS = 250;
-const BOARD_BACK = "#f5ea92";
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 100;
@@ -36,9 +35,11 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     ////////// Common ///////////
 
     function boardResize () {
+        let width = document.getElementById('boardcontainer').clientWidth - 30;
         if(board) {
-            board.setWidth(document.getElementById('container').clientWidth);
+            board.setWidth(width);
         }
+        return width;
     }
     window.addEventListener('resize', boardResize);
 
@@ -55,20 +56,12 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         return [LETTERS[x], 19 - y];
     }
 
-    function newBoard(element, width=BOARD_SIZE, grid=true) {
-
+    function newBoard(element, width=boardResize(), grid=true) {
         let adjust = grid ? 0.5 : 0;
-
         let b = new WGo.Board(element, {
             width: width,
-            background: BOARD_BACK,
-            font: 'Arial',
-            section: {
-                top:   8 - adjust,
-                right: 8 - adjust,
-                left:  0 - adjust,
-                bottom:0 - adjust, 
-            }
+            background: "",
+            font: 'Cabin Sketch',
         });
 
         if(grid){
@@ -157,13 +150,14 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     function initEdit(id) {
 
         // Main Editor
-        let cont = document.getElementById("container");
+        let cont = document.getElementById("boardcontainer");
         let boardElement = document.getElementById('board');
         if(boardElement) {
             cont.removeChild(boardElement);
         }
         boardElement = document.createElement("div");
         boardElement.id = "board";
+        boardElement.className="mx-auto";
         cont.insertBefore(boardElement, cont.firstChild);
 
         board = newBoard(document.getElementById('board'), cont.clientWidth);
@@ -332,16 +326,17 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
 
         // Setup fresh board
-        let cont = document.getElementById("container");
+        let cont = document.getElementById("boardcontainer");
         let boardElement = document.getElementById('board');
         if(boardElement) {
             cont.removeChild(boardElement);
         }
         boardElement = document.createElement("div");
         boardElement.id = "board";
+        boardElement.className="mx-auto";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = newBoard(document.getElementById('board'), cont.clientWidth);
+        board = newBoard(document.getElementById('board'));
         game = new WGo.Game();
 
 
@@ -350,6 +345,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         document.getElementById('msg').innerHTML = '';
         board.addEventListener("click", handleMove);
         document.getElementById('pass').addEventListener('click', pass);
+        document.getElementById('fail-card').className = 'hide-card';
+        document.getElementById('success-card').className = 'hide-card';
+        document.getElementById('pass-msg').className = 'd-none';
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
@@ -401,7 +399,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     // Failed Joseki
     function fail(move) {
         shutdown();
-        document.getElementById('msg').innerHTML = "FAIL!";
+        document.getElementById('fail-card').className = "show-card";
 
         if(move != PASS){
             let [x,y] = parseMove(move);
@@ -410,7 +408,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         }
         for (const correct of Object.keys(tree)) {
             if (correct == PASS) {
-                document.getElementById('msg').innerHTML += " Pass/Tenuki was a correct option.";
+                document.getElementById('pass-msg').className = "d-block";
             } else {
                 let [x,y] = parseMove(correct);
                 board.addObject({x: x, y:y, type: 'CR'});
@@ -422,8 +420,10 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     function succeed(msg) {
         shutdown();
-        document.getElementById('msg').innerHTML = "CORRECT! " + msg;
+        document.getElementById('success-msg').innerHTML = msg;
+        document.getElementById('success-card').className = "show-card";
         updateRatio(true);
+
     }
 
     function updateRatio(successful) {

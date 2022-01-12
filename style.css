@@ -1,3 +1,23 @@
+
+html {
+    font-size: 1.2rem;
+}
+
+#boardcontainer {
+background-color: #f5ea92;
+}
+
+#success-card.hide-card, #fail-card.hide-card {
+    transition: opacity 0.5s;
+    opacity: 0;
+}
+
+#success-card.show-card, #fail-card.show-card {
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
+/*
 * { 
     box-sizing: border-box;
 }
@@ -12,12 +32,6 @@ p {
     margin-bottom:20px;
 }
 
-div {
-    /*
-    border: thin black solid;
-    margin: 2px;
-    */
-}
 
 #layout {
     display:flex; 
@@ -59,3 +73,4 @@ div {
 #editDocs{
     width:15%;
 }
+*/
