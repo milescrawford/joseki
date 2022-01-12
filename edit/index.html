@@ -1,60 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="/wgo.min.js"></script>
         <script src="/joseki.js"></script>
-        <link rel="stylesheet" href="/style.css"></style>
+        <link rel="stylesheet" href="/bootstrap.min.css"></style>
+        <link rel="stylesheet" href="/style.css"></style> 
     </head>
     <body onLoad="initEdit();">
-        <div class="nav">
-            <a href="/">Play</a>
-            <a href="/edit" class="selected">Edit</a>
-        </div>
-        <div id="layout">
-            <div id="menu">
-                <button onClick="initEdit();">Create new joseki</button>
-                <div id="existingList"></div>
+
+        <div class="container-fluid">
+
+            <!-- Nav -->
+            <nav class="navbar navbar-expand navbar-dark bg-info my-2">
+
+                <h3 class="mx-4 p-0 text-light">Moseki</h3>
+
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Practice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/edit">Edit</a>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <!-- menu -->
+            <div class="row g-2">
+                <div class="col-3">
+                    <div class="card border-info mb-3">
+                        <div class="card-header"><h4>Existing Joseki<h4></div>
+                        <div id="menu">
+                            <button onClick="initEdit();">Create new joseki</button>
+                            <div id="existingList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit board -->
+                <div class="col-6">
+
+                    <div id="boardcontainer" class="card boder-primary p-2"></div>
+                    <div class="text-center">
+                        <button onClick="editPass()" class="btn btn-info mt-1" id="pass">Pass / Tenuki</button>
+                        <button class="btn btn-primary" onClick="editRemove()">Delete Last Move</button>
+                    </div>
+                </div>
+
+
+                <!-- Controls -->
+                <div class="col-3">
+                    <div class="card border-info">
+                        <div class="card-header"><h4>Instructions<h4></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                            Enter moves and an optional comment, then hit save to enter a new joseki to pratice. You can click existing joseki on the left to edit them.
+                            </p>
+                            <p class="card-text">
+                            All joseki are automatically mirrored left-to-right and played by both colors during pratice sessions - no need to manually enter these variations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card border-success mt-2">
+                        <div class="card-header"><h4>Instructions<h4></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                            Comment:
+                            <br>
+                            <textarea id="comment"></textarea>
+                            <br>
+                        <button  class="btn btn-success"onClick="editSave()">Save this Joseki</button>
+
+
+                            <div id="msg"></div>
+                            <div id="log"></div>
+
+                        </div>
+
+
+                    </div>
+
+                <div class="card border-warning mt-2">
+                    <div class="card-header"><h4>Delete Joseki<h4></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                        Remove from your collction?
+                            <button class="btn btn-warning" onClick="deleteJoseki()">Delete this Joseki</button>
+                        </p>
+                    </div>
+                </div>
+
+                </div>
+
             </div>
-            <div id="container">
-                <button onClick="editPass()">Pass / Tenuki</button>
-            </div>
 
-            <div id="controls">
-                <p>
-                <br>
-                <button onClick="editRemove()">Remove Last Move</button>
-                </p>
-
-                <p>
-                Comment:
-                <br>
-                <textarea id="comment"></textarea>
-                <br>
-                <button onClick="editSave()">Save</button>
-                </p>
-
-
-                <p>
-                <button onClick="deleteJoseki()">Delete this Joseki</button>
-                </p>
-            <div id="msg"></div>
-            <div id="log"></div>
-
-            </div>
-
-            <div id="editDocs">
-                <p>
-                Enter moves and an optional comment, then hit save to enter a new joseki to pratice. You can click existing joseki on the left to edit them.
-                </p>
-                <p>
-                All joseki are automatically mirrored left-to-right and played by both colors during pratice sessions - no need to manually enter these variations.
-                </p>
-            </div>
-
-
-        </div>
-        </div>
-        <div id="footer">
         </div>
     </body>
 </html>

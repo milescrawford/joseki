@@ -20,6 +20,10 @@ background-color: #f5ea92;
     transition: opacity 0.5s;
     opacity: 1;
 }
+textarea {
+    width:100%;
+    height:6em;
+}
 
 /*
 * { 
