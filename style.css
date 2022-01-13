@@ -2,6 +2,9 @@
 html {
     font-size: 1.2rem;
 }
+body {
+    overflow-y:scroll;
+}
 
 .container-fluid {
     max-width: 1400px;
@@ -14,12 +17,16 @@ background-color: #f5ea92;
 #success-card.hide-card, #fail-card.hide-card {
     transition: opacity 0.5s;
     opacity: 0;
+    height : 0px;
+    overflow: hidden;
 }
 
 #success-card.show-card, #fail-card.show-card {
     transition: opacity 0.5s;
     opacity: 1;
+    height:auto;
 }
+
 textarea {
     width:100%;
     height:6em;

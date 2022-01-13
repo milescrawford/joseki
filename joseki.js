@@ -35,7 +35,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     ////////// Common ///////////
 
     function boardResize () {
-        let width = document.getElementById('boardcontainer').clientWidth - 30;
+        let width = document.getElementById('boardcontainer').clientWidth - 20;
         if(board) {
             board.setWidth(width);
         }
@@ -157,10 +157,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         }
         boardElement = document.createElement("div");
         boardElement.id = "board";
-        boardElement.className="mx-auto";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = newBoard(document.getElementById('board'), cont.clientWidth);
+        board = newBoard(document.getElementById('board'));
         board.addEventListener("click", handleEditAdd);
         game = new WGo.Game();
         currentEditJoseki = newJoseki();
@@ -333,7 +332,6 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         }
         boardElement = document.createElement("div");
         boardElement.id = "board";
-        boardElement.className="mx-auto";
         cont.insertBefore(boardElement, cont.firstChild);
 
         board = newBoard(document.getElementById('board'));
