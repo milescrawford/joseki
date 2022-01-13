@@ -4,7 +4,8 @@ const DONE = 'done';
 const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
-const SMALL_SIZE = 100;
+const SMALL_SIZE = 120;
+const FONT = 'Neucha';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
 
 {
@@ -30,12 +31,13 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     let sessionAttempts = 0;
     let sessionSuccess = 0;
     let currentEditJoseki;
+    let gridOption = false;
 
 
     ////////// Common ///////////
 
     function boardResize () {
-        let width = document.getElementById('boardcontainer').clientWidth - 0;
+        let width = document.getElementById('boardcontainer').clientWidth;
         if(board) {
             board.setWidth(width);
         }
@@ -56,7 +58,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         return [LETTERS[x], 19 - y];
     }
 
-    function newBoard(element, width=boardResize(), grid=false) {
+    function newBoard(element, width=boardResize(), grid=gridOption) {
         let adjust = grid ? 0.5 : 0;
         let b = new WGo.Board(element, {
             width: width,
@@ -172,13 +174,15 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         existing.innerHTML = '';
         for (const joseki of josekis) {
             let josekiCont = document.createElement("div");
+            josekiCont.className = "menu-card col card mx-2 p-1 col-2 border-primary align-top";
             if (joseki.id == id) {
-                josekiCont.className = "josekiMenu selected";
+                 josekiCont.className += " bg-info";
             } else {
-                josekiCont.className = "josekiMenu";
+                 josekiCont.className += " bg-light";
                 josekiCont.addEventListener('click', function() { initEdit(joseki.id);});
             }
             let boardElement = document.createElement("div");
+            boardElement.className = 'menu-board';
             josekiCont.appendChild(boardElement);
             josekiCont.appendChild(document.createTextNode(joseki.comment));
             existing.appendChild(josekiCont);

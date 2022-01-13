@@ -11,94 +11,89 @@
     <body onLoad="initEdit();">
 
         <div class="container-fluid outer">
-        <div class="container-fluid px-2">
+            <div class="container-fluid px-2">
 
-            <!-- Nav -->
-            <nav class="navbar navbar-expand navbar-dark bg-info my-2">
+                <!-- Nav -->
+                <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                <span class="navbar-text h2 my-0 mx-4 p-0 text-light">Joseki</span>
+                    <span class="navbar-text h2 my-0 mx-4 p-0 text-light">Joseki</span>
 
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Practice</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/edit">Edit Joseki</a>
-                    </li>
-                </ul>
-            </nav>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Practice</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/edit">Edit Joseki</a>
+                        </li>
+                    </ul>
+                </nav>
 
-            <div class="row g-2">
+                <div class="row g-2">
 
-                <!-- Controls -->
-                <div class="col-3">
+                    <!-- Controls -->
+                    <div class="col-3">
 
-                    <div class="card border-success mt-2">
-                        <div class="card-header h5">Current Joseki</div>
-                        <div class="card-body">
-                            <p class="card-text">
-                            Comment:
-                            <br>
-                            <textarea id="comment"></textarea>
-                            <br>
-                            <button  class="btn btn-success border-primary"onClick="editSave()">Save this Joseki</button>
+                        <div class="card border-success mb-2">
+                            <div class="card-header h5">Current Joseki</div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                Comment:
+                                <br>
+                                <textarea id="comment"></textarea>
+                                <br>
+                                <button  class="btn btn-success border-primary"onClick="editSave()">Save this Joseki</button>
 
 
-                            <div id="msg"></div>
-                            <div id="log"></div>
+                                <div id="msg"></div>
+                                <div id="log"></div>
+
+                            </div>
+
 
                         </div>
 
-
                     </div>
 
-                </div>
+                    <!-- Edit board -->
+                    <div class="col-6">
 
-                <!-- Edit board -->
-                <div class="col-6">
+                        <div id="boardcontainer" class="card boder-primary board-bg"></div>
+                        <div class="text-center">
+                            <button onClick="editPass()" class="btn  border-primary btn-info mt-2" id="pass">Pass / Tenuki</button>
+                            <button class="btn btn-secondary border-primary mt-2" onClick="editRemove()">Delete Last Move</button>
+                            <button class="btn btn-warning border-primary mt-2" onClick="deleteJoseki()">Delete this Joseki</button>
+                            <button class="btn btn-success border-primary mt-2" onClick="initEdit();">Create new joseki</button>
+                        </div>
+                    </div>
 
-                    <div id="boardcontainer" class="card boder-primary"></div>
-                    <div class="text-center">
-                        <button onClick="editPass()" class="btn  border-primary btn-info mt-2" id="pass">Pass / Tenuki</button>
-                        <button class="btn btn-secondary border-primary mt-2" onClick="editRemove()">Delete Last Move</button>
-                        <button class="btn btn-warning border-primary mt-2" onClick="deleteJoseki()">Delete this Joseki</button>
+                    <!-- instrcutions -->
+                    <div class="col-3">
+                        <div class="card border-info">
+                            <div class="card-header h5">Instructions</div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                Enter moves and an optional comment, then hit save to enter a new joseki to pratice. You can click existing joseki below to edit them.
+                                </p>
+                                <p class="card-text">
+                                All joseki are automatically mirrored left-to-right and played by both colors during pratice sessions - no need to manually enter these variations.
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- menu -->
-                <div class="col-3">
-                    <div class="card border-info">
-                        <div class="card-header h5">Instructions</div>
-                        <div class="card-body">
-                            <p class="card-text">
-                            Enter moves and an optional comment, then hit save to enter a new joseki to pratice. You can click existing joseki below to edit them.
-                            </p>
-                            <p class="card-text">
-                            All joseki are automatically mirrored left-to-right and played by both colors during pratice sessions - no need to manually enter these variations.
-                            </p>
+                <div class="row g-2 mt-1">
+                    <div class="col-12">
+
+                        <div class="card border-info mb-3">
+                            <div class="card-header h5">Existing Joseki</div>
+                            <div class="row g-2 mt-1 p-2" id="existingList"></div>
                         </div>
-                    </div>
 
-                </div>
-
-
-            </div>
-
-
-
-
-        <div class="row g-2 mt-1">
-            <div class="col-12">
-
-                <div class="card border-info mb-3">
-                    <div class="card-header 54">Existing Joseki</div>
-                    <div id="menu">
-                        <button onClick="initEdit();">Create new joseki</button>
-                        <div id="existingList"></div>
                     </div>
                 </div>
-
-            </div>
-        </div>
+                </div>
     </body>
 </html>

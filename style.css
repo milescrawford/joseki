@@ -1,4 +1,10 @@
 
+:root {
+    --board-color: #ffe498;
+    --bs-light: #eee;
+    --bs-light-rgb: rgb(200, 200, 200);
+}
+
 html {
     font-size: 1.2rem;
 }
@@ -17,8 +23,22 @@ body {
     padding:0;
 }
 
-#boardcontainer {
-background-color: #ffe498;
+.board-bg {
+    background-color: var(--board-color);
+}
+
+.menu-card {
+    width:150px; 
+    height: 250px;
+    overflow:hidden;
+}
+
+.menu-board {
+    width:auto;
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    background-color: var(--board-color);
 }
 
 #success-card.hide-card, #fail-card.hide-card {
@@ -40,59 +60,59 @@ textarea {
 }
 
 /*
-* { 
-    box-sizing: border-box;
-}
+ * { 
+ box-sizing: border-box;
+ }
 
-body {
-    font-family: Arial, sans-serif;
-    overflow-y:scroll;
-}
+ body {
+ font-family: Arial, sans-serif;
+ overflow-y:scroll;
+ }
 
-p {
-    margin:0;
-    margin-bottom:20px;
-}
+ p {
+ margin:0;
+ margin-bottom:20px;
+ }
 
 
-#layout {
-    display:flex; 
-    flex-direction:row; 
-    width: 100%;
-    max-width: 1400px;
-}
+ #layout {
+ display:flex; 
+ flex-direction:row; 
+ width: 100%;
+ max-width: 1400px;
+ }
 
-#existingList {
-    max-height: 600px;
-    overflow: scroll;
-}
+ #existingList {
+ max-height: 600px;
+ overflow: scroll;
+ }
 
-#menu {
-    width:15%;
-}
-.josekiMenu {
-    height:150px;
-}
-.selected {
-    background-color:silver;
-}
+ #menu {
+ width:15%;
+ }
+ .josekiMenu {
+ height:150px;
+ }
+ .selected {
+ background-color:silver;
+ }
 
-#status {
-    width: 15%;
-}
-#docs {
-    width:35%;
-}
-#container {
-    width:50%;
-}
-#menu {
-    width:15%;
-}
-#controls {
-    width:20%;
-}
-#editDocs{
-    width:15%;
-}
-*/
+ #status {
+ width: 15%;
+ }
+ #docs {
+ width:35%;
+ }
+ #container {
+ width:50%;
+ }
+ #menu {
+ width:15%;
+ }
+ #controls {
+ width:20%;
+ }
+ #editDocs{
+ width:15%;
+ }
+ */
