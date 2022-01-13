@@ -15,7 +15,7 @@
             <!-- Nav -->
             <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                <h3 class="mx-4 p-0 text-light">Joseki</h3>
+                <span class="navbar-text h2 my-0 mx-4 p-0 text-light">Joseki</span>
 
                 <ul class="nav nav-pills">
                     <li class="nav-item">
@@ -34,7 +34,7 @@
             <div class="row g-2">
                 <div class="col-3">
                     <div class="card border-info mb-3">
-                        <div class="card-header"><h4>Practice Session<h4></div>
+                        <div class="card-header h5">Practice Session</div>
                         <div class="card-body">
                             <p class="card-text">
                             Practicing <span id="josekiCount"></span> total joseki.
@@ -48,7 +48,7 @@
 
                     <div id="fail-card" class="hide-card">
                         <div class="card bg-danger text-white mb-3">
-                            <div class="card-header"><h4>Failed!<h4></div>
+                            <div class="card-header h5">Failed!</div>
                             <div class="card-body">
                                 <p class="card-text">Incorrect! Check the board for continuations.</p>
                                 <p id="pass-msg" class="card-text">Passing was a correct option.</p>
@@ -59,7 +59,7 @@
 
                     <div id="success-card" class="hide-card">
                         <div class="card bg-success text-white mb-3">
-                            <div class="card-header"><h4>Correct!<h4></div>
+                            <div class="card-header h5">Correct!</div>
                             <div class="card-body">
                                 <p class="card-text">Your comment: "<span id="success-msg"></span>"</p>
                                 <p class="card-text">Click the board to continue.</p>
@@ -72,7 +72,7 @@
 
                 <!-- board -->
                 <div class="col-6">
-                    <div id="boardcontainer" class="card boder-primary p-2"></div>
+                    <div id="boardcontainer" class="card boder-primary"></div>
                     <div class="text-center"><button class="btn btn-info border-primary mt-2" id="pass">Pass / Tenuki</button></div>
                 </div>
 
@@ -80,7 +80,7 @@
                 <!-- Docs -->
                 <div class="col-3">
                     <div class="card border-info">
-                        <div class="card-header"><h4>Instructions<h4></div>
+                        <div class="card-header h5">Instructions</div>
                         <div class="card-body">
                             <p class="card-text">
                             You always play black.

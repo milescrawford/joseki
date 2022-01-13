@@ -15,7 +15,7 @@
             <!-- Nav -->
             <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                <h3 class="mx-4 p-0 text-light">Joseki</h3>
+                <span class="navbar-text h2 my-0 mx-4 p-0 text-light">Joseki</span>
 
                 <ul class="nav nav-pills">
                     <li class="nav-item">
@@ -33,7 +33,7 @@
                 <div class="col-3">
 
                     <div class="card border-success mt-2">
-                        <div class="card-header"><h4>Current Joseki<h4></div>
+                        <div class="card-header h5">Current Joseki</div>
                         <div class="card-body">
                             <p class="card-text">
                             Comment:
@@ -56,7 +56,7 @@
                 <!-- Edit board -->
                 <div class="col-6">
 
-                    <div id="boardcontainer" class="card boder-primary p-2"></div>
+                    <div id="boardcontainer" class="card boder-primary"></div>
                     <div class="text-center">
                         <button onClick="editPass()" class="btn  border-primary btn-info mt-2" id="pass">Pass / Tenuki</button>
                         <button class="btn btn-secondary border-primary mt-2" onClick="editRemove()">Delete Last Move</button>
@@ -67,7 +67,7 @@
                 <!-- menu -->
                 <div class="col-3">
                     <div class="card border-info">
-                        <div class="card-header"><h4>Instructions<h4></div>
+                        <div class="card-header h5">Instructions</div>
                         <div class="card-body">
                             <p class="card-text">
                             Enter moves and an optional comment, then hit save to enter a new joseki to pratice. You can click existing joseki below to edit them.
@@ -90,7 +90,7 @@
             <div class="col-12">
 
                 <div class="card border-info mb-3">
-                    <div class="card-header"><h4>Existing Joseki<h4></div>
+                    <div class="card-header 54">Existing Joseki</div>
                     <div id="menu">
                         <button onClick="initEdit();">Create new joseki</button>
                         <div id="existingList"></div>

@@ -7,11 +7,11 @@ body {
 }
 
 .container-fluid {
-    max-width: 1400px;
+    max-width: 145vh;
 }
 
 #boardcontainer {
-background-color: #f5ea92;
+background-color: #ffe498;
 }
 
 #success-card.hide-card, #fail-card.hide-card {

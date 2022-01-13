@@ -35,7 +35,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     ////////// Common ///////////
 
     function boardResize () {
-        let width = document.getElementById('boardcontainer').clientWidth - 20;
+        let width = document.getElementById('boardcontainer').clientWidth - 0;
         if(board) {
             board.setWidth(width);
         }
@@ -56,7 +56,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         return [LETTERS[x], 19 - y];
     }
 
-    function newBoard(element, width=boardResize(), grid=true) {
+    function newBoard(element, width=boardResize(), grid=false) {
         let adjust = grid ? 0.5 : 0;
         let b = new WGo.Board(element, {
             width: width,
