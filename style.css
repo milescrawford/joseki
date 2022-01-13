@@ -7,7 +7,14 @@ body {
 }
 
 .container-fluid {
-    max-width: 145vh;
+    max-width: 160vh;
+    margin:0;
+}
+
+.container-fluid.outer {
+    max-width: 1500px;
+    margin:0;
+    padding:0;
 }
 
 #boardcontainer {
