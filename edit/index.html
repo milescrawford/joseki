@@ -33,24 +33,25 @@
                     <!-- Controls -->
                     <div class="col-3">
 
-                        <div class="card border-success mb-2">
-                            <div class="card-header h5">Current Joseki</div>
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">Edit Joseki</div>
                             <div class="card-body">
-                                <p class="card-text">
                                 Comment:
                                 <br>
                                 <textarea id="comment"></textarea>
                                 <br>
-                                <button  class="btn btn-success border-primary"onClick="editSave()">Save this Joseki</button>
-
-
-                                <div id="msg"></div>
-                                <div id="log"></div>
+                                <button  class="btn btn-success border-primary"onClick="editSave()">Save Joseki</button>
 
                             </div>
-
-
                         </div>
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">Add/Remove Joseki</div>
+                            <div class="card-body">
+                            <button class="btn btn-success border-primary mt-2" onClick="initEdit();">Create New joseki</button>
+                            <button class="btn btn-warning border-primary mt-2" onClick="deleteJoseki()">Delete This Joseki</button>
+                            </div>
+                        </div>
+
 
                     </div>
 
@@ -61,8 +62,6 @@
                         <div class="text-center">
                             <button onClick="editPass()" class="btn  border-primary btn-info mt-2" id="pass">Pass / Tenuki</button>
                             <button class="btn btn-secondary border-primary mt-2" onClick="editRemove()">Delete Last Move</button>
-                            <button class="btn btn-warning border-primary mt-2" onClick="deleteJoseki()">Delete this Joseki</button>
-                            <button class="btn btn-success border-primary mt-2" onClick="initEdit();">Create new joseki</button>
                         </div>
                     </div>
 

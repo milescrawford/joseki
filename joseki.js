@@ -250,17 +250,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
                 }
             }
         }
-
-        // Log
-        let color = WGo.B;
-        let log = document.getElementById('log');
-        log.innerHTML = '';
-        for( const move of currentEditJoseki.moves){
-            log.innerHTML += color == WGo.B ? "Black: " : "White: ";
-            log.innerHTML += move == PASS ? 'Pass' : serMove(...xyToGrid(...parseMove(move)));
-            log.innerHTML += "<br>";
-            color = color == WGo.B ? WGo.W : WGo.B;
-        }
+       
     }
 
 
