@@ -14,7 +14,7 @@ body {
 }
 
 .container-fluid {
-    max-width: 150vh;
+    max-width: calc(180vh - 220px);
     margin:0;
 }
 
