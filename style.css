@@ -3,10 +3,11 @@
     --board-color: #ffe498;
     --bs-light: #eee;
     --bs-light-rgb: rgb(200, 200, 200);
+    --fsize: 1.2rem;
 }
 
 html {
-    font-size: 1.2rem;
+    font-size: var(--fsize);
 }
 body {
     overflow-y:scroll;
@@ -39,6 +40,20 @@ body {
     margin-right:auto;
     height:auto;
     background-color: var(--board-color);
+}
+
+#pass-indicate {
+    font-size: var(--fsize);
+}
+
+#pass-indicate.hide {
+    transition: opacity 0.5s;
+    opacity: 0;
+}
+
+#pass-indicate.show{
+    transition: opacity 0.5s;
+    opacity: 1;
 }
 
 #success-card.hide-card, #fail-card.hide-card {

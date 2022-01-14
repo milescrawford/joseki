@@ -335,7 +335,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
         // Update info/stats
         document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
-        document.getElementById('msg').innerHTML = '';
+        document.getElementById('pass-indicate').className = 'hide';
         board.addEventListener("click", handleMove);
         document.getElementById('pass').addEventListener('click', pass);
         document.getElementById('fail-card').className = 'hide-card';
@@ -365,7 +365,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     }
 
     function handleMove(x, y) {
-        document.getElementById('msg').innerHTML = '';
+        document.getElementById('pass-indicate').className = 'hide';
         let move = serMove(x,y);
 
         if (play(WGo.B,x,y)) {
@@ -449,7 +449,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             tree = tree[chosenMove];
 
             if (chosenMove == PASS){
-                document.getElementById('msg').innerHTML = "White passed.";
+                document.getElementById('pass-indicate').className = "show";
             } else {
                 let [x,y] = parseMove(chosenMove);
                 play(WGo.W, x,y);
