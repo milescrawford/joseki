@@ -170,6 +170,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
 
         // Existing menu
+        josekis.sort(function(a,b) { return a['comment'].localeCompare(b['comment']);});
         let existing = document.getElementById("existingList");
         existing.innerHTML = '';
         for (const joseki of josekis) {
