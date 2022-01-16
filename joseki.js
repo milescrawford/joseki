@@ -159,6 +159,22 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         }
     }
 
+    function redraw(){
+
+        // Board
+        board.removeAllObjects();
+        for ( let x = 0; x < game.size; x++) {
+            for ( let y = 0; y < game.size; y++) {
+                let obj = game.getStone(x,y);
+                if (obj){
+                    board.addObject({x:x,y:y,c:obj});
+                }
+            }
+        }
+
+    }
+
+
     ////////// Edit ///////////
 
     function initEdit(id) {
@@ -260,21 +276,6 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             }
             redraw();
         }
-    }
-
-    function redraw(){
-
-        // Board
-        board.removeAllObjects();
-        for ( let x = 0; x < game.size; x++) {
-            for ( let y = 0; y < game.size; y++) {
-                let obj = game.getStone(x,y);
-                if (obj){
-                    board.addObject({x:x,y:y,c:obj});
-                }
-            }
-        }
-
     }
 
 
