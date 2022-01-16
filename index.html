@@ -11,96 +11,94 @@
     <body onLoad="init();">
 
         <div class="container-fluid outer">
-        <div class="container-fluid px-2">
+            <div class="container-fluid px-2">
 
-            <!-- Nav -->
-            <nav class="navbar navbar-expand navbar-dark bg-info my-2">
+                <!-- Nav -->
+                <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                <span class="navbar-text h2 my-0 mx-4 p-0 text-light">Joseki</span>
+                    <span class="navbar-text h2 my-0 mx-4 p-0 text-light">Joseki</span>
 
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/">Practice</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/edit">Edit Joseki</a>
-                    </li>
-                </ul>
-            </nav>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Practice</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/edit">Edit Joseki</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                    </ul>
+                </nav>
 
-            <div class="row g-2">
-            <!-- Status -->
-                <div class="col-3">
-                    <div class="card border-info mb-2">
-                        <div class="card-header h5">Practice Session</div>
-                        <div class="card-body">
-                            <p class="card-text">
-                            Practicing <span id="josekiCount"></span> joseki:
-                            <br>
-                            <span id="ratio"></span>% successful of <span id="tries"></span> tries this session!
-                            </p>
-
-                            <div class='hide' id="pass-indicate"><div class="badge bg-warning text-black align-middle">White Passed!</div></div>
-                        </div>
-                    </div>
-
-
-                    <div id="fail-card" class="hide-card">
-                        <div class="card bg-danger text-white mb-2">
-                            <div class="card-header h5">Failed!</div>
+                <div class="row g-2">
+                    <!-- Status -->
+                    <div class="col-3">
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">Practice Session</div>
                             <div class="card-body">
-                                <p class="card-text">Incorrect! Check the board for continuations.</p>
-                                <p id="pass-msg" class="card-text">Passing was a correct option.</p>
-                                <p class="card-text">Click the board to continue.</p>
+                                <p class="card-text">
+                                Practicing <span id="josekiCount"></span> joseki:
+                                <br>
+                                <span id="ratio"></span>% successful of <span id="tries"></span> tries this session!
+                                </p>
+
+                                <div class='hide' id="pass-indicate"><div class="badge bg-warning text-black align-middle">White Passed!</div></div>
+                            </div>
+                        </div>
+
+
+                        <div id="fail-card" class="hide-card">
+                            <div class="card bg-danger text-white mb-2">
+                                <div class="card-header h5">Failed!</div>
+                                <div class="card-body">
+                                    <p class="card-text">Incorrect! Check the board for continuations.</p>
+                                    <p id="pass-msg" class="card-text">Passing was a correct option.</p>
+                                    <p class="card-text">Click the board to continue.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="success-card" class="hide-card">
+                            <div class="card bg-success text-white mb-2">
+                                <div class="card-header h5">Correct!</div>
+                                <div class="card-body">
+                                    <p class="card-text">Your comment: "<span id="success-msg"></span>"</p>
+                                    <p class="card-text">Click the board to continue.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="success-card" class="hide-card">
-                        <div class="card bg-success text-white mb-2">
-                            <div class="card-header h5">Correct!</div>
+
+                    <!-- board -->
+                    <div class="col-6">
+                        <div id="boardcontainer" class="card boder-primary board-bg"></div>
+                        <div class="text-center"><button class="btn btn-info border-primary mt-2" id="pass">Pass / Tenuki</button></div>
+                    </div>
+
+
+                    <!-- Docs -->
+                    <div class="col-3">
+                        <div class="card border-info">
+                            <div class="card-header h5">Instructions</div>
                             <div class="card-body">
-                                <p class="card-text">Your comment: "<span id="success-msg"></span>"</p>
-                                <p class="card-text">Click the board to continue.</p>
+                                <p class="card-text">
+                                You always play black, and white leads half the time.
+                                <br>
+                                <br>
+                                Either side may pass to indicate tenuki.
+                                <br>
+                                <br>
+                                An incorrect move or pass will fail the attempt and display correct variations.
+                                <br>
+                                <br>
+                                Click the board to start the next attempt!
+                                </p>
                             </div>
                         </div>
+
                     </div>
-                </div>
-
-
-                <!-- board -->
-                <div class="col-6">
-                    <div id="boardcontainer" class="card boder-primary board-bg"></div>
-                    <div class="text-center"><button class="btn btn-info border-primary mt-2" id="pass">Pass / Tenuki</button></div>
-                </div>
-
-
-                <!-- Docs -->
-                <div class="col-3">
-                    <div class="card border-info">
-                        <div class="card-header h5">Instructions</div>
-                        <div class="card-body">
-                            <p class="card-text">
-                            You always play black.
-                            <br>
-                            <br>
-                            White leads half the time.
-                            <br>
-                            <br>
-                            Either side may pass to indicate tenuki.
-                            <br>
-                            <br>
-                            Correctly reaching the end of a joseki is success.
-                            <br>
-                            <br>
-                            An incorrect move or pass will fail the attempt and indicate correct variations.</li>
-                        <br>
-                        Click the board to start the next attempt!
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
 
                     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper)
                         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
