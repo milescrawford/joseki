@@ -375,7 +375,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     function play(color, x, y) {
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
+            redraw();
             board.addObject({ x: x, y: y, c: color});
+            board.addObject({ x: x, y: y, type: 'CR'});
             if (result.length) {
                 for (const cap of result) {
                     board.removeObjectsAt(cap.x, cap.y);
@@ -427,7 +429,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
                 document.getElementById('pass-msg').className = "d-block";
             } else {
                 let [x,y] = parseMove(correct);
-                board.addObject({x: x, y:y, type: 'CR'});
+                board.addObject({x: x, y:y, type: 'outline'});
             }
         }
 
