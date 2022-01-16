@@ -63,7 +63,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         let b = new WGo.Board(element, {
             width: width,
             background: "",
-            font: 'Cabin Sketch',
+            font: FONT,
         });
 
         if(grid){
@@ -99,35 +99,47 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
         return b;
     }
+
     function clone(obj) {
         return JSON.parse(JSON.stringify(obj));
     }
 
+    function transformJoseki(toTransform, transform) {
+        let output = [];
+        for (const joseki of toTransform){
+            let transformed = clone(joseki); 
+            transformed.moves = [];
+            for (const move of joseki.moves){
+                if (move == PASS) {
+                    transformed.moves.push(PASS);
+                } else {
+                    let [x,y] = parseMove(move);
+                    let [newx, newy] = transform(x,y);
+                    let newMove = serMove(newx, newy);
+
+                    transformed.moves.push(newMove);
+                }
+            }
+            output.push(transformed);
+        }
+        return output;
+    }
+
+
     function buildTree() {
         let original = clone(josekis);
 
-        // Augment with rotated joseki
-        let rotated = [];
-        for (const joseki of original){
-            let rot = clone(joseki); 
-            rot.moves = [];
-            for (const move of joseki.moves){
-                if (move == PASS) {
-                    rot.moves.push(PASS);
-                } else {
-                    let [x,y] = parseMove(move);
-                    let newy = (x - 18) * -1;
-                    let newx = 18 - ((0-y) * -1);
-                    let rotMove = serMove(newx, newy);
-                    rot.moves.push(rotMove);
-                }
-            }
-            rotated.push(rot);
-        }
-
+        // mirror left to right, top to bottom, and diagonally
+        let ltr = transformJoseki( original, function(x,y) { 
+            return [x, 18-y];});
+        let ttb = transformJoseki( original.concat(ltr), function(x,y){ 
+            return [18-x, y];});
+        let diag = transformJoseki( original.concat(ltr, ttb), function(x,y){ 
+            return [18 - ((0-y) * -1), (x - 18) * -1]; });
+           
         // Augment with white leads joseki
         let whiteBegins = [];
-        for (const joseki of original.concat(rotated)){
+        for (const joseki of original.concat(ltr, ttb, diag)){
             let wb = clone(joseki);
             wb.moves.unshift(PASS);
             whiteBegins.push(wb);
@@ -135,7 +147,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
         // Build move tree
         tree = {};
-        for (const joseki of original.concat(rotated, whiteBegins)){
+        for (const joseki of original.concat(ltr, ttb, diag, whiteBegins)){
             let cur_tree = tree;
             for (const move of joseki.moves) {
                 if (! (move in cur_tree)) {
@@ -177,9 +189,9 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             let josekiCont = document.createElement("div");
             josekiCont.className = "menu-card col card mx-2 p-1 col-2 border-primary align-top";
             if (joseki.id == id) {
-                 josekiCont.className += " bg-info";
+                josekiCont.className += " bg-info";
             } else {
-                 josekiCont.className += " bg-light";
+                josekiCont.className += " bg-light";
                 josekiCont.addEventListener('click', function() { initEdit(joseki.id);});
             }
             let boardElement = document.createElement("div");
@@ -251,7 +263,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
                 }
             }
         }
-       
+
     }
 
 
