@@ -191,15 +191,26 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             if (joseki.id == id) {
                 josekiCont.className += " bg-info";
             } else {
-                josekiCont.className += " bg-light";
                 josekiCont.addEventListener('click', function() { initEdit(joseki.id);});
             }
-            let boardElement = document.createElement("div");
-            boardElement.className = 'menu-board';
-            josekiCont.appendChild(boardElement);
-            josekiCont.appendChild(document.createTextNode(joseki.comment));
+
+            let rowEl = document.createElement('div');
+            rowEl.className = "row g-2";
+            josekiCont.appendChild(rowEl);
+
+            let menuBoardEl = document.createElement("div");
+            menuBoardEl.className = 'menu-board col';
+            rowEl.appendChild(menuBoardEl);
+
+            let commentEl = document.createElement("div");
+            commentEl.className = 'col';
+            commentEl.appendChild(document.createTextNode(joseki.comment));
+            rowEl.appendChild(commentEl);
+
+            josekiCont.appendChild(rowEl);
+
             existing.appendChild(josekiCont);
-            let existingBoard = newBoard(boardElement, SMALL_SIZE, false);
+            let existingBoard = newBoard(menuBoardEl, SMALL_SIZE, false);
             let color = WGo.B;
             for (const move of joseki.moves) {
                 let [x,y] = parseMove(move);

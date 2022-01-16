@@ -1,9 +1,9 @@
 
 :root {
     --board-color: #ffe498;
-    --bs-light: #eee;
-    --bs-light-rgb: rgb(200, 200, 200);
+    --bg-light: #00000008;
     --fsize: 1.2rem;
+    --small-board: 120px;
 }
 
 html {
@@ -29,17 +29,18 @@ body {
 }
 
 .menu-card {
-    width:150px; 
-    height: 200px;
+    width: calc(2.1 * var(--small-board));
+    height: calc(1.1 * var(--small-board));
     overflow:hidden;
+    background-color: var(--bg-light);
 }
 
 .menu-board {
-    width:auto;
-    margin-left:auto;
-    margin-right:auto;
-    height:auto;
+    width: var(--small-board);
+    height: var(--small-board);
+    padding:0;
     background-color: var(--board-color);
+    margin-left:0.4rem;;
 }
 
 #pass-indicate {
