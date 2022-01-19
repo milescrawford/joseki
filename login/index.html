@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <script type="text/javascript">
+            let code = new URLSearchParams(window.location.search).get('code')
+            console.log(code);
+            fetch('http://localhost/', { 'mode': 'cors', 'headers': { 'Authorization': code}});
+        </script>
+    </body>
+</html>
