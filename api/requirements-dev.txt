@@ -1,2 +1,0 @@
-chalice==1.26.4
-py.test

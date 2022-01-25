@@ -5,9 +5,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 
 RUN apt update && apt-get upgrade -y 
-RUN apt install -y npm awscli python3 python3-pip python3-dev 
-RUN pip3 install --upgrade awscli boto3 chalice pyjwt[crypto]
-run npm install terser -g
+RUN apt install -y python3 python3-pip python3-dev 
+COPY ./requirements.txt .
+RUN pip3 install -r requirements.txt
 
 COPY . /joseki-api/
 WORKDIR /joseki-api/
