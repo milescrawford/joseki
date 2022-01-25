@@ -12,20 +12,8 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
 {
     let josekis = [];
-    if (window.localStorage.getItem(STORAGE_KEY)){
-        josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-    } else {
-        josekis = [
-            { 'id': 1,
-                'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
-                'comment': 'Approach 4-4, settle peacefully',
-            },
-            { 'id': 3,
-                'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
-                'comment': 'Kick',
-            },
-        ];
-    }
+    loadJoseki();
+
 
     let tree;
     let board;
@@ -37,6 +25,57 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
 
     ////////// Common ///////////
+
+    function apiBase() {
+        return window.location.hostname == 'localhost' ? 'http://localhost' : 'https://api.joseki.cat';
+    }
+
+    function storeJoseki() {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
+
+        let token = window.localStorage.getItem(TOKEN_KEY)
+        if (token) {
+            let apiUrl = apiBase() + '/store';
+            fetch(apiUrl, { 
+                'method': 'POST', 
+                'mode': 'cors', 
+                'headers': { 
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                }, 
+                'body': JSON.stringify(josekis),
+            });
+        }
+    }
+
+    function loadJoseki() {
+        let token = window.localStorage.getItem(TOKEN_KEY)
+        if(token) {
+            let apiUrl = apiBase() + '/load';
+            fetch(apiUrl, { 'mode': 'cors', 'headers': { 'Authorization': token}})
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        console.log(data);
+                    }
+                });
+        }
+
+        if (window.localStorage.getItem(STORAGE_KEY)){
+            josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+        } else {
+            josekis = [
+                { 'id': 1,
+                    'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+                    'comment': 'Approach 4-4, settle peacefully',
+                },
+                { 'id': 3,
+                    'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
+                    'comment': 'Kick',
+                },
+            ];
+        }
+    }
 
     function setupLogin() {
 
@@ -199,8 +238,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     ////////// login ///////////
 
     function initLogin() {
-        let apiUrl = window.location.hostname == 'localhost' ? 'http://localhost/login' : 'https://api.joseki.cat/login';
-
+        let apiUrl = apiBase() + '/login';
         let code = new URLSearchParams(window.location.search).get('code')
         fetch(apiUrl, { 'mode': 'cors', 'headers': { 'Authorization': code}})
             .then(response => response.json())
@@ -328,7 +366,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             josekis.unshift(currentEditJoseki);
         }
 
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
+        storeJoseki();
 
         initEdit();
     }
@@ -361,7 +399,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
                 if (index > -1) {
                     josekis.splice(index, 1);
                 }
-                window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
+                storeJoseki();
                 initEdit();
             }
         }else {
