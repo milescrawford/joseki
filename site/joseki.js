@@ -84,7 +84,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         let emailEl = document.getElementById('email');
 
         let base = "https://login.joseki.cat/oauth2/authorize?client_id=24mjbjvra3522lff13op0dnvhm&response_type=code&scope=email+openid&redirect_uri=";
-        let relativeLogin = window.location.hostname == 'localhost' ? 'http://localhost:8000/login/' : 'https://api.joseki.cat/login/';
+        let relativeLogin = window.location.hostname == 'localhost' ? 'http://localhost:8000/login/' : 'https://joseki.cat/login/';
         let loginUrl = base + encodeURIComponent(relativeLogin);
         loginEl.href = loginUrl;
 
