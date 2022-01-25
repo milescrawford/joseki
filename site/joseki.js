@@ -6,6 +6,8 @@ const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
 const FONT = 'Neucha';
+const TOKEN_KEY = 'token'
+const EMAIL_KEY = 'email';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
 
 {
@@ -36,7 +38,27 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     ////////// Common ///////////
 
-    function boardResize () {
+    function setupLogin() {
+
+        let loginEl = document.getElementById('login-a');
+        let welcomeEl = document.getElementById('welcome');
+        let emailEl = document.getElementById('email');
+
+        let base = "https://login.joseki.cat/oauth2/authorize?client_id=24mjbjvra3522lff13op0dnvhm&response_type=code&scope=email+openid&redirect_uri=";
+        let port = window.location.port != 80 ? ":" + window.location.port : "";
+        let relativeLogin = window.location.protocol + "//" + window.location.hostname + port + "/login/";
+        let loginUrl = base + encodeURIComponent(relativeLogin);
+        loginEl.href = loginUrl;
+
+        if (window.localStorage.getItem(TOKEN_KEY)) {
+            emailEl.innerText = window.localStorage.getItem(EMAIL_KEY);
+            loginEl.className += ' d-none';
+        } else {
+            welcomeEl.className += " d-none";
+        }
+    }
+
+    function boardResize() {
         let width = document.getElementById('boardcontainer').clientWidth;
         if(board) {
             board.setWidth(width);
@@ -136,7 +158,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             return [18-x, y];});
         let diag = transformJoseki( original.concat(ltr, ttb), function(x,y){ 
             return [18 - ((0-y) * -1), (x - 18) * -1]; });
-           
+
         // Augment with white leads joseki
         let whiteBegins = [];
         for (const joseki of original.concat(ltr, ttb, diag)){
@@ -174,10 +196,27 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     }
 
+    ////////// login ///////////
+
+    function initLogin() {
+        let apiUrl = window.location.hostname == 'localhost' ? 'http://localhost/login' : 'https://api.joseki.cat/login';
+
+        let code = new URLSearchParams(window.location.search).get('code')
+        fetch(apiUrl, { 'mode': 'cors', 'headers': { 'Authorization': code}})
+            .then(response => response.json())
+            .then(data => {
+                window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
+                window.localStorage.setItem(EMAIL_KEY, data[EMAIL_KEY]);
+                window.location.assign("/");
+            }
+            );
+    }
+
 
     ////////// Edit ///////////
 
     function initEdit(id) {
+        setupLogin();
 
         // Main Editor
         let cont = document.getElementById("boardcontainer");
@@ -334,6 +373,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     ////////// Play ///////////
 
     function init() {
+        setupLogin();
         displayRatio();
         reset();
     }
