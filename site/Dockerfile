@@ -15,6 +15,7 @@ CMD terser -c -m -o joseki.js --timings -- joseki.js && \
 aws s3 cp index.html s3://joseki.milescrawford.com/ && \
 aws s3 cp edit/index.html s3://joseki.milescrawford.com/edit/ &&  \
 aws s3 cp about/index.html s3://joseki.milescrawford.com/about/ &&  \
+aws s3 cp login/index.html s3://joseki.milescrawford.com/login/ &&  \
 aws s3 cp style.css s3://joseki.milescrawford.com/ && \
 aws s3 cp joseki.js s3://joseki.milescrawford.com/ && \
 aws s3 cp wgo.min.js s3://joseki.milescrawford.com/ && \

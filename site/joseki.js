@@ -255,6 +255,10 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
     function initEdit(id) {
         setupLogin();
 
+        if (window.localStorage.getItem(TOKEN_KEY)) {
+            document.getElementById('save-warning').className += ' d-none';
+        }
+
         // Main Editor
         let cont = document.getElementById("boardcontainer");
         let boardElement = document.getElementById('board');
