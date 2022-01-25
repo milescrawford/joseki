@@ -27,15 +27,20 @@ def check_token(token):
 @app.route('/login', cors=True)
 def login():
     code = app.current_request.headers['Authorization']
+    print(code)
+    redirect_uri = 'http://localhost:8000/login/'
+    if app.current_request.headers['Host'] == 'api.joseki.cat':
+        redirect_uri = 'https://joseki.cat/login/'
     response = requests.post('https://login.joseki.cat/oauth2/token',{
         'grant_type': 'authorization_code', 
         'client_id': '24mjbjvra3522lff13op0dnvhm',  
         'code': code,
-        'redirect_uri': 'http://localhost:8000/login/'})
-
+        'redirect_uri': redirect_uri
+        })
+    print(response.text);
     content = json.loads(response.text);
-
     encoded = content['id_token'] 
+    print(encoded);
     email = check_token(encoded);
 
     return {'token': encoded, 'email': email};
