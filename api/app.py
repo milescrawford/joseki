@@ -1,17 +1,15 @@
+from botocore.exceptions import ClientError
 from chalice import Chalice
+from chalice import NotFoundError
 from jwt import PyJWKClient
+import boto3
 import json
 import jwt
 import requests
-import boto3
 
 s3 = boto3.resource('s3')
-
-
 app = Chalice(app_name='joseki-api')
-
-url = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_EveEoZbAP/.well-known/jwks.json"
-jwks_client = PyJWKClient(url)
+jwks_client = PyJWKClient("https://cognito-idp.us-east-1.amazonaws.com/us-east-1_EveEoZbAP/.well-known/jwks.json")
 
 def check_token(token):
     signing_key = jwks_client.get_signing_key_from_jwt(token)
@@ -58,5 +56,12 @@ def store():
 def load():
     email = check_token(app.current_request.headers['Authorization'])
     s3object = s3.Object('joseki', email + '/joseki.json')
-    return s3object.get()['Body'].read().decode('utf-8')
-
+    data = {}
+    try:
+        data = s3object.get()['Body'].read().decode('utf-8')
+    except ClientError as ex:
+        if ex.response['Error']['Code'] == 'NoSuchKey':
+            raise NotFoundError('No stored joseki')
+        else:
+            raise
+    return data
