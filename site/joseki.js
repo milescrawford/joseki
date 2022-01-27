@@ -74,6 +74,7 @@ const STARTER_JOSEKIS = [
                     } else if (response.status == 404) {
                         if (window.localStorage.getItem(STORAGE_KEY)){
                             josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+                            storeJoseki(); // Write whatever they have locally to server
                         } else {
                             josekis = STARTER_JOSEKIS;
                         }
