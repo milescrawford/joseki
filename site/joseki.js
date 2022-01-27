@@ -9,11 +9,19 @@ const FONT = 'Neucha';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
+const STARTER_JOSEKIS = [
+    { 'id': 1,
+        'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
+        'comment': 'Approach 4-4, settle peacefully',
+    },
+    { 'id': 3,
+        'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
+        'comment': 'Kick',
+    },
+];
 
 {
     let josekis = [];
-    loadJoseki();
-
 
     let tree;
     let board;
@@ -48,32 +56,42 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         }
     }
 
-    function loadJoseki() {
+    function loadJoseki(initFunc) {
+
         let token = window.localStorage.getItem(TOKEN_KEY)
         if(token) {
+            // We have a login, check server
             let apiUrl = apiBase() + '/load';
             fetch(apiUrl, { 'mode': 'cors', 'headers': { 'Authorization': token}})
-                .then(response => response.json())
-                .then(data => {
-                    if (Array.isArray(data)) {
-                        console.log(data);
+                .then(async function(response) {
+
+                    // Joseki on server, use those
+                    if (response.ok) {
+                        josekis = await response.json();
+                        initFunc();
+
+                        // Nothing on server yet, pull local or init
+                    } else if (response.status == 404) {
+                        if (window.localStorage.getItem(STORAGE_KEY)){
+                            josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+                        } else {
+                            josekis = STARTER_JOSEKIS;
+                        }
+                        initFunc();
+
+                    } else {
+                        alert('Could not load joseki, see console');
+                        console.log(response);
                     }
                 });
-        }
-
-        if (window.localStorage.getItem(STORAGE_KEY)){
-            josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
         } else {
-            josekis = [
-                { 'id': 1,
-                    'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
-                    'comment': 'Approach 4-4, settle peacefully',
-                },
-                { 'id': 3,
-                    'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
-                    'comment': 'Kick',
-                },
-            ];
+            // Not logged in, pull local or init
+            if (window.localStorage.getItem(STORAGE_KEY)){
+                josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+            } else {
+                josekis = STARTER_JOSEKIS;
+            }
+            initFunc();
         }
     }
 
@@ -252,26 +270,21 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     ////////// Edit ///////////
 
-    function initEdit(id) {
+    function initEdit() {
         setupLogin();
 
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
         }
+        mainBoard(handleEditAdd, true);
+        loadJoseki(resetEdit);
+    }
 
-        // Main Editor
-        let cont = document.getElementById("boardcontainer");
-        let boardElement = document.getElementById('board');
-        if(boardElement) {
-            cont.removeChild(boardElement);
-        }
-        boardElement = document.createElement("div");
-        boardElement.id = "board";
-        cont.insertBefore(boardElement, cont.firstChild);
+    function resetEdit(id) {
 
-        board = newBoard(document.getElementById('board'));
-        board.addEventListener("click", handleEditAdd);
+        mainBoard(handleEditAdd);
         game = new WGo.Game();
+
         currentEditJoseki = newJoseki();
         document.getElementById('comment').value = '';
         redraw();
@@ -287,7 +300,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
             if (joseki.id == id) {
                 josekiCont.className += " bg-info";
             } else {
-                josekiCont.addEventListener('click', function() { initEdit(joseki.id);});
+                josekiCont.addEventListener('click', function() { resetEdit(joseki.id);});
             }
 
             let rowEl = document.createElement('div');
@@ -371,7 +384,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
         storeJoseki();
 
-        initEdit();
+        resetEdit();
     }
 
     function editPass() {
@@ -403,7 +416,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
                     josekis.splice(index, 1);
                 }
                 storeJoseki();
-                initEdit();
+                resetEdit();
             }
         }else {
             alert("Can't remove last joseki");
@@ -413,18 +426,7 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 
     ////////// Play ///////////
 
-    function init() {
-        setupLogin();
-        displayRatio();
-        reset();
-    }
-
-    function reset() {
-
-        buildTree();
-
-
-        // Setup fresh board
+    function mainBoard(listener, disabled=false) {
         let cont = document.getElementById("boardcontainer");
         let boardElement = document.getElementById('board');
         if(boardElement) {
@@ -435,13 +437,28 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
         cont.insertBefore(boardElement, cont.firstChild);
 
         board = newBoard(document.getElementById('board'));
-        game = new WGo.Game();
+        if (!disabled) {
+            board.addEventListener("click", listener);
+        }
 
+    }
+    function init() {
+        setupLogin();
+        displayRatio();
+        mainBoard(handleMove, true);
+        loadJoseki(reset);
+    }
+
+    function reset() {
+
+        buildTree();
+        mainBoard(handleMove);
+
+        game = new WGo.Game();
 
         // Update info/stats
         document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
         document.getElementById('pass-indicate').className = 'hide';
-        board.addEventListener("click", handleMove);
         document.getElementById('pass').addEventListener('click', pass);
         document.getElementById('fail-card').className = 'hide-card';
         document.getElementById('success-card').className = 'hide-card';
