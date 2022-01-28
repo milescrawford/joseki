@@ -39,6 +39,7 @@ const STARTER_JOSEKIS = [
     }
 
     function storeJoseki() {
+        gtag("event", "edit", {'joseki_count': josekis.length});
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
 
         let token = window.localStorage.getItem(TOKEN_KEY)
@@ -110,6 +111,9 @@ const STARTER_JOSEKIS = [
         if (window.localStorage.getItem(TOKEN_KEY)) {
             emailEl.innerText = window.localStorage.getItem(EMAIL_KEY);
             welcomeEl.className = 'nav-link';
+            gtag('set', 'user_properties', {
+                'email': window.localStorage.getItem(EMAIL_KEY),
+            });
         } else {
             loginEl.className = 'nav-link';
         }
@@ -489,6 +493,7 @@ const STARTER_JOSEKIS = [
     }
 
     function handleMove(x, y) {
+        gtag("event", "move");
         document.getElementById('pass-indicate').className = 'hide';
         let move = serMove(x,y);
 
@@ -533,6 +538,7 @@ const STARTER_JOSEKIS = [
         }
 
         updateRatio(false);
+        gtag("event", "practice", {'successful': false});
     }
 
     function succeed(msg) {
@@ -540,6 +546,7 @@ const STARTER_JOSEKIS = [
         document.getElementById('success-msg').innerHTML = msg;
         document.getElementById('success-card').className = "show-card";
         updateRatio(true);
+        gtag("event", "practice", {'successful': true });
 
     }
 
