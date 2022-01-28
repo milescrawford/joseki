@@ -109,9 +109,9 @@ const STARTER_JOSEKIS = [
 
         if (window.localStorage.getItem(TOKEN_KEY)) {
             emailEl.innerText = window.localStorage.getItem(EMAIL_KEY);
-            loginEl.className += ' d-none';
+            welcomeEl.className = 'nav-link';
         } else {
-            welcomeEl.className += " d-none";
+            loginEl.className = 'nav-link';
         }
     }
 
@@ -272,12 +272,11 @@ const STARTER_JOSEKIS = [
     ////////// Edit ///////////
 
     function initEdit() {
-        setupLogin();
-
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
         }
         mainBoard(handleEditAdd, true);
+        setupLogin();
         loadJoseki(resetEdit);
     }
 
@@ -444,9 +443,9 @@ const STARTER_JOSEKIS = [
 
     }
     function init() {
+        mainBoard(handleMove, true);
         setupLogin();
         displayRatio();
-        mainBoard(handleMove, true);
         loadJoseki(reset);
     }
 
