@@ -109,10 +109,11 @@ const STARTER_JOSEKIS = [
         loginEl.href = loginUrl;
 
         if (window.localStorage.getItem(TOKEN_KEY)) {
-            emailEl.innerText = window.localStorage.getItem(EMAIL_KEY);
+            let email = window.localStorage.getItem(EMAIL_KEY);
+            emailEl.innerText = email.substr(0, email.indexOf('@')); 
             welcomeEl.className = 'nav-link';
             gtag('set', 'user_properties', {
-                'email': window.localStorage.getItem(EMAIL_KEY),
+                'email': email,
             });
         } else {
             loginEl.className = 'nav-link';
@@ -255,6 +256,11 @@ const STARTER_JOSEKIS = [
             }
         }
 
+    }
+
+    ////////// about ///////////
+    function initAbout() {
+        setupLogin();
     }
 
     ////////// login ///////////

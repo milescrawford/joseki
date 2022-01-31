@@ -9,8 +9,20 @@
 html {
     font-size: var(--fsize);
 }
+
 body {
     overflow-y:scroll;
+}
+
+.about-cat {
+    width: 60%;
+}
+
+.navbar {
+    background-image: url('cat.png');
+    background-repeat: no-repeat;
+    background-position: 98% -20%;
+    background-size: auto 150%;
 }
 
 .container-fluid {
