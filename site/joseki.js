@@ -9,16 +9,7 @@ const FONT = 'Neucha';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
-const STARTER_JOSEKIS = [
-    { 'id': 1,
-        'moves': ['15,3', '16,5', '13,2', '17,3', '16,2', '16,8'],
-        'comment': 'Approach 4-4, settle peacefully',
-    },
-    { 'id': 3,
-        'moves': ['15,3', '16,5', '16,4', '15,5', '13,2', '15,9'],
-        'comment': 'Kick',
-    },
-];
+const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"]},{"id":4,"comment":"Approach 3-4 high and settle.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"]},{"id":7,"comment":"Approach 3-4 low and settle.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"]},{"id":5,"comment":"Approach 4-4 low and force defender to split the corner.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"]},{"id":9,"comment":"Approach 4-4 low and get side thickness after the kick.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","3,7","4,7","1,5","1,6","1,4","2,6"]},{"id":10,"comment":"Approach 4-4 low and settle.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"]},{"id":12,"comment":"Block 3-3 invasion with sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"]},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"]},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"]},{"id":6,"comment":"Retain corner after 3-3 invasion.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"]}];
 
 {
     let josekis = [];
