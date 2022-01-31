@@ -43,7 +43,15 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         cont.insertBefore(boardElement, cont.firstChild);
 
         board = newBoard(document.getElementById('board'));
-        if (!disabled) {
+        if (disabled) {
+            board.addCustomObject( { grid: { draw: function(args, board) {
+                this.fillStyle = "rgba(0,0,0,0.7)";
+                this.textBaseline="middle";
+                this.textAlign="center";
+                this.font = (board.stoneRadius * 4)+"px "+(board.font || "");
+                this.fillText("Loading...", board.getX(9), board.getY(9));
+            }}});
+        }else{
             board.addEventListener("click", listener);
             board.addEventListener("mousemove", hoverListener);
             board.addEventListener("mouseout", handleMouseOut);
