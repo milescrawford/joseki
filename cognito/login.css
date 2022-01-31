@@ -1,0 +1,26 @@
+
+.logo-customizable {
+  max-width: 60%;
+  max-height: 100%;
+}
+
+.banner-customizable {
+  padding: 10px 10px 0px 10px;
+  background-color: rgb(23,162,184);
+}
+
+.submitButton-customizable {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 20px 0px 10px 0px;
+  height: 40px;
+  width: 100%;
+  color: #fff;
+  background-color: rgb(23,162,184);
+}
+
+.submitButton-customizable:hover {
+  background-color: rgb(23,162,184);
+  color: #fff;
+  border: 2px solid black;
+}
