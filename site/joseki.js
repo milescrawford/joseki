@@ -395,11 +395,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         if (Array.isArray(result)) {
             currentEditJoseki.moves.push(serMove(x,y));
             board.addObject({ x: x, y: y, c: color});
-            if (result.length) {
-                for (const cap of result) {
-                    board.removeObjectsAt(cap.x, cap.y);
-                }
-            }
+            board.removeObject(result);
         }
         redraw();
     }
@@ -515,11 +511,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
             redraw();
             board.addObject({ x: x, y: y, c: color});
             board.addObject({ x: x, y: y, type: 'CR'});
-            if (result.length) {
-                for (const cap of result) {
-                    board.removeObjectsAt(cap.x, cap.y);
-                }
-            }
+            board.removeObject(result);
             return true;
         } else {
             return false;
