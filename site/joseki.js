@@ -21,9 +21,34 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     let sessionSuccess = 0;
     let currentEditJoseki;
     let gridOption = false;
+    let ghostStone;
 
 
     ////////// Common ///////////
+    
+    function handleMouseOut() {
+        if(ghostStone){
+            board.removeObject(ghostStone);
+        }
+    }
+
+    function mainBoard(listener, hoverListener, disabled=false) {
+        let cont = document.getElementById("boardcontainer");
+        let boardElement = document.getElementById('board');
+        if(boardElement) {
+            cont.removeChild(boardElement);
+        }
+        boardElement = document.createElement("div");
+        boardElement.id = "board";
+        cont.insertBefore(boardElement, cont.firstChild);
+
+        board = newBoard(document.getElementById('board'));
+        if (!disabled) {
+            board.addEventListener("click", listener);
+            board.addEventListener("mousemove", hoverListener);
+            board.addEventListener("mouseout", handleMouseOut);
+        }
+    }
 
     function apiBase() {
         return window.location.hostname == 'localhost' ? 'http://localhost' : 'https://api.joseki.cat';
@@ -274,14 +299,14 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
         }
-        mainBoard(handleEditAdd, true);
+        mainBoard(handleEditAdd, handleEditHover, true);
         setupLogin();
         loadJoseki(resetEdit);
     }
 
     function resetEdit(id) {
 
-        mainBoard(handleEditAdd);
+        mainBoard(handleEditAdd, handleEditHover);
         game = new WGo.Game();
 
         currentEditJoseki = newJoseki();
@@ -343,6 +368,17 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
             redraw();
         }
 
+    }
+
+    function handleEditHover(x,y) {
+        if(ghostStone) {
+            board.removeObject(ghostStone);
+        }
+        if(game.isValid(x,y)){
+            let color = game.turn;
+            ghostStone = { x: x, y: y, c: color, type: 'outline' };
+            board.addObject(ghostStone);
+        }
     }
 
     function handleEditAdd(x,y) {
@@ -425,33 +461,28 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
 
     ////////// Play ///////////
 
-    function mainBoard(listener, disabled=false) {
-        let cont = document.getElementById("boardcontainer");
-        let boardElement = document.getElementById('board');
-        if(boardElement) {
-            cont.removeChild(boardElement);
-        }
-        boardElement = document.createElement("div");
-        boardElement.id = "board";
-        cont.insertBefore(boardElement, cont.firstChild);
 
-        board = newBoard(document.getElementById('board'));
-        if (!disabled) {
-            board.addEventListener("click", listener);
-        }
-
-    }
     function init() {
-        mainBoard(handleMove, true);
+        mainBoard(handleMove, handleHover, true);
         setupLogin();
         displayRatio();
         loadJoseki(reset);
     }
 
+    function handleHover(x, y) {
+        if(ghostStone) {
+            board.removeObject(ghostStone);
+        }
+        if(game.isValid(x,y)){
+            ghostStone = { x: x, y: y, type: 'outline' };
+            board.addObject(ghostStone);
+        }
+    }
+
     function reset() {
 
         buildTree();
-        mainBoard(handleMove);
+        mainBoard(handleMove, handleHover);
 
         game = new WGo.Game();
 
@@ -562,6 +593,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     function shutdown() {
         document.getElementById('pass').removeEventListener('click', pass);
         board.removeEventListener('click', handleMove);
+        board.removeEventListener('mousemove', handleHover);
         board.addEventListener('click', reset);
     }
 
