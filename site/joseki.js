@@ -30,7 +30,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     }
 
     function storeJoseki() {
-        gtag("event", "edit", {'joseki_count': josekis.length});
+        gtag("event", "edit", {'event_category': 'joseki', "value" : josekis.length});
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
 
         let token = window.localStorage.getItem(TOKEN_KEY)
@@ -103,9 +103,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
             let email = window.localStorage.getItem(EMAIL_KEY);
             emailEl.innerText = email.substr(0, email.indexOf('@')); 
             welcomeEl.className = 'nav-link';
-            gtag('set', 'user_properties', {
-                'email': email,
-            });
+            gtag('event', 'logged_in', {'event_category': 'joseki'});
         } else {
             loginEl.className = 'nav-link';
         }
@@ -490,7 +488,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     }
 
     function handleMove(x, y) {
-        gtag("event", "move");
+        gtag("event", "move", {'event_category': 'joseki'});
         document.getElementById('pass-indicate').className = 'hide';
         let move = serMove(x,y);
 
@@ -535,7 +533,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         }
 
         updateRatio(false);
-        gtag("event", "practice", {'successful': false});
+        gtag("event", "practice", {'event_category': 'joseki', 'event_label': 'fail'});
     }
 
     function succeed(msg) {
@@ -543,7 +541,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         document.getElementById('success-msg').innerHTML = msg;
         document.getElementById('success-card').className = "show-card";
         updateRatio(true);
-        gtag("event", "practice", {'successful': true });
+        gtag("event", "practice", {'event_category': 'joseki', 'event_label': 'success'});
 
     }
 
