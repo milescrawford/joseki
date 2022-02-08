@@ -12,16 +12,15 @@ const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N"
 const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"]},{"id":4,"comment":"Approach 3-4 high and settle.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"]},{"id":7,"comment":"Approach 3-4 low and settle.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"]},{"id":5,"comment":"Approach 4-4 low and force defender to split the corner.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"]},{"id":9,"comment":"Approach 4-4 low and get side thickness after the kick.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","3,7","4,7","1,5","1,6","1,4","2,6"]},{"id":10,"comment":"Approach 4-4 low and settle.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"]},{"id":12,"comment":"Block 3-3 invasion with sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"]},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"]},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"]},{"id":6,"comment":"Retain corner after 3-3 invasion.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"]}];
 
 {
-    let josekis = [];
-
-    let tree;
-    let board;
-    let game;
-    let sessionAttempts = 0;
-    let sessionSuccess = 0;
-    let currentEditJoseki;
-    let gridOption = false;
-    let ghostStone;
+    var josekis = [];
+    var tree;
+    var board;
+    var game;
+    var sessionAttempts = 0;
+    var sessionSuccess = 0;
+    var currentEditJoseki;
+    var gridOption = false;
+    var ghostStone;
 
 
     ////////// Common ///////////
@@ -267,7 +266,6 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
 
     function redraw(){
 
-        // Board
         board.removeAllObjects();
         for ( let x = 0; x < game.size; x++) {
             for ( let y = 0; y < game.size; y++) {
