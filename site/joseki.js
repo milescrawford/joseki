@@ -19,12 +19,14 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     var sessionAttempts = 0;
     var sessionSuccess = 0;
     var currentEditJoseki;
+    var currentEditBoard;
     var gridOption = false;
     var ghostStone;
+    var lastMove;
 
 
     ////////// Common ///////////
-    
+
     function handleMouseOut() {
         if(ghostStone){
             board.removeObject(ghostStone);
@@ -264,20 +266,6 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         }
     }
 
-    function redraw(){
-
-        board.removeAllObjects();
-        for ( let x = 0; x < game.size; x++) {
-            for ( let y = 0; y < game.size; y++) {
-                let obj = game.getStone(x,y);
-                if (obj){
-                    board.addObject({x:x,y:y,c:obj});
-                }
-            }
-        }
-
-    }
-
     ////////// about ///////////
     function initAbout() {
         setupLogin();
@@ -316,8 +304,8 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         game = new WGo.Game();
 
         currentEditJoseki = newJoseki();
+        currentEditBoard = [board.getState()];
         document.getElementById('comment').value = '';
-        redraw();
 
 
         // Existing menu
@@ -371,7 +359,6 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
                 }
             }
             document.getElementById('comment').value = currentEditJoseki.comment;
-            redraw();
         }
 
     }
@@ -381,30 +368,45 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
             board.removeObject(ghostStone);
         }
         if(game.isValid(x,y)){
-            let color = game.turn;
-            ghostStone = { x: x, y: y, c: color, type: 'outline' };
+            ghostStone = { x: x, y: y, c:game.turn, type: 'outline' };
             board.addObject(ghostStone);
         }
     }
 
     function handleEditAdd(x,y) {
+        if(ghostStone) {
+            board.removeObject(ghostStone);
+        }
         let color = game.turn;
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
             currentEditJoseki.moves.push(serMove(x,y));
             board.addObject({ x: x, y: y, c: color});
+            board.addObject({x: x, y: y, type: "LB", font: FONT, text: (currentEditJoseki.moves.length)});
             board.removeObject(result);
+            currentEditBoard.push(board.getState());
         }
-        redraw();
     }
 
     function editRemove() {
         if(currentEditJoseki.moves.length > 0) {
-            let removed = currentEditJoseki.moves.pop();
-            if(removed != PASS) {
-                game.popPosition();
+            currentEditJoseki.moves.pop();
+            currentEditBoard.pop();
+            game.popPosition();
+            // Must clone because wgo mutates the restored state and we want to
+            // keep it safe.
+            board.restoreState(clone(currentEditBoard[currentEditBoard.length - 1]));
+        }
+    }
+
+    function editPass() {
+        if( currentEditJoseki.moves.length > 0){
+            if(ghostStone) {
+                board.removeObject(ghostStone);
             }
-            redraw();
+            currentEditJoseki.moves.push(PASS);
+            currentEditBoard.push(board.getState());
+            game.pass();
         }
     }
 
@@ -422,17 +424,6 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         storeJoseki();
 
         resetEdit();
-    }
-
-    function editPass() {
-        if(
-           currentEditJoseki.moves.length >0 &&
-           currentEditJoseki.moves[currentEditJoseki.moves.length -1] != PASS
-        ){
-            currentEditJoseki.moves.push(PASS);
-            game.turn = game.turn == WGo.B ? WGo.W : WGo.B;
-        }
-        redraw();
     }
 
     function newJoseki() {
@@ -506,9 +497,12 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     function play(color, x, y) {
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
-            redraw();
+            if (lastMove) {
+                board.removeObject(lastMove);
+            }
             board.addObject({ x: x, y: y, c: color});
-            board.addObject({ x: x, y: y, type: 'CR'});
+            lastMove = { x: x, y: y, type: 'CR'};
+            board.addObject(lastMove);
             board.removeObject(result);
             return true;
         } else {
