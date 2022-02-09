@@ -9,8 +9,17 @@ const FONT = 'Neucha';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
 const HIGH_KEY = 'highScore';
+const DAY_KEY = 'day';
+const DAY_SCORE_KEY = 'dayScore';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
 const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"]},{"id":4,"comment":"Approach 3-4 high and settle.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"]},{"id":7,"comment":"Approach 3-4 low and settle.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"]},{"id":5,"comment":"Approach 4-4 low and force defender to split the corner.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"]},{"id":9,"comment":"Approach 4-4 low and get side thickness after the kick.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","3,7","4,7","1,5","1,6","1,4","2,6"]},{"id":10,"comment":"Approach 4-4 low and settle.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"]},{"id":12,"comment":"Block 3-3 invasion with sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"]},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"]},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"]},{"id":6,"comment":"Retain corner after 3-3 invasion.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"]}];
+const EMPTY_SCORE = {
+            sessionAttempts: 0,
+            sessionSuccess: 0,
+            combo: 0,
+            score: 0,
+            unique: {},
+        };
 
 {
     var josekis = [];
@@ -24,11 +33,7 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
     var lastMove;
 
     // Scoring
-    var sessionAttempts = 0;
-    var sessionSuccess = 0;
-    var combo = 0;
-    var score = 0;
-    var unique = {};
+    var score;
     var moves = 0;
 
 
@@ -491,6 +496,16 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
 
     function reset() {
 
+        let date = new Date().toLocaleDateString();
+        if (window.localStorage.getItem(DAY_KEY) != date) {
+            window.localStorage.setItem(DAY_KEY, date);
+            window.localStorage.setItem(DAY_SCORE_KEY, JSON.stringify(EMPTY_SCORE));
+            score = null;
+        }
+        if(!score){
+            score = JSON.parse(window.localStorage.getItem(DAY_SCORE_KEY));
+        }
+
         displayScore();
         buildTree();
         mainBoard(handleMove, handleHover);
@@ -581,36 +596,36 @@ const STARTER_JOSEKIS = [{"id":13,"comment":"Emphasize side after 3-3 invasion."
         shutdown();
         document.getElementById('success-msg').innerHTML = msg;
         document.getElementById('success-card').className = "show-card";
-        unique[msg] = true;
-        updateScore(true);
+        updateScore(true, msg);
         gtag("event", "practice", {'event_category': 'joseki', 'event_label': 'success'});
 
     }
 
-    function updateScore(successful) {
-        sessionAttempts +=1;
+    function updateScore(successful, msg) {
+        score.sessionAttempts +=1;
         if(successful){
-            sessionSuccess +=1;
-            combo += 1;
+            score.sessionSuccess +=1;
+            score.combo += 1;
+            score.unique[msg] = true;
+
+            // # moves base * combo multi * unique multi
+            score.score += score.combo * Object.keys(josekis).length * Object.keys(score.unique).length * moves;
+            updateHighScore(score.score);
         } else {
-            combo = 0;
+            score.combo = 0;
         }
-
-        // # moves base * combo multi * unique multi
-        score += combo * Object.keys(josekis).length * Object.keys(unique).length * moves;
-
-        updateHighScore(score);
+        window.localStorage.setItem(DAY_SCORE_KEY, JSON.stringify(score));
         moves = 0;
         displayScore();
     }
 
     function displayScore() {
-        let ratio = sessionAttempts == 0 ? 0 : Math.round((sessionSuccess / sessionAttempts) * 100.0);
+        let ratio = score.sessionAttempts == 0 ? 0 : Math.round((score.sessionSuccess / score.sessionAttempts) * 100.0);
         document.getElementById('ratio').innerHTML = ratio;
-        document.getElementById('combo').innerHTML = combo;
-        document.getElementById('unique').innerHTML = Object.keys(unique).length;
-        document.getElementById('score').innerHTML = score;
-        document.getElementById('tries').innerHTML = sessionAttempts;
+        document.getElementById('combo').innerHTML = score.combo;
+        document.getElementById('unique').innerHTML = Object.keys(score.unique).length;
+        document.getElementById('score').innerHTML = score.score;
+        document.getElementById('tries').innerHTML = score.sessionAttempts;
         document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
         document.getElementById('highScore').innerText = getHighScore();
     }
