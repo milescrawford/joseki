@@ -94,7 +94,7 @@ textarea {
   inherits: false;
 }
 #score {
-  transition: --score 1s;
+  transition: --score 2s cubic-bezier(0.16, 1, 0.3, 1);
   counter-reset: score var(--score);
 }
 #score::after {
@@ -108,7 +108,7 @@ textarea {
 }
 
 #highScore {
-  transition: --highScore 1s;
+  transition: --highScore 2s cubic-bezier(0.16, 1, 0.3, 1);
   counter-reset: highScore var(--highScore);
 }
 #highScore::after {

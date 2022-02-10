@@ -50,13 +50,21 @@ const EMPTY_SCORE = {
         return window.localStorage.getItem(HIGH_KEY) || 0;
     }
 
-    function handleMouseOut() {
-        if(ghostStone){
+    function clearGhostStone() {
+        if(ghostStone) {
             board.removeObject(ghostStone);
         }
     }
 
-    function mainBoard(listener, hoverListener, disabled=false) {
+    function handleHover(x,y) {
+        clearGhostStone();
+        if(game.isValid(x,y)){
+            ghostStone = { x: x, y: y, c:game.turn, type: 'outline' };
+            board.addObject(ghostStone);
+        }
+    }
+
+    function mainBoard(listener, disabled=false) {
         let cont = document.getElementById("boardcontainer");
         let boardElement = document.getElementById('board');
         if(boardElement) {
@@ -77,8 +85,8 @@ const EMPTY_SCORE = {
             }}});
         }else{
             board.addEventListener("click", listener);
-            board.addEventListener("mousemove", hoverListener);
-            board.addEventListener("mouseout", handleMouseOut);
+            board.addEventListener("mousemove", handleHover);
+            board.addEventListener("mouseout", clearGhostStone);
         }
     }
 
@@ -316,14 +324,14 @@ const EMPTY_SCORE = {
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
         }
-        mainBoard(handleEditAdd, handleEditHover, true);
+        mainBoard(handleEditAdd, true);
         setupLogin();
         loadJoseki(resetEdit);
     }
 
     function resetEdit(id) {
 
-        mainBoard(handleEditAdd, handleEditHover);
+        mainBoard(handleEditAdd);
         game = new WGo.Game();
 
         currentEditJoseki = newJoseki();
@@ -386,20 +394,8 @@ const EMPTY_SCORE = {
 
     }
 
-    function handleEditHover(x,y) {
-        if(ghostStone) {
-            board.removeObject(ghostStone);
-        }
-        if(game.isValid(x,y)){
-            ghostStone = { x: x, y: y, c:game.turn, type: 'outline' };
-            board.addObject(ghostStone);
-        }
-    }
-
     function handleEditAdd(x,y) {
-        if(ghostStone) {
-            board.removeObject(ghostStone);
-        }
+        clearGhostStone();
         let color = game.turn;
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
@@ -424,9 +420,7 @@ const EMPTY_SCORE = {
 
     function editPass() {
         if( currentEditJoseki.moves.length > 0){
-            if(ghostStone) {
-                board.removeObject(ghostStone);
-            }
+            clearGhostStone();
             currentEditJoseki.moves.push(PASS);
             currentEditBoard.push(board.getState());
             game.pass();
@@ -479,19 +473,9 @@ const EMPTY_SCORE = {
 
 
     function init() {
-        mainBoard(handleMove, handleHover, true);
+        mainBoard(handleMove, true);
         setupLogin();
         loadJoseki(reset);
-    }
-
-    function handleHover(x, y) {
-        if(ghostStone) {
-            board.removeObject(ghostStone);
-        }
-        if(game.isValid(x,y)){
-            ghostStone = { x: x, y: y, type: 'outline' };
-            board.addObject(ghostStone);
-        }
     }
 
     function reset() {
@@ -508,7 +492,7 @@ const EMPTY_SCORE = {
 
         displayScore();
         buildTree();
-        mainBoard(handleMove, handleHover);
+        mainBoard(handleMove);
 
         game = new WGo.Game();
 
@@ -562,6 +546,7 @@ const EMPTY_SCORE = {
 
     function pass() {
         if (PASS in tree) {
+            game.pass();
             tree = tree[PASS];
             respond();
         } else {
@@ -650,6 +635,7 @@ const EMPTY_SCORE = {
             tree = tree[chosenMove];
 
             if (chosenMove == PASS){
+                game.pass();
                 document.getElementById('pass-indicate').className = "show";
             } else {
                 let [x,y] = parseMove(chosenMove);
