@@ -622,12 +622,15 @@ const EMPTY_SCORE = {
     function displayScore() {
         let ratio = score.sessionAttempts == 0 ? 0 : Math.round((score.sessionSuccess / score.sessionAttempts) * 100.0);
         document.getElementById('ratio').innerHTML = ratio;
-        document.getElementById('combo').innerHTML = score.combo;
         document.getElementById('unique').innerHTML = Object.keys(score.unique).length;
-        document.getElementById('score').innerHTML = score.score;
+        document.getElementById('combo').innerHTML = score.combo;
         document.getElementById('tries').innerHTML = score.sessionAttempts;
         document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
-        document.getElementById('highScore').innerText = getHighScore();
+
+        // animated ones
+        document.getElementById('score').style.setProperty('--score', score.score);
+        document.getElementById('highScore').style.setProperty('--highScore', getHighScore());
+
     }
 
     function shutdown() {

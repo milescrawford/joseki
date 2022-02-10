@@ -87,3 +87,30 @@ textarea {
     height:6em;
     padding:0.5em;
 }
+
+@property --score {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+#score {
+  transition: --score 1s;
+  counter-reset: score var(--score);
+}
+#score::after {
+  content: counter(score);
+}
+
+@property --highScore {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+
+#highScore {
+  transition: --highScore 1s;
+  counter-reset: highScore var(--highScore);
+}
+#highScore::after {
+  content: counter(highScore);
+}
