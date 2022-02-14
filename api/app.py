@@ -6,6 +6,7 @@ import boto3
 import json
 import jwt
 import requests
+import datetime
 
 s3 = boto3.resource('s3')
 app = Chalice(app_name='joseki-api')
@@ -21,6 +22,10 @@ def check_token(token):
             options={"verify_exp": False},
             )
     return data['email']
+
+def parse_date(date):
+    return datetime.datetime.strptime(date, '%Y-%m-%d')
+
 
 @app.route('/login', cors=True)
 def login():
@@ -65,3 +70,57 @@ def load():
         else:
             raise
     return data
+
+@app.route('/load-score/{date}', cors=True)
+def load(date):
+    email = check_token(app.current_request.headers['Authorization'])
+    s3object = s3.Object('joseki', email + '/scores.json')
+    data = {}
+    try:
+        data = json.loads(s3object.get()['Body'].read().decode('utf-8'))
+    except ClientError as ex:
+        if ex.response['Error']['Code'] == 'NoSuchKey':
+            raise NotFoundError('No stored joseki')
+        else:
+            raise
+
+    #check streak
+    cur = parse_date(date)
+    streak = 0
+    for i in reversed(data['streak']):
+        check = parse_date(i['date'])
+        if (cur - check).days <= 1:
+            cur = check
+            streak = streak + 1
+        else:
+            break
+
+
+    return {'highScore': data['highScore'], 'streak': streak}
+
+@app.route('/store-score', methods=['POST'], cors=True)
+def store():
+    email = check_token(app.current_request.headers['Authorization'])
+    s3object = s3.Object('joseki', email + '/scores.json')
+    existing = {'highScore':0, 'streak':[]}
+    try:
+        existing = json.loads(s3object.get()['Body'].read().decode('utf-8'))
+    except ClientError as ex:
+        if ex.response['Error']['Code'] == 'NoSuchKey':
+            existing = {'highScore':0, 'streak':[]}
+        else:
+            raise
+
+    data = app.current_request.json_body
+    if existing['highScore'] < data['highScore']:
+        existing['highScore'] = data['highScore']
+
+    if data['score'] > 0:
+        if len(existing['streak']) ==0 or existing['streak'][-1]['date'] != data['date']:
+            existing['streak'].append({'date': data['date'], 'score': data['score']})
+        else:
+            existing['streak'][-1]['score'] = data['score']
+
+
+    s3object.put(Body=json.dumps(existing))
+    return {'stored':True};

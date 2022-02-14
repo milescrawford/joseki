@@ -35,9 +35,22 @@ const EMPTY_SCORE = {
     // Scoring
     var score;
     var moves = 0;
+    var streak = 0;
 
+    var reloadDate = getDate();
+    setInterval(function() {
+        if (getDate() != reloadDate){
+            location.reload();
+        }
+
+    }, 1000 * 60);
 
     ////////// Common ///////////
+
+    function getDate() {
+        let date = new Date();
+        return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+    }
 
     function updateHighScore(newScore){
         let highScore = window.localStorage.getItem(HIGH_KEY) || 0;
@@ -47,7 +60,7 @@ const EMPTY_SCORE = {
     }
 
     function getHighScore(){
-        return window.localStorage.getItem(HIGH_KEY) || 0;
+        return parseInt(window.localStorage.getItem(HIGH_KEY) || 0);
     }
 
     function clearGhostStone() {
@@ -150,6 +163,33 @@ const EMPTY_SCORE = {
                 josekis = STARTER_JOSEKIS;
             }
             initFunc();
+        }
+    }
+
+    function loadScores() {
+
+        let token = window.localStorage.getItem(TOKEN_KEY)
+        if(token) {
+            // We have a login, check server
+            let apiUrl = apiBase() + '/load-score/' + getDate();
+            fetch(apiUrl, { 'mode': 'cors', 'headers': { 'Authorization': token}})
+                .then(async function(response) {
+
+                    // Joseki on server, use those
+                    if (response.ok) {
+                        let scores = await response.json();
+                        updateHighScore(scores['highScore']);
+                        streak = scores['streak'];
+                        displayScore();
+
+                    } else if (response.status == 404) {
+                        // Nothing on server yet, nothing to do
+
+                    } else {
+                        alert('Could not load scores, see console');
+                        console.log(response);
+                    }
+                });
         }
     }
 
@@ -475,12 +515,13 @@ const EMPTY_SCORE = {
     function init() {
         mainBoard(handleMove, true);
         setupLogin();
+        loadScores();
         loadJoseki(reset);
     }
 
     function reset() {
 
-        let date = new Date().toLocaleDateString();
+        let date = getDate();
         if (window.localStorage.getItem(DAY_KEY) != date) {
             window.localStorage.setItem(DAY_KEY, date);
             window.localStorage.setItem(DAY_SCORE_KEY, JSON.stringify(EMPTY_SCORE));
@@ -545,6 +586,7 @@ const EMPTY_SCORE = {
     }
 
     function pass() {
+        moves += 1;
         if (PASS in tree) {
             game.pass();
             tree = tree[PASS];
@@ -600,6 +642,21 @@ const EMPTY_SCORE = {
             score.combo = 0;
         }
         window.localStorage.setItem(DAY_SCORE_KEY, JSON.stringify(score));
+
+        let token = window.localStorage.getItem(TOKEN_KEY)
+        if (token) {
+            let apiUrl = apiBase() + '/store-score';
+            fetch(apiUrl, {
+                'method': 'POST',
+                'mode': 'cors',
+                'headers': {
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                },
+                'body': JSON.stringify({'highScore': getHighScore(), 'score': score.score, 'date': getDate()}),
+            });
+        }
+
         moves = 0;
         displayScore();
     }
@@ -611,6 +668,7 @@ const EMPTY_SCORE = {
         document.getElementById('combo').innerHTML = score.combo;
         document.getElementById('tries').innerHTML = score.sessionAttempts;
         document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
+        document.getElementById('streak').innerText = streak;
 
         // animated ones
         document.getElementById('score').style.setProperty('--score', score.score);
