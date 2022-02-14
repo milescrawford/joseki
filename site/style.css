@@ -94,7 +94,7 @@ textarea {
   inherits: false;
 }
 #score {
-  transition: --score 2s;
+  transition: --score 1s;
   transition-timing-function: cubic-bezier(0,1.05,.35,.93);
   counter-reset: score var(--score);
 }
