@@ -168,6 +168,16 @@ const EMPTY_SCORE = {
 
     function loadScores() {
 
+        let date = getDate();
+        if (window.localStorage.getItem(DAY_KEY) != date) {
+            window.localStorage.setItem(DAY_KEY, date);
+            window.localStorage.setItem(DAY_SCORE_KEY, JSON.stringify(EMPTY_SCORE));
+            score = null;
+        }
+        if(!score){
+            score = JSON.parse(window.localStorage.getItem(DAY_SCORE_KEY));
+        }
+
         let token = window.localStorage.getItem(TOKEN_KEY)
         if(token) {
             // We have a login, check server
@@ -520,16 +530,6 @@ const EMPTY_SCORE = {
     }
 
     function reset() {
-
-        let date = getDate();
-        if (window.localStorage.getItem(DAY_KEY) != date) {
-            window.localStorage.setItem(DAY_KEY, date);
-            window.localStorage.setItem(DAY_SCORE_KEY, JSON.stringify(EMPTY_SCORE));
-            score = null;
-        }
-        if(!score){
-            score = JSON.parse(window.localStorage.getItem(DAY_SCORE_KEY));
-        }
 
         displayScore();
         buildTree();
