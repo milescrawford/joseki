@@ -113,7 +113,7 @@ textarea {
 }
 
 #highScore {
-  transition: --highScore 3s;
+  transition: --highScore 2s;
   transition-timing-function: cubic-bezier(0,1.05,.35,.93);
   counter-reset: highScore var(--highScore);
 }

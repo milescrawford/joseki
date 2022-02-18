@@ -635,8 +635,13 @@ const EMPTY_SCORE = {
             score.combo += 1;
             score.unique[msg] = true;
 
-            // # moves base * combo multi * unique multi
-            score.score += score.combo * Object.keys(josekis).length * Object.keys(score.unique).length * moves;
+            // # moves base * combo multi * unique multi * total multi
+            score.score += Math.round(
+                moves *
+                Math.max(Math.log10(score.combo)*10, 1) * 
+                Math.max(Math.log10(Object.keys(josekis).length) * 10, 1) * 
+                Math.max(Math.log10(Object.keys(score.unique).length) * 10, 1) 
+            );
             updateHighScore(score.score);
         } else {
             score.combo = 0;
