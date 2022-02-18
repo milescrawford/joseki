@@ -523,6 +523,11 @@ const EMPTY_SCORE = {
 
 
     function init() {
+        if (window.localStorage.getItem(TOKEN_KEY)) {
+            document.getElementById('save-warning').className += ' d-none';
+        }else {
+            document.getElementById('all-time').className += ' d-none';
+        }
         mainBoard(handleMove, true);
         setupLogin();
         loadScores();

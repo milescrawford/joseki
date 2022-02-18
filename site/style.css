@@ -2,7 +2,7 @@
 :root {
     --board-color: #ffe498;
     --bg-light: #00000008;
-    --fsize: 1.3rem;
+    --fsize: 1.4rem;
     --small-board: 120px;
 }
 
@@ -92,6 +92,7 @@ textarea {
     padding:0.5em;
 }
 
+
 @property --score {
   syntax: '<integer>';
   initial-value: 0;
@@ -126,5 +127,6 @@ table {
 }
 
 td {
+    font-family: Nanum Gothic Coding;
     text-align:right;
 }
