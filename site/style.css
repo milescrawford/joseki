@@ -59,28 +59,14 @@ body {
     margin-left:0.4rem;;
 }
 
-#pass-indicate {
-    font-size: var(--fsize);
-}
-
-#pass-indicate.hide {
-    transition: opacity 0.5s;
-    opacity: 0;
-}
-
-#pass-indicate.show{
-    transition: opacity 0.5s;
-    opacity: 1;
-}
-
-#success-card.hide-card, #fail-card.hide-card {
+.hide-card {
     transition: opacity 0.5s;
     opacity: 0;
     height : 0px;
     overflow: hidden;
 }
 
-#success-card.show-card, #fail-card.show-card {
+.show-card {
     transition: opacity 0.5s;
     opacity: 1;
     height:auto;

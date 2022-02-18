@@ -545,10 +545,10 @@ const EMPTY_SCORE = {
         game = new WGo.Game();
 
         // Update info/stats
-        document.getElementById('pass-indicate').className = 'hide';
         document.getElementById('pass').addEventListener('click', pass);
         document.getElementById('fail-card').className = 'hide-card';
         document.getElementById('success-card').className = 'hide-card';
+        document.getElementById('pass-card').className = 'hide-card';
         document.getElementById('pass-msg').className = 'd-none';
 
         // Half the time, white starts
@@ -576,7 +576,7 @@ const EMPTY_SCORE = {
 
     function handleMove(x, y) {
         gtag("event", "move", {'event_category': 'joseki'});
-        document.getElementById('pass-indicate').className = 'hide';
+        document.getElementById('pass-card').className = 'hide-card';
         moves += 1;
         let move = serMove(x,y);
 
@@ -696,16 +696,15 @@ const EMPTY_SCORE = {
 
     // Make a reply if we can
     async function respond() {
-        await new Promise(r => setTimeout(r, DELAY_MS));
-        const possibleMoves = Object.keys(tree).filter(move => move != DONE);;
-
+        const possibleMoves = Object.keys(tree).filter(move => move != DONE);
         if (possibleMoves.length > 0){
+            await new Promise(r => setTimeout(r, DELAY_MS));
             const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
             tree = tree[chosenMove];
 
             if (chosenMove == PASS){
                 game.pass();
-                document.getElementById('pass-indicate').className = "show";
+                document.getElementById('pass-card').className = "show-card";
                 if (lastMove) {
                     board.removeObject(lastMove);
                 }
