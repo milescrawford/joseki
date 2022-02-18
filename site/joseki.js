@@ -1,4 +1,6 @@
 
+const FACTOR = 5;
+const BIG_FACTOR = 10;
 const PASS = 'pass';
 const DONE = 'done';
 const DELAY_MS = 250;
@@ -643,9 +645,9 @@ const EMPTY_SCORE = {
             // # moves base * combo multi * unique multi * total multi
             score.score += Math.round(
                 moves *
-                Math.max(Math.log10(score.combo)*10, 1) * 
-                Math.max(Math.log10(Object.keys(josekis).length) * 10, 1) * 
-                Math.max(Math.log10(Object.keys(score.unique).length) * 10, 1) 
+                Math.max(Math.log10(score.combo) * BIG_FACTOR, 1) *
+                Math.max(Math.log10(Object.keys(josekis).length) * FACTOR, 1) *
+                Math.max(Math.log10(Object.keys(score.unique).length) * FACTOR, 1)
             );
             updateHighScore(score.score);
         } else {
