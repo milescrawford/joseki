@@ -5,7 +5,7 @@ const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
-const FONT = 'Neucha';
+const FONT = 'Comic Neue';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
 const HIGH_KEY = 'highScore';
@@ -621,7 +621,7 @@ const EMPTY_SCORE = {
 
     function succeed(msg) {
         shutdown();
-        document.getElementById('success-msg').innerHTML = msg;
+        document.getElementById('success-msg').innerText = msg;
         document.getElementById('success-card').className = "show-card";
         updateScore(true, msg);
         gtag("event", "practice", {'event_category': 'joseki', 'event_label': 'success'});
@@ -695,6 +695,9 @@ const EMPTY_SCORE = {
             if (chosenMove == PASS){
                 game.pass();
                 document.getElementById('pass-indicate').className = "show";
+                if (lastMove) {
+                    board.removeObject(lastMove);
+                }
             } else {
                 let [x,y] = parseMove(chosenMove);
                 play(WGo.W, x,y);

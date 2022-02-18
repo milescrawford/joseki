@@ -47,32 +47,67 @@
                 </nav>
 
                 <div class="row g-2">
-                    <!-- Status -->
-                    <div class="col-3">
-                        <div class="card border-info mb-2">
-                            <div class="card-header h5">Practice Session</div>
-                            <div class="card-body">
-                                <p class="card-text">
-                                Possible joseki: <span id="josekiCount"></span>
-                                <br>
-                                Attempts: <span id="tries"></span>
-                                <br>
-                                Percent successful: <span id="ratio"></span>%
-                                <br>
-                                Unique Joseki Finished: <span id="unique"></span>
-                                <br>
-                                Combo: <span id="combo"></span>
-                                <br>
-                                Today's Score: <span id="score"></span>
-                                <br>
-                                High Score: <span id="highScore"></span>
-                                <br>
-                                Daily Streak: <span id="streak"></span>
-                                </p>
+              
+                    <!-- board -->
+                    <div class="col-8 mb-2">
+                        <div id="boardcontainer" class="card boder-primary board-bg"></div>
+                        <div class="text-center"><button class="btn btn-info border-primary mt-2" id="pass">Pass / Tenuki</button></div>
+                    </div>
 
+                    <!-- Status -->
+                    <div class="col-4">
+
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">All Time</div>
+                            <div class="card-body">
+                                <table>
+                                    <tr>
+                                        <td>High Score:</td>
+                                        <td id="highScore"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Daily Streak:</td>
+                                        <td id="streak"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">Today's Score</div>
+                            <div class="card-body">
+                                <table>
+                                    <tr>
+                                        <td>Attempts:</td>
+                                        <td id="tries"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Percent successful:</td>
+                                        <td><span id="ratio"></span>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Multiplier:</td>
+                                        <td id="josekiCount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Unique Multiplier:</td>
+                                        <td id="unique"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Combo Multiplier:</td>
+                                        <td id="combo"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Today's Score:</td>
+                                        <td id="score"></td>
+                                    </tr>
+                                </table>
                                 <div class='hide' id="pass-indicate"><div class="badge bg-warning text-black align-middle">White Passed!</div></div>
                             </div>
                         </div>
+
+
 
 
                         <div id="fail-card" class="hide-card">
@@ -97,30 +132,26 @@
                         </div>
                     </div>
 
-
-                    <!-- board -->
-                    <div class="col-6">
-                        <div id="boardcontainer" class="card boder-primary board-bg"></div>
-                        <div class="text-center"><button class="btn btn-info border-primary mt-2" id="pass">Pass / Tenuki</button></div>
-                    </div>
+                </div>
 
 
+
+                <div class="row g-2">
                     <!-- Docs -->
-                    <div class="col-3">
+                    <div class="col-12">
                         <div class="card border-info">
                             <div class="card-header h5">Instructions</div>
                             <div class="card-body">
                                 <p class="card-text">
                                 You always play black, and white leads half the time.
-                                <br>
-                                <br>
                                 Either side may pass to indicate tenuki.
-                                <br>
-                                <br>
                                 An incorrect move or pass will fail the attempt and display correct variations.
-                                <br>
-                                <br>
                                 Click the board to start the next attempt!
+                                </p>
+                                <p class="card-text">
+                                Score points for each move in a successful joseki, with multipliers for combos, unique joseki finished, and total joseki in your library.
+                                Practice everyday to keep your streak.
+
                                 </p>
                             </div>
                         </div>

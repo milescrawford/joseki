@@ -31,7 +31,7 @@ body {
 }
 
 .container-fluid.outer {
-    max-width: 1500px;
+    max-width: 1200px;
     margin:0;
     padding:0;
 }
@@ -94,7 +94,7 @@ textarea {
   inherits: false;
 }
 #score {
-  transition: --score 1s;
+  transition: --score 2s;
   transition-timing-function: cubic-bezier(0,1.05,.35,.93);
   counter-reset: score var(--score);
 }
@@ -109,10 +109,14 @@ textarea {
 }
 
 #highScore {
-  transition: --highScore 2s;
+  transition: --highScore 3s;
   transition-timing-function: cubic-bezier(0,1.05,.35,.93);
   counter-reset: highScore var(--highScore);
 }
 #highScore::after {
   content: counter(highScore);
+}
+
+table {
+    width: 100%;
 }
