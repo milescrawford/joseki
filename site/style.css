@@ -2,7 +2,7 @@
 :root {
     --board-color: #ffe498;
     --bg-light: #00000008;
-    --fsize: 1.2rem;
+    --fsize: 1.3rem;
     --small-board: 120px;
 }
 
@@ -12,6 +12,10 @@ html {
 
 body {
     overflow-y:scroll;
+}
+
+.navbar-title {
+    text-decoration:none;
 }
 
 .about-cat {
@@ -26,7 +30,7 @@ body {
 }
 
 .container-fluid {
-    max-width: calc(180vh - 220px);
+    max-width: calc(140vh - 220px);
     margin:0;
 }
 
@@ -119,4 +123,8 @@ textarea {
 
 table {
     width: 100%;
+}
+
+td {
+    text-align:right;
 }

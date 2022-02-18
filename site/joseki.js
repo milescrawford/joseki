@@ -5,7 +5,7 @@ const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
-const FONT = 'Comic Neue';
+const FONT = 'Neucha';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
 const HIGH_KEY = 'highScore';
@@ -667,7 +667,6 @@ const EMPTY_SCORE = {
         document.getElementById('unique').innerHTML = Object.keys(score.unique).length;
         document.getElementById('combo').innerHTML = score.combo;
         document.getElementById('tries').innerHTML = score.sessionAttempts;
-        document.getElementById('josekiCount').innerText = Object.keys(josekis).length;
         document.getElementById('streak').innerText = streak;
 
         // animated ones

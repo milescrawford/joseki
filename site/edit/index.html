@@ -27,7 +27,7 @@
                 <!-- Nav -->
                 <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                    <span class="navbar-text h2 my-0 mx-2 p-0 text-light">Joseki Cat</span>
+                    <a href="/" class="navbar-title h2 my-0 mx-2 p-0 text-light">Joseki Cat</a>
 
                     <ul class="nav nav-pills">
                         <li class="nav-item">
@@ -60,6 +60,13 @@
 
                     <!-- Controls -->
                     <div class="col-4">
+
+                        <div class="card border-danger mb-3" id="save-warning">
+                            <div class="card-header h5">Warning!</div>
+                            <div class="card-body">
+                                Joseki will only be stored locally and may be lost unless you log in.
+                            </div>
+                        </div>
 
                         <div class="card border-info mb-2">
                             <div class="card-header h5">Edit Joseki</div>
@@ -99,12 +106,6 @@
 
                     <!-- instrcutions -->
                     <div class="col-12 mt-2">
-                        <div class="card border-danger mb-3" id="save-warning">
-                            <div class="card-header h5">Warning!</div>
-                            <div class="card-body">
-                                Joseki will only be stored locally and may be lost unless you log in.
-                            </div>
-                        </div>
 
                         <div class="card border-info">
                             <div class="card-header h5">Instructions</div>

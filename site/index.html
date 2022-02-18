@@ -27,7 +27,7 @@
                 <!-- Nav -->
                 <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                    <span class="navbar-text h2 my-0 mx-2 p-0 text-light">Joseki Cat</span>
+                    <a href="/" class="navbar-title h2 my-0 mx-2 p-0 text-light">Joseki Cat</a>
 
                     <ul class="nav nav-pills">
                         <li class="nav-item">
@@ -57,16 +57,42 @@
                     <!-- Status -->
                     <div class="col-4">
 
+
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">Today's Score</div>
+                            <div class="card-body">
+                                <table>
+                                    <tr>
+                                        <th>Attempts / Successful:</th>
+                                        <td><span id="tries"></span> / 
+                                        <span id="ratio"></span>%</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Unique Variations:</th>
+                                        <td id="unique"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Combo:</th>
+                                        <td id="combo"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Today's Score:</th>
+                                        <td id="score"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
                         <div class="card border-info mb-2">
                             <div class="card-header h5">All Time</div>
                             <div class="card-body">
                                 <table>
                                     <tr>
-                                        <td>High Score:</td>
+                                        <th>High Score:</th>
                                         <td id="highScore"></td>
                                     </tr>
                                     <tr>
-                                        <td>Daily Streak:</td>
+                                        <th>Daily Streak:</th>
                                         <td id="streak"></td>
                                     </tr>
                                 </table>
@@ -74,40 +100,10 @@
                         </div>
 
 
-                        <div class="card border-info mb-2">
-                            <div class="card-header h5">Today's Score</div>
-                            <div class="card-body">
-                                <table>
-                                    <tr>
-                                        <td>Attempts:</td>
-                                        <td id="tries"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Percent successful:</td>
-                                        <td><span id="ratio"></span>%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Multiplier:</td>
-                                        <td id="josekiCount"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Unique Multiplier:</td>
-                                        <td id="unique"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Combo Multiplier:</td>
-                                        <td id="combo"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Today's Score:</td>
-                                        <td id="score"></td>
-                                    </tr>
-                                </table>
-                                <div class='hide' id="pass-indicate"><div class="badge bg-warning text-black align-middle">White Passed!</div></div>
-                            </div>
+
+                        <div id="pass-indicate" class="hide">
+                                <div class='card bg-warning h5 p-2' >White Passed!</div>
                         </div>
-
-
 
 
                         <div id="fail-card" class="hide-card">
