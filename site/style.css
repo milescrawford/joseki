@@ -25,12 +25,12 @@ body {
 .navbar {
     background-image: url('cat.png');
     background-repeat: no-repeat;
-    background-position: 98% -20%;
-    background-size: auto 150%;
+    background-position: 98% 5px;
+    background-size: 80px;
 }
 
 .nav-pills {
-    margin-right: 25%;
+    margin-right: 80px;
 }
 
 .container-fluid {
