@@ -24,12 +24,8 @@ body {
     background-size: auto 120%;
 }
 
-.nav-pills {
-    margin-right: 80px;
-}
-
 .container-fluid {
-    max-width: calc(140vh - 220px);
+    max-width: calc(140vh - 8em);
     margin:0;
 }
 
