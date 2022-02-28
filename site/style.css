@@ -2,12 +2,7 @@
 :root {
     --board-color: #ffe498;
     --bg-light: #00000008;
-    --fsize: 1.4rem;
     --small-board: 120px;
-}
-
-html {
-    font-size: var(--fsize);
 }
 
 body {
@@ -25,8 +20,8 @@ body {
 .navbar {
     background-image: url('cat.png');
     background-repeat: no-repeat;
-    background-position: 98% 5px;
-    background-size: 80px;
+    background-position: 98% -50%;
+    background-size: auto 120%;
 }
 
 .nav-pills {

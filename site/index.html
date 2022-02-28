@@ -27,7 +27,7 @@
                 <!-- Nav -->
                 <nav class="navbar navbar-expand navbar-dark bg-info my-2">
 
-                    <a href="/" class="navbar-title h2 my-0 mx-2 p-0 text-light">Joseki Cat</a>
+                    <a href="/" class="navbar-title h4 my-0 mx-2 p-0 text-light">Joseki Cat</a>
 
                     <ul class="nav nav-pills">
                         <li class="nav-item">
@@ -41,7 +41,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="d-none" id='login-a'>Login</a>
-                            <a class="d-none" id="welcome">Welcome back <span id='email'></span></a>
+                            <a class="d-none" id="welcome"><span id='email'></span></a>
                         </li>
                     </ul>
                 </nav>
@@ -49,18 +49,18 @@
                 <div class="row g-2">
               
                     <!-- board -->
-                    <div class="col-md-8 mb-2">
+                    <div class="col-sm-8 mb-2">
                         <div id="boardcontainer" class="card boder-primary board-bg"></div>
                         <div class="text-center"><button class="btn btn-info border-primary mt-2" id="pass">Pass / Tenuki</button></div>
 
                    </div>
 
                     <!-- Status -->
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
 
 
                         <div class="card border-info mb-2">
-                            <div class="card-header h5">Today's Score</div>
+                            <div class="card-header h5">Score</div>
                             <div class="card-body">
                                 <table>
                                     <tr>
@@ -72,8 +72,12 @@
                                         <td id="combo"></td>
                                     </tr>
                                     <tr>
-                                        <th>Attempts / Successful:</th>
-                                        <td><span id="tries"></span> / <span id="ratio"></span>%</td>
+                                        <th>Attempts:</th>
+                                        <td><span id="tries"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Successful:</th>
+                                        <td><span id="ratio"></span>%</td>
                                     </tr>
                                     <tr>
                                         <th>Unique Variations:</th>
