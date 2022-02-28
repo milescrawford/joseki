@@ -20,6 +20,7 @@ const EMPTY_SCORE = {
             sessionSuccess: 0,
             combo: 0,
             score: 0,
+            streak: 0,
             unique: {},
         };
 
@@ -678,7 +679,6 @@ const EMPTY_SCORE = {
         document.getElementById('ratio').innerHTML = ratio;
         document.getElementById('unique').innerHTML = Object.keys(score.unique).length;
         document.getElementById('combo').innerHTML = score.combo;
-        document.getElementById('tries').innerHTML = score.sessionAttempts;
         document.getElementById('streak').innerText = streak;
 
         // animated ones
