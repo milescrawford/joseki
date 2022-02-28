@@ -7,7 +7,7 @@ const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
-const FONT = 'Neucha';
+const FONT = 'Cabin Sketch';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
 const HIGH_KEY = 'highScore';
@@ -80,6 +80,22 @@ const EMPTY_SCORE = {
         }
     }
 
+    function boardMsg(text, color='black') {
+        let fillStyle = "rgba(0,0,0,0.9)";
+        if (color == 'green') {
+            fillStyle = "rgba(40,167,69,0.9)";
+        } else if (color == 'red') {
+            fillStyle = "rgba(220,53,69,0.9)";
+        }
+        board.addCustomObject( { grid: { draw: function(args, board) {
+            this.fillStyle = fillStyle;
+            this.textBaseline="middle";
+            this.textAlign="center";
+            this.font = (board.stoneRadius * 4)+"px "+(board.font || "");
+            this.fillText(text, board.getX(9), board.getY(9));
+        }}});
+    }
+
     function mainBoard(listener, disabled=false) {
         let cont = document.getElementById("boardcontainer");
         let boardElement = document.getElementById('board');
@@ -92,13 +108,7 @@ const EMPTY_SCORE = {
 
         board = newBoard(document.getElementById('board'));
         if (disabled) {
-            board.addCustomObject( { grid: { draw: function(args, board) {
-                this.fillStyle = "rgba(0,0,0,0.7)";
-                this.textBaseline="middle";
-                this.textAlign="center";
-                this.font = (board.stoneRadius * 4)+"px "+(board.font || "");
-                this.fillText("Loading...", board.getX(9), board.getY(9));
-            }}});
+            boardMsg("Loading...");
         }else{
             board.addEventListener("click", listener);
             board.addEventListener("mousemove", handleHover);
@@ -604,9 +614,9 @@ const EMPTY_SCORE = {
         }
     }
 
-    // Failed Joseki
     function fail(move) {
         shutdown();
+        boardMsg("Failed", 'red');
         document.getElementById('fail-card').className = "show-card";
 
         if(move != PASS){
@@ -629,6 +639,7 @@ const EMPTY_SCORE = {
 
     function succeed(msg) {
         shutdown();
+        boardMsg("Correct", 'green');
         document.getElementById('success-msg').innerText = msg;
         document.getElementById('success-card').className = "show-card";
         updateScore(true, msg);
