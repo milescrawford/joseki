@@ -547,7 +547,7 @@ const EMPTY_SCORE = {
     function init() {
         if(!window.localStorage.getItem(WELCOME_KEY)){
             $('#welcomeModal').modal()
-            //window.localStorage.setItem(WELCOME_KEY, 'seen');
+            window.localStorage.setItem(WELCOME_KEY, 'seen');
         }
 
         if (window.localStorage.getItem(TOKEN_KEY)) {
