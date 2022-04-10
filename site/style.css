@@ -17,6 +17,11 @@ body {
     width: 60%;
 }
 
+.welcome-cat{
+    height: 120px;
+    float:right;
+}
+
 .navbar {
     background-image: url('cat.png');
     background-repeat: no-repeat;

@@ -13,6 +13,7 @@ const EMAIL_KEY = 'email';
 const HIGH_KEY = 'highScore';
 const DAY_KEY = 'day';
 const DAY_SCORE_KEY = 'dayScore';
+const WELCOME_KEY = 'welcomeSeen';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
 const STARTER_JOSEKIS = [{"id":4,"comment":"Approach 3-4 high and settle.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"]},{"id":7,"comment":"Approach 3-4 low and settle.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"]},{"id":5,"comment":"Approach 4-4 low and force defender to split the corner.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"]},{"id":9,"comment":"Approach 4-4 low and get side thickness after the kick.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","2,7","3,7","1,5","1,6","1,4","2,6"]},{"id":10,"comment":"Approach 4-4 low and settle.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"]},{"id":12,"comment":"Block 3-3 invasion with sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"]},{"id":13,"comment":"Emphasize side after 3-3 invasion.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"]},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"]},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"]},{"id":6,"comment":"Retain corner after 3-3 invasion.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"]}];
 const EMPTY_SCORE = {
@@ -34,6 +35,7 @@ const EMPTY_SCORE = {
     var gridOption = false;
     var ghostStone;
     var lastMove;
+    var msgObj;
 
     // Scoring
     var score;
@@ -87,13 +89,20 @@ const EMPTY_SCORE = {
         } else if (color == 'red') {
             fillStyle = "rgba(220,53,69,0.9)";
         }
-        board.addCustomObject( { grid: { draw: function(args, board) {
+        msgObj = { grid: { draw: function(args, board) {
             this.fillStyle = fillStyle;
             this.textBaseline="middle";
             this.textAlign="center";
             this.font = (board.stoneRadius * 4)+"px "+(board.font || "");
             this.fillText(text, board.getX(9), board.getY(9));
-        }}});
+        }}};
+        board.addCustomObject(msgObj);
+    }
+
+    function clearBoardMsg() {
+        if(msgObj){
+            board.removeCustomObject(msgObj);
+        }
     }
 
     function mainBoard(listener, disabled=false) {
@@ -536,6 +545,11 @@ const EMPTY_SCORE = {
 
 
     function init() {
+        if(!window.localStorage.getItem(WELCOME_KEY)){
+            $('#welcomeModal').modal()
+            //window.localStorage.setItem(WELCOME_KEY, 'seen');
+        }
+
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
         }else {
@@ -561,6 +575,7 @@ const EMPTY_SCORE = {
         document.getElementById('success-card').className = 'hide-card';
         document.getElementById('pass-card').className = 'hide-card';
         document.getElementById('pass-msg').className = 'd-none';
+        clearBoardMsg();
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
@@ -588,6 +603,7 @@ const EMPTY_SCORE = {
     function handleMove(x, y) {
         gtag("event", "move", {'event_category': 'joseki'});
         document.getElementById('pass-card').className = 'hide-card';
+        clearBoardMsg();
         moves += 1;
         let move = serMove(x,y);
 
@@ -716,6 +732,7 @@ const EMPTY_SCORE = {
             if (chosenMove == PASS){
                 game.pass();
                 document.getElementById('pass-card').className = "show-card";
+                boardMsg('White Passed')
                 if (lastMove) {
                     board.removeObject(lastMove);
                 }
