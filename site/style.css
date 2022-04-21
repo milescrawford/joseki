@@ -17,7 +17,7 @@ body {
     width: 60%;
 }
 
-.welcome-cat{
+.welcome-cat {
     height: 120px;
     float:right;
 }
@@ -115,4 +115,8 @@ table {
 td {
     font-family: Nanum Gothic Coding;
     text-align:right;
+}
+
+#fail-card a {
+    color:white;
 }
