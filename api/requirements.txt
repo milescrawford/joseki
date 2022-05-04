@@ -1,5 +1,4 @@
 requests
 boto3
 chalice
-cffi
 pyjwt[crypto]
