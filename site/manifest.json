@@ -1,0 +1,15 @@
+{
+  "name": "Joseki Cat",
+  "icons": [
+    {
+      "src": "https://joseki.cat/cat-logo.png",
+      "type": "image/png",
+      "sizes": "1000x1000 512x512 192x192",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "background_color": "#17a2b8"
+}
