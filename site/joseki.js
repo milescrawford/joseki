@@ -153,6 +153,7 @@ const EMPTY_SCORE = {
         let token = window.localStorage.getItem(TOKEN_KEY)
         if(token) {
             // We have a login, check server
+            gtag('event', 'user_is_logged_in', {'event_category': 'joseki'});
             let apiUrl = apiBase() + '/load';
             fetch(apiUrl, { 'mode': 'cors', 'headers': { 'Authorization': token}})
                 .then(async function(response) {
