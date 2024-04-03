@@ -166,6 +166,7 @@ const EMPTY_SCORE = {
                     // Joseki on server, use those
                     if (response.ok) {
                         josekis = await response.json();
+                        ensureBackwardsCompatibility(josekis);
                         initFunc();
 
                         // Nothing on server yet, pull local or init
