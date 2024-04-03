@@ -15,7 +15,7 @@ const DAY_KEY = 'day';
 const DAY_SCORE_KEY = 'dayScore';
 const WELCOME_KEY = 'welcomeSeen';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
-const STARTER_JOSEKIS = [{"id": 27,"comment": "Fuseki: Orthodox.","moves": ["15,15", "3,3", "16,3", "3,15", "14,2"],"enabled": true}, {"id": 4,"comment": "Approach 3-4 high and settle facing in front of the 3-4.","moves": ["3,2", "3,4", "2,4", "2,5", "2,3", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 17,"comment": "Approach 3-4 high, settle facing to the side of the 3-4.","moves": ["3,2", "3,4", "2,4", "3,3", "2,3", "4,2", "2,2", "3,5"],"enabled": true}, {"id": 7,"comment": "Approach 3-4 low, get kicked, and settle low.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "2,8"],"enabled": true}, {"id": 14,"comment": "Approach 3-4 low, get kicked, settle high.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "3,8"],"enabled": true}, {"id": 16,"comment": "Approach 3-4 low, make more fragile, faster extension.","moves": ["16,3", "14,2", "15,5"],"enabled": true}, {"id": 15,"comment": "Approach 3-4 low, make solid, calm extension.","moves": ["16,3", "14,2", "15,4"],"enabled": true}, {"id": 20,"comment": "Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves": ["15,15", "13,15", "15,13", "15,16", "16,16", "14,16", "16,17", "13,13"],"enabled": true}, {"id": 21,"comment": "Approach 4-4 high, back off high, trade corner potential for influence.","moves": ["15,3", "15,5", "13,3", "13,5"],"enabled": true}, {"id": 10,"comment": "Approach 4-4 low, back off, and settle calmly.","moves": ["3,3", "2,5", "5,2", "1,3", "2,2", "2,8"],"enabled": true}, {"id": 19,"comment": "Approach 4-4 low, back off, force defender to split corner, develop sides.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "2,1", "3,5"],"enabled": true}, {"id": 5,"comment": "Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "3,5", "2,6"],"enabled": true}, {"id": 9,"comment": "Approach 4-4 low, get kicked, get side thickness.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9", "2,7", "3,7", "1,5", "1,6", "1,4", "2,6"],"enabled": true}, {"id": 18,"comment": "Approach 4-4 low, get kicked, settle.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 8,"comment": "Enclose 3-4.","moves": ["3,2", "pass", "2,4"],"enabled": true}, {"id": 11,"comment": "Enclose 4-4.","moves": ["3,3", "pass", "2,5"],"enabled": true}, {"id": 26,"comment": "Fuseki: Chinese.","moves": ["15,3", "3,15", "15,16", "3,3", "16,10"],"enabled": true}, {"id": 25,"comment": "Fuseki: Sanrensei.","moves": ["3,3", "15,15", "15,3", "3,15", "9,3"],"enabled": true}, {"id": 6,"comment": "Invade 4-4, defender double-hanes to retain corner.","moves": ["3,3", "2,2", "2,3", "3,2", "4,2", "4,1", "5,1", "5,2", "4,3", "6,1", "3,1", "5,0", "2,1"],"enabled": true}, {"id": 22,"comment": "Invade 4-4, defender emphasizes side and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "2,4", "3,4", "1,5"],"enabled": true}, {"id": 13,"comment": "Invade 4-4, defender emphasizes side influence and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "1,5"],"enabled": true}, {"id": 23,"comment": "Invade 4-4, defender seals invader in with excellent influence.","moves": ["15,3", "16,2", "16,3", "15,2", "14,2", "14,1", "13,2", "13,1", "12,2", "17,3", "17,4", "17,2", "16,5"],"enabled": true}, {"id": 12,"comment": "Invade 4-4, defender trades some corner territory for sente.","moves": ["3,3", "2,2", "3,2", "2,3", "3,4", "1,5"],"enabled": true}, {"id": 24,"comment": "Invade 4-4, invader lives with sente.","moves": ["15,3", "16,2", "15,2", "16,3", "16,4", "17,4", "16,5", "17,5", "16,6", "17,6", "16,7"],"enabled": true}];
+const STARTER_JOSEKIS = [{"id":27,"comment":"Fuseki: Orthodox.","moves":["15,15","3,3","16,3","3,15","14,2"]},{"id":4,"comment":"Approach 3-4 high and settle facing in front of the 3-4.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"]},{"id":17,"comment":"Approach 3-4 high, settle facing to the side of the 3-4.","moves":["3,2","3,4","2,4","3,3","2,3","4,2","2,2","3,5"]},{"id":7,"comment":"Approach 3-4 low, get kicked, and settle low.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"]},{"id":14,"comment":"Approach 3-4 low, get kicked, settle high.","moves":["3,2","2,4","2,3","3,4","5,2","3,8"]},{"id":16,"comment":"Approach 3-4 low, make more fragile, faster extension.","moves":["16,3","14,2","15,5"]},{"id":15,"comment":"Approach 3-4 low, make solid, calm extension.","moves":["16,3","14,2","15,4"]},{"id":20,"comment":"Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves":["15,15","13,15","15,13","15,16","16,16","14,16","16,17","13,13"]},{"id":21,"comment":"Approach 4-4 high, back off high, trade corner potential for influence.","moves":["15,3","15,5","13,3","13,5"]},{"id":10,"comment":"Approach 4-4 low, back off, and settle calmly.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"]},{"id":19,"comment":"Approach 4-4 low, back off, force defender to split corner, develop sides.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","2,1","3,5"]},{"id":5,"comment":"Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"]},{"id":9,"comment":"Approach 4-4 low, get kicked, get side thickness.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","2,7","3,7","1,5","1,6","1,4","2,6"]},{"id":18,"comment":"Approach 4-4 low, get kicked, settle.","moves":["3,3","2,5","2,4","3,5","5,2","3,9"]},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"]},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"]},{"id":26,"comment":"Fuseki: Chinese.","moves":["15,3","3,15","15,16","3,3","16,10"]},{"id":25,"comment":"Fuseki: Sanrensei.","moves":["3,3","15,15","15,3","3,15","9,3"]},{"id":6,"comment":"Invade 4-4, defender double-hanes to retain corner.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"]},{"id":22,"comment":"Invade 4-4, defender emphasizes side and sente.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"]},{"id":13,"comment":"Invade 4-4, defender emphasizes side influence and sente.","moves":["3,3","2,2","3,2","2,3","2,5","1,5"]},{"id":23,"comment":"Invade 4-4, defender seals invader in with excellent influence.","moves":["15,3","16,2","16,3","15,2","14,2","14,1","13,2","13,1","12,2","17,3","17,4","17,2","16,5"]},{"id":12,"comment":"Invade 4-4, defender trades some corner territory for sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"]},{"id":24,"comment":"Invade 4-4, invader lives with sente.","moves":["15,3","16,2","15,2","16,3","16,4","17,4","16,5","17,5","16,6","17,6","16,7"]}];
 const EMPTY_SCORE = {
             sessionAttempts: 0,
             sessionSuccess: 0,
@@ -149,12 +149,6 @@ const EMPTY_SCORE = {
     }
 
     function loadJoseki(initFunc) {
-		function ensureBackwardsCompatibility(jArray)  {
-            jArray.forEach(j => {
-                if (!Object.hasOwn(j, "enabled"))
-                    j.enabled = true;
-            });
-        }
 
         let token = window.localStorage.getItem(TOKEN_KEY)
         if(token) {
@@ -172,7 +166,6 @@ const EMPTY_SCORE = {
                     } else if (response.status == 404) {
                         if (window.localStorage.getItem(STORAGE_KEY)){
                             josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-                            ensureBackwardsCompatibility(josekis);
                             storeJoseki(); // Write whatever they have locally to server
                         } else {
                             josekis = STARTER_JOSEKIS;
@@ -188,7 +181,6 @@ const EMPTY_SCORE = {
             // Not logged in, pull local or init
             if (window.localStorage.getItem(STORAGE_KEY)){
                 josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-                ensureBackwardsCompatibility(josekis);
             } else {
                 josekis = STARTER_JOSEKIS;
             }
@@ -345,7 +337,7 @@ const EMPTY_SCORE = {
 
 
     function buildTree() {
-        let original = clone(josekis.filter((j) => j.enabled));
+        let original = clone(josekis);
 
         // mirror left to right, top to bottom, and diagonally
         let ltr = transformJoseki( original, function(x,y) { 
@@ -410,6 +402,7 @@ const EMPTY_SCORE = {
     }
 
     function resetEdit(id) {
+
         mainBoard(handleEditAdd);
         game = new WGo.Game();
 
@@ -430,10 +423,6 @@ const EMPTY_SCORE = {
             } else {
                 josekiCont.addEventListener('click', function() { resetEdit(joseki.id);});
             }
-
-            let overlayEl = document.createElement('div');
-            overlayEl.className = "joseki-overlay--" + joseki.enabled.toString();
-            josekiCont.appendChild(overlayEl);
 
             let rowEl = document.createElement('div');
             rowEl.className = "row g-2";
@@ -533,7 +522,7 @@ const EMPTY_SCORE = {
         }else{
             maxId = 0;
         }
-        return {'id': maxId +1, 'comment':'', 'moves': [], 'enabled': true};
+        return {'id': maxId +1, 'comment':'', 'moves': []};
     }
 
     function deleteJoseki() {
@@ -548,19 +537,6 @@ const EMPTY_SCORE = {
             }
         }else {
             alert("Can't remove last joseki");
-        }
-    }
-
-    function toggleJoseki() {
-        if (josekis.filter(j => j.enabled).length > 1) {
-                let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-                if (index > -1) {
-                    josekis[index].enabled = !josekis[index].enabled;
-                }
-                storeJoseki();
-                resetEdit();
-        }else {
-            alert("Can't disable last joseki");
         }
     }
 
@@ -698,7 +674,7 @@ const EMPTY_SCORE = {
             score.score += Math.round(
                 moves *
                 Math.max(Math.log10(score.combo) * BIG_FACTOR, 1) *
-                Math.max(Math.log10(Object.keys(josekis.filter(j => j.enabled)).length) * FACTOR, 1) *
+                Math.max(Math.log10(Object.keys(josekis).length) * FACTOR, 1) *
                 Math.max(Math.log10(Object.keys(score.unique).length) * FACTOR, 1)
             );
             updateHighScore(score.score);
