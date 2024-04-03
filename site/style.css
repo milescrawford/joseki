@@ -120,3 +120,14 @@ td {
 #fail-card a {
     color:white;
 }
+
+.joseki-overlay--false {
+    position: absolute;
+    width: calc(2.1 * var(--small-board));
+    height: calc(1.1 * var(--small-board));
+    background-color: rgba(0,0,0,.6);
+    margin: 0px;
+    padding: 0px;
+    left: -.25rem;
+    top: -.25rem;
+}
