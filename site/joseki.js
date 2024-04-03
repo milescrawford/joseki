@@ -149,7 +149,7 @@ const EMPTY_SCORE = {
     }
 
     function loadJoseki(initFunc) {
-		function ensureBackwardsCompatibility(jArray)  {
+        function ensureBackwardsCompatibility(jArray)  {
             jArray.forEach(j => {
                 if (!Object.hasOwn(j, "enabled"))
                     j.enabled = true;
