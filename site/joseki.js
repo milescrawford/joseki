@@ -553,16 +553,21 @@ const EMPTY_SCORE = {
     }
 
     function toggleJoseki() {
-        if (josekis.filter(j => j.enabled).length > 1) {
-                let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-                if (index > -1) {
-                    josekis[index].enabled = !josekis[index].enabled;
-                }
-                storeJoseki();
-                resetEdit();
-        }else {
-            alert("Can't disable last joseki");
+        let numEnabledJosekis = josekis.filter(j => j.enabled).length;
+        let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+        let currentJoseki = index > -1 ? josekis[index] : null;
+        
+        if (!currentJoseki) {
+            return alert("No joseki selected");
         }
+
+        if (numEnabledJosekis <= 1 && currentJoseki.enabled) {
+            return alert("Can't disable last joseki");
+        }
+
+        currentJoseki.enabled = !currentJoseki.enabled;
+        storeJoseki();
+        resetEdit();
     }
 
 
