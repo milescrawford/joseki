@@ -511,8 +511,6 @@ const EMPTY_SCORE = {
         }
     }
 
-
-
     function editSave() {
         currentEditJoseki.comment = document.getElementById('comment').value || "#" + currentEditJoseki.id;
         if(josekis.find(function(a){ return a.id == currentEditJoseki.id})) {
