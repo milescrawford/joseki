@@ -126,7 +126,7 @@ const EMPTY_SCORE = {
     }
 
     function apiBase() {
-        return window.location.hostname == 'localhost' ? 'http://localhost' : 'https://api.joseki.cat';
+        return window.location.hostname == 'localhost' ? 'http://localhost:8000' : 'https://api.joseki.cat';
     }
 
     function storeJoseki() {
