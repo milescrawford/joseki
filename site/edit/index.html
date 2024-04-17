@@ -75,6 +75,11 @@
                                 <br>
                                 <textarea id="comment"></textarea>
                                 <br>
+                                Joseki Group:
+                                <br>
+                                <select id="group"></select>
+                                <br>
+                                <br>
                                 <button  class="btn btn-success border-primary" onClick="editSave()">Save Joseki</button>
 
                             </div>
@@ -87,26 +92,19 @@
                                 <button class="btn btn-secondary border-primary mt-2" onClick="toggleJoseki()">Toggle This Joseki</button>
                             </div>
                         </div>
+                        <div class="card border-info mb-2">
+                            <div class="card-header h5">Add Joseki Group</div>
+                            <div class="card-body">
+                                <button class="btn btn-success border-primary mt-2" onClick="saveJosekiGroup()">Create New Group</button>
+                            </div>
+                        </div>
 
 
                     </div>
                 </div>
                 <!-- menu -->
-                <div class="row g-2 mt-2">
-                    <div class="col-12">
-
-                        <div class="card border-info mb-3">
-                            <div class="card-header h5">Existing Joseki</div>
-                            <div class="row g-2 mt-1 p-2" id="existingList"></div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="row g-2">
-
-
-
+                <div id="joseki-groups"></div>
+                <div class="row g-2"></div>
             </div>
         </div>
     </body>

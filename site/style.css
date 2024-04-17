@@ -121,13 +121,75 @@ td {
     color:white;
 }
 
-.joseki-overlay--false {
+.cursor--pointer {
+    cursor: pointer;
+}
+
+.no-border {
+    border-style: none;
+}
+
+.overlay--true {
     position: absolute;
-    width: calc(2.1 * var(--small-board));
-    height: calc(1.1 * var(--small-board));
     background-color: rgba(0,0,0,.6);
     margin: 0px;
     padding: 0px;
+    z-index:400;
+}
+
+.overlay--false {
+    display:none;
+}
+
+.joseki__overlay--true {
+    width: calc(2.1 * var(--small-board));
+    height: calc(1.1 * var(--small-board));
     left: -.25rem;
     top: -.25rem;
+}
+
+.joseki-group__overlay--true {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px 4px 4px 4px/17px 17px 17px 4px
+}
+
+.joseki-group__name-overlay--true {
+    color:white;
+    position:relative;
+    z-index:600;
+}
+
+.joseki-group__actions {
+    position:absolute;
+    right:.25rem;
+    top:.125rem;
+    z-index: 500;
+}
+
+.joseki-group__btn {
+    line-height: inherit;
+}
+
+.joseki-group__content {
+    overflow: hidden;
+}
+
+/* If the page is resized between re-renders, a group may need a scrollbar */
+.joseki-group__content:hover {
+    overflow-y: auto;
+    margin-right: .25rem; /* Ensures scrollbar appears within div */
+}
+
+.joseki-group__content--animate {
+    transition-property: max-height, padding, margin;
+    transition-duration: .3s;
+}
+
+.joseki-group__content--hidden {
+    max-height: 0px!important;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    margin-top: 0!important;
+    margin-bottom: 0!important;
 }
