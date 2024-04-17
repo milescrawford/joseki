@@ -536,17 +536,26 @@ const EMPTY_SCORE = {
     }
 
     function deleteJoseki() {
-        if (josekis.length > 1) {
-            if (confirm("Are you sure you want to delete this joseki?")) {
-                let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-                if (index > -1) {
-                    josekis.splice(index, 1);
-                }
-                storeJoseki();
-                resetEdit();
+        let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+        let currentJoseki = index > -1 ? josekis[index] : null;
+        let numEnabledJosekis = josekis.filter(j => j.enabled).length;
+
+        if (!currentJoseki)
+            return alert("No joseki selected");
+
+        if (josekis.length <= 1)
+            return alert("Can't remove last joseki");
+
+        if (numEnabledJosekis <= 1 && currentJoseki.enabled)
+            return alert("Can't delete last enabled joseki");
+
+        if (confirm("Are you sure you want to delete this joseki?")) {
+            let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+            if (index > -1) {
+                josekis.splice(index, 1);
             }
-        }else {
-            alert("Can't remove last joseki");
+            storeJoseki();
+            resetEdit();
         }
     }
 
