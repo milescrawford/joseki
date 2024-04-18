@@ -1,4 +1,4 @@
-# joseki
+# Static Site for Joseki Cat
 
 Deploy:
 ```

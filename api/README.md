@@ -1,3 +1,5 @@
+# AWS Lambda API for Joseki Cat
+
 Create a file called `aws.env` and place the application AWS credentials into it:
 ```
 AWS_ACCESS_KEY_ID=XXXX
