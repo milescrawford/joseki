@@ -15,7 +15,7 @@ const DAY_KEY = 'day';
 const DAY_SCORE_KEY = 'dayScore';
 const WELCOME_KEY = 'welcomeSeen';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
-const STARTER_JOSEKIS = [{"id": 27,"comment": "Fuseki: Orthodox.","moves": ["15,15", "3,3", "16,3", "3,15", "14,2"],"enabled": true}, {"id": 4,"comment": "Approach 3-4 high and settle facing in front of the 3-4.","moves": ["3,2", "3,4", "2,4", "2,5", "2,3", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 17,"comment": "Approach 3-4 high, settle facing to the side of the 3-4.","moves": ["3,2", "3,4", "2,4", "3,3", "2,3", "4,2", "2,2", "3,5"],"enabled": true}, {"id": 7,"comment": "Approach 3-4 low, get kicked, and settle low.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "2,8"],"enabled": true}, {"id": 14,"comment": "Approach 3-4 low, get kicked, settle high.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "3,8"],"enabled": true}, {"id": 16,"comment": "Approach 3-4 low, make more fragile, faster extension.","moves": ["16,3", "14,2", "15,5"],"enabled": true}, {"id": 15,"comment": "Approach 3-4 low, make solid, calm extension.","moves": ["16,3", "14,2", "15,4"],"enabled": true}, {"id": 20,"comment": "Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves": ["15,15", "13,15", "15,13", "15,16", "16,16", "14,16", "16,17", "13,13"],"enabled": true}, {"id": 21,"comment": "Approach 4-4 high, back off high, trade corner potential for influence.","moves": ["15,3", "15,5", "13,3", "13,5"],"enabled": true}, {"id": 10,"comment": "Approach 4-4 low, back off, and settle calmly.","moves": ["3,3", "2,5", "5,2", "1,3", "2,2", "2,8"],"enabled": true}, {"id": 19,"comment": "Approach 4-4 low, back off, force defender to split corner, develop sides.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "2,1", "3,5"],"enabled": true}, {"id": 5,"comment": "Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "3,5", "2,6"],"enabled": true}, {"id": 9,"comment": "Approach 4-4 low, get kicked, get side thickness.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9", "2,7", "3,7", "1,5", "1,6", "1,4", "2,6"],"enabled": true}, {"id": 18,"comment": "Approach 4-4 low, get kicked, settle.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 8,"comment": "Enclose 3-4.","moves": ["3,2", "pass", "2,4"],"enabled": true}, {"id": 11,"comment": "Enclose 4-4.","moves": ["3,3", "pass", "2,5"],"enabled": true}, {"id": 26,"comment": "Fuseki: Chinese.","moves": ["15,3", "3,15", "15,16", "3,3", "16,10"],"enabled": true}, {"id": 25,"comment": "Fuseki: Sanrensei.","moves": ["3,3", "15,15", "15,3", "3,15", "9,3"],"enabled": true}, {"id": 6,"comment": "Invade 4-4, defender double-hanes to retain corner.","moves": ["3,3", "2,2", "2,3", "3,2", "4,2", "4,1", "5,1", "5,2", "4,3", "6,1", "3,1", "5,0", "2,1"],"enabled": true}, {"id": 22,"comment": "Invade 4-4, defender emphasizes side and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "2,4", "3,4", "1,5"],"enabled": true}, {"id": 13,"comment": "Invade 4-4, defender emphasizes side influence and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "1,5"],"enabled": true}, {"id": 23,"comment": "Invade 4-4, defender seals invader in with excellent influence.","moves": ["15,3", "16,2", "16,3", "15,2", "14,2", "14,1", "13,2", "13,1", "12,2", "17,3", "17,4", "17,2", "16,5"],"enabled": true}, {"id": 12,"comment": "Invade 4-4, defender trades some corner territory for sente.","moves": ["3,3", "2,2", "3,2", "2,3", "3,4", "1,5"],"enabled": true}, {"id": 24,"comment": "Invade 4-4, invader lives with sente.","moves": ["15,3", "16,2", "15,2", "16,3", "16,4", "17,4", "16,5", "17,5", "16,6", "17,6", "16,7"],"enabled": true}];
+const STARTER_JOSEKIS = {version: 1,groups: [{name: "Existing Josekis",enabled: true,josekis: [{"id": 27,"comment": "Fuseki: Orthodox.","moves": ["15,15", "3,3", "16,3", "3,15", "14,2"],"enabled": true}, {"id": 4,"comment": "Approach 3-4 high and settle facing in front of the 3-4.","moves": ["3,2", "3,4", "2,4", "2,5", "2,3", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 17,"comment": "Approach 3-4 high, settle facing to the side of the 3-4.","moves": ["3,2", "3,4", "2,4", "3,3", "2,3", "4,2", "2,2", "3,5"],"enabled": true}, {"id": 7,"comment": "Approach 3-4 low, get kicked, and settle low.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "2,8"],"enabled": true}, {"id": 14,"comment": "Approach 3-4 low, get kicked, settle high.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "3,8"],"enabled": true}, {"id": 16,"comment": "Approach 3-4 low, make more fragile, faster extension.","moves": ["16,3", "14,2", "15,5"],"enabled": true}, {"id": 15,"comment": "Approach 3-4 low, make solid, calm extension.","moves": ["16,3", "14,2", "15,4"],"enabled": true}, {"id": 20,"comment": "Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves": ["15,15", "13,15", "15,13", "15,16", "16,16", "14,16", "16,17", "13,13"],"enabled": true}, {"id": 21,"comment": "Approach 4-4 high, back off high, trade corner potential for influence.","moves": ["15,3", "15,5", "13,3", "13,5"],"enabled": true}, {"id": 10,"comment": "Approach 4-4 low, back off, and settle calmly.","moves": ["3,3", "2,5", "5,2", "1,3", "2,2", "2,8"],"enabled": true}, {"id": 19,"comment": "Approach 4-4 low, back off, force defender to split corner, develop sides.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "2,1", "3,5"],"enabled": true}, {"id": 5,"comment": "Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "3,5", "2,6"],"enabled": true}, {"id": 9,"comment": "Approach 4-4 low, get kicked, get side thickness.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9", "2,7", "3,7", "1,5", "1,6", "1,4", "2,6"],"enabled": true}, {"id": 18,"comment": "Approach 4-4 low, get kicked, settle.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 8,"comment": "Enclose 3-4.","moves": ["3,2", "pass", "2,4"],"enabled": true}, {"id": 11,"comment": "Enclose 4-4.","moves": ["3,3", "pass", "2,5"],"enabled": true}, {"id": 26,"comment": "Fuseki: Chinese.","moves": ["15,3", "3,15", "15,16", "3,3", "16,10"],"enabled": true}, {"id": 25,"comment": "Fuseki: Sanrensei.","moves": ["3,3", "15,15", "15,3", "3,15", "9,3"],"enabled": true}, {"id": 6,"comment": "Invade 4-4, defender double-hanes to retain corner.","moves": ["3,3", "2,2", "2,3", "3,2", "4,2", "4,1", "5,1", "5,2", "4,3", "6,1", "3,1", "5,0", "2,1"],"enabled": true}, {"id": 22,"comment": "Invade 4-4, defender emphasizes side and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "2,4", "3,4", "1,5"],"enabled": true}, {"id": 13,"comment": "Invade 4-4, defender emphasizes side influence and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "1,5"],"enabled": true}, {"id": 23,"comment": "Invade 4-4, defender seals invader in with excellent influence.","moves": ["15,3", "16,2", "16,3", "15,2", "14,2", "14,1", "13,2", "13,1", "12,2", "17,3", "17,4", "17,2", "16,5"],"enabled": true}, {"id": 12,"comment": "Invade 4-4, defender trades some corner territory for sente.","moves": ["3,3", "2,2", "3,2", "2,3", "3,4", "1,5"],"enabled": true}, {"id": 24,"comment": "Invade 4-4, invader lives with sente.","moves": ["15,3", "16,2", "15,2", "16,3", "16,4", "17,4", "16,5", "17,5", "16,6", "17,6", "16,7"],"enabled": true}]}]};
 const EMPTY_SCORE = {
             sessionAttempts: 0,
             sessionSuccess: 0,
@@ -26,12 +26,14 @@ const EMPTY_SCORE = {
         };
 
 {
-    var josekis = [];
+    var josekiData = {};
     var tree;
     var board;
     var game;
     var currentEditJoseki;
     var currentEditBoard;
+    var currentEditGroupIndex;
+    var groupHiddenState = {};
     var gridOption = false;
     var ghostStone;
     var lastMove;
@@ -126,12 +128,27 @@ const EMPTY_SCORE = {
     }
 
     function apiBase() {
-        return window.location.hostname == 'localhost' ? 'http://localhost' : 'https://api.joseki.cat';
+        return window.location.hostname == 'localhost' ? 'http://localhost:8000' : 'https://api.joseki.cat';
     }
 
-    function storeJoseki() {
-        gtag("event", "edit", {'event_category': 'joseki', "value" : josekis.length});
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekis));
+    function getJosekiArray(filter) {
+        const result = [];
+
+        for (let i = 0; i < josekiData.groups.length; i++) {
+            const group = josekiData.groups[i];
+
+            for (const joseki of group.josekis) {
+                if (!filter || filter(joseki, group, i))
+                    result.push(joseki);
+            };
+        }
+
+        return result;
+    }
+
+    function storeJosekiData() {
+        gtag("event", "edit", {'event_category': 'joseki', "value" : getJosekiArray().length});
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(josekiData));
 
         let token = window.localStorage.getItem(TOKEN_KEY)
         if (token) {
@@ -143,19 +160,35 @@ const EMPTY_SCORE = {
                     'Authorization': token,
                     'Content-Type': 'application/json',
                 }, 
-                'body': JSON.stringify(josekis),
+                'body': JSON.stringify(josekiData),
             });
         }
     }
 
-    function loadJoseki(initFunc) {
-        function ensureBackwardsCompatibility(jArray)  {
-            jArray.forEach(j => {
+    function ensureBackwardsCompatibility(rawJosekiData)  {
+        // Added Ability To Enable/Disable Josekis
+        function upgradeToPreVersion1(josekis) {
+            josekis.forEach(j => {
                 if (!Object.hasOwn(j, "enabled"))
                     j.enabled = true;
             });
         }
 
+        // Added Ability to Group Josekis
+        function upgradeToVersion1(josekis) {
+            let newJosekiData = { version: 1, groups: []};
+            newJosekiData.groups.push(newJosekiGroup('Existing Josekis', true, josekis));
+            return newJosekiData;
+        }
+
+        if (rawJosekiData.version)
+            return;
+
+        upgradeToPreVersion1(rawJosekiData);
+        josekiData = upgradeToVersion1(rawJosekiData);
+    }
+
+    function loadJosekiData(initFunc) {
         let token = window.localStorage.getItem(TOKEN_KEY)
         if(token) {
             // We have a login, check server
@@ -165,18 +198,18 @@ const EMPTY_SCORE = {
 
                     // Joseki on server, use those
                     if (response.ok) {
-                        josekis = await response.json();
-                        ensureBackwardsCompatibility(josekis);
+                        josekiData = await response.json();
+                        ensureBackwardsCompatibility(josekiData);
                         initFunc();
 
                         // Nothing on server yet, pull local or init
                     } else if (response.status == 404) {
                         if (window.localStorage.getItem(STORAGE_KEY)){
-                            josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-                            ensureBackwardsCompatibility(josekis);
-                            storeJoseki(); // Write whatever they have locally to server
+                            josekiData = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+                            ensureBackwardsCompatibility(josekiData);
+                            storeJosekiData(); // Write whatever they have locally to server
                         } else {
-                            josekis = STARTER_JOSEKIS;
+                            josekiData = STARTER_JOSEKIS;
                         }
                         initFunc();
 
@@ -188,10 +221,10 @@ const EMPTY_SCORE = {
         } else {
             // Not logged in, pull local or init
             if (window.localStorage.getItem(STORAGE_KEY)){
-                josekis = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-                ensureBackwardsCompatibility(josekis);
+                josekiData = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+                ensureBackwardsCompatibility(josekiData);
             } else {
-                josekis = STARTER_JOSEKIS;
+                josekiData = STARTER_JOSEKIS;
             }
             initFunc();
         }
@@ -344,9 +377,8 @@ const EMPTY_SCORE = {
         return output;
     }
 
-
     function buildTree() {
-        let original = clone(josekis.filter((j) => j.enabled));
+        let original = clone(getJosekiArray((joseki, group) => group.enabled && joseki.enabled));
 
         // mirror left to right, top to bottom, and diagonally
         let ltr = transformJoseki( original, function(x,y) { 
@@ -407,75 +439,124 @@ const EMPTY_SCORE = {
         }
         mainBoard(handleEditAdd, true);
         setupLogin();
-        loadJoseki(resetEdit);
+        loadJosekiData(resetEdit);
     }
 
     function resetEdit(id) {
+        const getGroupEl = function(groupIndex, enabled) {
+            return `<div class="group row g-2 mt-2">
+                <div class="col-12">
+                    <div class="card border-info mb-3">
+                        <div class="overlay--${!enabled} joseki-group__overlay--${!enabled} no-border cursor--pointer" onClick="event.stopPropagation(); toggleHideJosekiGroup(${groupIndex});"></div>
+                        <div class="card-header h5 cursor--pointer no-border" onClick="event.stopPropagation(); toggleHideJosekiGroup(${groupIndex});">
+                            <span id="joseki-group-${groupIndex}-name" class="joseki-group__name-overlay--${!enabled}"></span>
+                            <div class="joseki-group__actions">
+                                <button class="btn btn-secondary border-primary joseki-group__btn" onClick="event.stopPropagation(); toggleJosekiGroup(${groupIndex});">Toggle Group</button>    
+                                <button class="btn btn-warning border-primary joseki-group__btn" onClick="event.stopPropagation(); deleteJosekiGroup(${groupIndex});">Delete Group</button>
+                            </div>
+                        </div>
+                        <div id="joseki-group-${groupIndex}-content" class="row g-2 mt-1 p-2 joseki-group__content"></div>
+                    </div>
+                </div>
+            </div>`;
+        };
+
         mainBoard(handleEditAdd);
         game = new WGo.Game();
 
+        currentEditGroupIndex = null;
         currentEditJoseki = newJoseki();
         currentEditBoard = [board.getState()];
         document.getElementById('comment').value = '';
-
+        let josekiGroupSelectEl = document.getElementById('group');
+        josekiGroupSelectEl.innerHTML = '';
 
         // Existing menu
-        josekis.sort(function(a,b) { return a['comment'].localeCompare(b['comment']);});
-        let existing = document.getElementById("existingList");
-        existing.innerHTML = '';
-        for (const joseki of josekis) {
-            let josekiCont = document.createElement("div");
-            josekiCont.className = "menu-card col card mx-2 p-1 col-2 border-primary align-top";
-            if (joseki.id == id) {
-                josekiCont.className += " bg-info";
-            } else {
-                josekiCont.addEventListener('click', function() { resetEdit(joseki.id);});
-            }
+        let groupsContainerEl = document.getElementById("joseki-groups");
+        groupsContainerEl.innerHTML = '';
 
-            let overlayEl = document.createElement('div');
-            overlayEl.className = "joseki-overlay--" + joseki.enabled.toString();
-            josekiCont.appendChild(overlayEl);
+        for (let groupIndex = 0; groupIndex < josekiData.groups.length; groupIndex++) {
+            let group = josekiData.groups[groupIndex];
 
-            let rowEl = document.createElement('div');
-            rowEl.className = "row g-2";
-            josekiCont.appendChild(rowEl);
+            let groupOptionEl = document.createElement('option');
+            groupOptionEl.value = groupIndex;
+            groupOptionEl.text = group.name;
+            josekiGroupSelectEl.appendChild(groupOptionEl);
 
-            let menuBoardEl = document.createElement("div");
-            menuBoardEl.className = 'menu-board col';
-            rowEl.appendChild(menuBoardEl);
+            let josekiGroupEl = document.createElement('div');
+            josekiGroupEl.innerHTML = getGroupEl(groupIndex, group.enabled);
+            groupsContainerEl.appendChild(josekiGroupEl);
 
-            let commentEl = document.createElement("div");
-            commentEl.className = 'col';
-            commentEl.appendChild(document.createTextNode(joseki.comment));
-            rowEl.appendChild(commentEl);
+            document.getElementById('joseki-group-' + groupIndex + '-name').textContent = group.name;
 
-            josekiCont.appendChild(rowEl);
+            group.josekis.sort(function(a,b) { return a['comment'].localeCompare(b['comment']);});
 
-            existing.appendChild(josekiCont);
-            let existingBoard = newBoard(menuBoardEl, SMALL_SIZE, false);
-            let color = WGo.B;
-            for (const move of joseki.moves) {
-                let [x,y] = parseMove(move);
-                existingBoard.addObject({ x: x, y: y, c: color});
-                color = color == WGo.B ? WGo.W : WGo.B;
-            }
-        }
-
-        if(id) {
-            currentEditJoseki = josekis.find(function(a){ return a.id == id});
-            let moves = currentEditJoseki.moves;
-            currentEditJoseki.moves = [];
-            for (const move of moves){
-                if(move == PASS){
-                    editPass();
+            for (const joseki of group.josekis) {
+                let josekiCont = document.createElement("div");
+                josekiCont.className = "menu-card col card mx-2 p-1 col-2 border-primary align-top";
+                if (joseki.id == id) {
+                    josekiCont.className += " bg-info";
                 } else {
+                    josekiCont.addEventListener('click', function() { resetEdit(joseki.id);});
+                }
+    
+                let overlayEl = document.createElement('div');
+                overlayEl.className = `overlay--${!joseki.enabled} joseki__overlay--${!joseki.enabled}`;
+                josekiCont.appendChild(overlayEl);
+    
+                let rowEl = document.createElement('div');
+                rowEl.className = "row g-2";
+                josekiCont.appendChild(rowEl);
+    
+                let menuBoardEl = document.createElement("div");
+                menuBoardEl.className = 'menu-board col';
+                rowEl.appendChild(menuBoardEl);
+    
+                let commentEl = document.createElement("div");
+                commentEl.className = 'col';
+                commentEl.appendChild(document.createTextNode(joseki.comment));
+                rowEl.appendChild(commentEl);
+    
+                josekiCont.appendChild(rowEl);
+    
+                let existing = document.getElementById('joseki-group-' + groupIndex + '-content');
+                existing.appendChild(josekiCont);
+                let existingBoard = newBoard(menuBoardEl, SMALL_SIZE, false);
+                let color = WGo.B;
+                for (const move of joseki.moves) {
                     let [x,y] = parseMove(move);
-                    handleEditAdd(x,y);
+                    existingBoard.addObject({ x: x, y: y, c: color});
+                    color = color == WGo.B ? WGo.W : WGo.B;
                 }
             }
-            document.getElementById('comment').value = currentEditJoseki.comment;
-        }
 
+            // Set the max-height, so css can animate hiding the group on user action
+            let groupContentEl = document.getElementById('joseki-group-' + groupIndex + '-content');
+            groupContentEl.style['max-height'] = groupContentEl.clientHeight + 'px';
+            if (groupHiddenState[groupIndex])
+                groupContentEl.classList.add('joseki-group__content--hidden');
+    
+            if(id) {
+                let tmpJoseki = group.josekis.find(function(a){ return a.id == id});
+                if (!tmpJoseki)
+                    continue;
+
+                currentEditJoseki = tmpJoseki;
+                currentEditGroupIndex = groupIndex;
+                let moves = currentEditJoseki.moves;
+                currentEditJoseki.moves = [];
+                for (const move of moves){
+                    if(move == PASS){
+                        editPass();
+                    } else {
+                        let [x,y] = parseMove(move);
+                        handleEditAdd(x,y);
+                    }
+                }
+                document.getElementById('comment').value = currentEditJoseki.comment;
+                josekiGroupSelectEl.value = groupIndex;
+            }
+        }
     }
 
     function handleEditAdd(x,y) {
@@ -511,65 +592,149 @@ const EMPTY_SCORE = {
         }
     }
 
-
-
     function editSave() {
         currentEditJoseki.comment = document.getElementById('comment').value || "#" + currentEditJoseki.id;
-        if(josekis.find(function(a){ return a.id == currentEditJoseki.id})) {
-            let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-            josekis[index] = currentEditJoseki;
-        } else {
-            josekis.unshift(currentEditJoseki);
+        let desiredGroup = document.getElementById('group').value;
+
+        if (currentEditGroupIndex !== null) {
+            let josekiIndex = josekiData.groups[currentEditGroupIndex].josekis.findIndex(function(a){ return a.id === currentEditJoseki.id});
+            if (josekiIndex !== -1)
+                josekiData.groups[currentEditGroupIndex].josekis.splice(josekiIndex, 1);
         }
 
-        storeJoseki();
+        josekiData.groups[desiredGroup].josekis.unshift(currentEditJoseki);
 
+        storeJosekiData();
         resetEdit();
     }
 
+        ////////// Edit Joseki Actions ///////////
+
     function newJoseki() {
-        let maxId;
-        if(josekis.length){
-            maxId = Math.max(...josekis.map(function(a) {return a.id}));
-        }else{
-            maxId = 0;
-        }
+        let maxId = 0;
+        getJosekiArray((joseki) => {
+            if (joseki.id > maxId)
+                maxId = joseki.id;
+        });
+
         return {'id': maxId +1, 'comment':'', 'moves': [], 'enabled': true};
     }
 
     function deleteJoseki() {
-        if (josekis.length > 1) {
-            if (confirm("Are you sure you want to delete this joseki?")) {
-                let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-                if (index > -1) {
-                    josekis.splice(index, 1);
-                }
-                storeJoseki();
-                resetEdit();
-            }
-        }else {
-            alert("Can't remove last joseki");
-        }
-    }
+        let currentJoseki = getJosekiArray(joseki => joseki.id === currentEditJoseki.id).pop();
+        let numEnabledJosekis = getJosekiArray((joseki, group) => joseki.enabled && group.enabled).length;
+        let allJosekis = getJosekiArray();
 
-    function toggleJoseki() {
-        let numEnabledJosekis = josekis.filter(j => j.enabled).length;
-        let index = josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
-        let currentJoseki = index > -1 ? josekis[index] : null;
-        
-        if (!currentJoseki) {
+        if (!currentJoseki)
             return alert("No joseki selected");
-        }
 
-        if (numEnabledJosekis <= 1 && currentJoseki.enabled) {
-            return alert("Can't disable last joseki");
-        }
+        if (allJosekis.length <= 1)
+            return alert("Can't remove last joseki");
 
-        currentJoseki.enabled = !currentJoseki.enabled;
-        storeJoseki();
+        if (numEnabledJosekis <= 1 && currentJoseki.enabled)
+            return alert("Can't delete last enabled joseki");
+
+        if (!confirm("Are you sure you want to delete this joseki?"))
+            return;
+            
+        josekiData.groups.forEach(group => {
+            let index = group.josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
+            if (index > -1) {
+                group.josekis.splice(index, 1);
+            }
+        });
+        
+        storeJosekiData();
         resetEdit();
     }
 
+    function toggleJoseki() {
+        let numEnabledJosekis = getJosekiArray((joseki, group) => group.enabled && joseki.enabled).length;
+        let currentJoseki = getJosekiArray(joseki => joseki.id === currentEditJoseki.id).pop();
+
+        if (!currentJoseki)
+            return alert("No joseki selected");
+
+        if (numEnabledJosekis <= 1 && currentJoseki.enabled)
+            return alert("At least one joseki must be enabled");
+
+        currentJoseki.enabled = !currentJoseki.enabled;
+        storeJosekiData();
+        resetEdit();
+    }
+
+    ////////// Edit Joseki Group Actions ///////////
+
+    function newJosekiGroup(name = '', enabled = true, josekis = []) {
+        return { 'name': name, 'enabled': enabled, 'josekis': josekis};
+    }
+
+    function saveJosekiGroup() {
+        let groupName = prompt('Please enter a name for the new group');
+        
+        if (groupName === null)
+            return;
+
+        groupName = groupName?.trim();
+
+        if (!groupName)
+            return alert('Group name cannot be whitespace')
+
+        if (['\\', '"', ':'].some(char => groupName.includes(char)))
+            return alert('Group names may not include \\, : or " characters');
+
+        if (josekiData.groups.filter((group) => group.name.toLowerCase() === groupName.toLowerCase()).length)
+            return alert(groupName + ' already exists');
+
+        josekiData.groups.push(newJosekiGroup(groupName, true, []));
+
+        storeJosekiData();
+        resetEdit();
+
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function deleteJosekiGroup(deleteGroupIndex) {
+        if (josekiData.groups.length <= 1)
+            return alert('Cannot delete only Joseki Group');
+        
+        if (getJosekiArray((joseki, group, groupIndex) => joseki.enabled && group.enabled && groupIndex !== deleteGroupIndex).length < 1)
+            return alert ('Cannot delete all remaining enabled josekis');
+
+        if (!confirm("Are you sure you want to delete group " + josekiData.groups[deleteGroupIndex].name + " and all josekis in that group?"))
+            return;
+
+        josekiData.groups.splice(deleteGroupIndex, 1);
+                
+        storeJosekiData();
+        resetEdit();
+    }
+
+    function toggleJosekiGroup(toggleGroupIndex) {
+        let group = josekiData.groups[toggleGroupIndex];
+
+        if (group.enabled) {
+            let numRemainingEnabledJosekis = getJosekiArray((joseki, group, groupIndex) => groupIndex !== toggleGroupIndex && group.enabled && joseki.enabled).length;
+
+            if (numRemainingEnabledJosekis < 1)
+                return alert ("At least one joseki must remain enabled");
+        }
+
+        group.enabled = !group.enabled;
+        storeJosekiData();
+        resetEdit();
+    }
+
+    function toggleHideJosekiGroup(toggleGroupIndex) {
+        if (!Object.hasOwn(groupHiddenState, toggleGroupIndex))
+            groupHiddenState[toggleGroupIndex] = false;
+
+        groupHiddenState[toggleGroupIndex] = !groupHiddenState[toggleGroupIndex];
+
+        let groupContentEl = document.getElementById('joseki-group-' + toggleGroupIndex + '-content');
+        groupContentEl.classList.add('joseki-group__content--animate');
+        groupContentEl.classList.toggle('joseki-group__content--hidden');
+    }
 
     ////////// Play ///////////
 
@@ -588,7 +753,7 @@ const EMPTY_SCORE = {
         mainBoard(handleMove, true);
         setupLogin();
         loadScores();
-        loadJoseki(reset);
+        loadJosekiData(reset);
     }
 
     function reset() {
@@ -704,7 +869,7 @@ const EMPTY_SCORE = {
             score.score += Math.round(
                 moves *
                 Math.max(Math.log10(score.combo) * BIG_FACTOR, 1) *
-                Math.max(Math.log10(Object.keys(josekis.filter(j => j.enabled)).length) * FACTOR, 1) *
+                Math.max(Math.log10(Object.keys(getJosekiArray((joseki, group) => group.enabled && joseki.enabled)).length) * FACTOR, 1) *
                 Math.max(Math.log10(Object.keys(score.unique).length) * FACTOR, 1)
             );
             updateHighScore(score.score);
