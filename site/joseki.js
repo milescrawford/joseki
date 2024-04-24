@@ -85,6 +85,7 @@ const EMPTY_SCORE = {
     }
 
     function boardMsg(text, color='black') {
+        clearBoardMsg();
         let fillStyle = "rgba(0,0,0,0.9)";
         if (color == 'green') {
             fillStyle = "rgba(40,167,69,0.9)";
