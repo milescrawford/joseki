@@ -53,14 +53,26 @@
 
                         <div id="boardcontainer" class="card boder-primary board-bg"></div>
                         <div class="text-center">
-                            <button onClick="editPass()" class="btn  border-primary btn-info mt-2" id="pass">Pass / Tenuki</button>
-                            <button class="btn btn-secondary border-primary mt-2" onClick="editRemove()">Delete Last Move</button>
+                            <div class="row">
+                                <div class="col mt-2 p-2">
+                                    Stone Type:
+                                    <select id="editStoneType">
+                                        <option value="normal">Normal</option>
+                                        <option value="automatic">Automatic</option>
+                                    </select>
+                                </div>
+                                <div class="col mt-2">
+                                    <button onClick="editPass()" class="btn btn-info border-primary" id="pass">Pass / Tenuki</button>
+                                </div >
+                                <div class="col mt-2">
+                                    <button class="btn btn-secondary border-primary" onClick="editRemove()">Delete Last Move</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Controls -->
                     <div class="col-sm-4">
-
                         <div class="card border-danger mb-3" id="save-warning">
                             <div class="card-header h5">Warning!</div>
                             <div class="card-body">
