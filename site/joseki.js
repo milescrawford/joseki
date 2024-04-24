@@ -831,7 +831,7 @@ const EMPTY_SCORE = {
         loadJosekiData(reset);
     }
 
-    function reset() {
+    async function reset() {
 
         displayScore();
         buildTree();
@@ -850,7 +850,7 @@ const EMPTY_SCORE = {
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
-            handlePass();
+            await handlePass();
         }
     }
 
@@ -880,7 +880,7 @@ const EMPTY_SCORE = {
         }
     }
 
-    function handleMove(x, y) {
+    async function handleMove(x, y) {
         gtag("event", "move", {'event_category': 'joseki'});
         document.getElementById('pass-card').className = 'hide-card';
         clearBoardMsg();
@@ -892,7 +892,7 @@ const EMPTY_SCORE = {
             if (move in tree) {
                 // Correct move
                 tree = tree[move];
-                respond();
+                await respond();
             } else if (moves === 1) {
                 // can't fail on the first move
                 emptyStartPoint();
@@ -903,12 +903,12 @@ const EMPTY_SCORE = {
         }
     }
 
-    function handlePass() {
+    async function handlePass() {
         moves += 1;
         if (PASS in tree) {
             game.pass();
             tree = tree[PASS];
-            respond();
+            await respond();
         } else {
             fail(PASS);
         }
