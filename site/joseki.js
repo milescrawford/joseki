@@ -15,7 +15,7 @@ const DAY_KEY = 'day';
 const DAY_SCORE_KEY = 'dayScore';
 const WELCOME_KEY = 'welcomeSeen';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
-const STARTER_JOSEKIS = {version: 1,groups: [{name: "Existing Josekis",enabled: true,josekis: [{"id": 27,"comment": "Fuseki: Orthodox.","moves": ["15,15", "3,3", "16,3", "3,15", "14,2"],"enabled": true}, {"id": 4,"comment": "Approach 3-4 high and settle facing in front of the 3-4.","moves": ["3,2", "3,4", "2,4", "2,5", "2,3", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 17,"comment": "Approach 3-4 high, settle facing to the side of the 3-4.","moves": ["3,2", "3,4", "2,4", "3,3", "2,3", "4,2", "2,2", "3,5"],"enabled": true}, {"id": 7,"comment": "Approach 3-4 low, get kicked, and settle low.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "2,8"],"enabled": true}, {"id": 14,"comment": "Approach 3-4 low, get kicked, settle high.","moves": ["3,2", "2,4", "2,3", "3,4", "5,2", "3,8"],"enabled": true}, {"id": 16,"comment": "Approach 3-4 low, make more fragile, faster extension.","moves": ["16,3", "14,2", "15,5"],"enabled": true}, {"id": 15,"comment": "Approach 3-4 low, make solid, calm extension.","moves": ["16,3", "14,2", "15,4"],"enabled": true}, {"id": 20,"comment": "Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves": ["15,15", "13,15", "15,13", "15,16", "16,16", "14,16", "16,17", "13,13"],"enabled": true}, {"id": 21,"comment": "Approach 4-4 high, back off high, trade corner potential for influence.","moves": ["15,3", "15,5", "13,3", "13,5"],"enabled": true}, {"id": 10,"comment": "Approach 4-4 low, back off, and settle calmly.","moves": ["3,3", "2,5", "5,2", "1,3", "2,2", "2,8"],"enabled": true}, {"id": 19,"comment": "Approach 4-4 low, back off, force defender to split corner, develop sides.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "2,1", "3,5"],"enabled": true}, {"id": 5,"comment": "Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves": ["3,3", "2,5", "5,2", "2,3", "2,2", "1,2", "2,4", "1,3", "3,4", "1,4", "3,5", "2,6"],"enabled": true}, {"id": 9,"comment": "Approach 4-4 low, get kicked, get side thickness.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9", "2,7", "3,7", "1,5", "1,6", "1,4", "2,6"],"enabled": true}, {"id": 18,"comment": "Approach 4-4 low, get kicked, settle.","moves": ["3,3", "2,5", "2,4", "3,5", "5,2", "3,9"],"enabled": true}, {"id": 8,"comment": "Enclose 3-4.","moves": ["3,2", "pass", "2,4"],"enabled": true}, {"id": 11,"comment": "Enclose 4-4.","moves": ["3,3", "pass", "2,5"],"enabled": true}, {"id": 26,"comment": "Fuseki: Chinese.","moves": ["15,3", "3,15", "15,16", "3,3", "16,10"],"enabled": true}, {"id": 25,"comment": "Fuseki: Sanrensei.","moves": ["3,3", "15,15", "15,3", "3,15", "9,3"],"enabled": true}, {"id": 6,"comment": "Invade 4-4, defender double-hanes to retain corner.","moves": ["3,3", "2,2", "2,3", "3,2", "4,2", "4,1", "5,1", "5,2", "4,3", "6,1", "3,1", "5,0", "2,1"],"enabled": true}, {"id": 22,"comment": "Invade 4-4, defender emphasizes side and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "2,4", "3,4", "1,5"],"enabled": true}, {"id": 13,"comment": "Invade 4-4, defender emphasizes side influence and sente.","moves": ["3,3", "2,2", "3,2", "2,3", "2,5", "1,5"],"enabled": true}, {"id": 23,"comment": "Invade 4-4, defender seals invader in with excellent influence.","moves": ["15,3", "16,2", "16,3", "15,2", "14,2", "14,1", "13,2", "13,1", "12,2", "17,3", "17,4", "17,2", "16,5"],"enabled": true}, {"id": 12,"comment": "Invade 4-4, defender trades some corner territory for sente.","moves": ["3,3", "2,2", "3,2", "2,3", "3,4", "1,5"],"enabled": true}, {"id": 24,"comment": "Invade 4-4, invader lives with sente.","moves": ["15,3", "16,2", "15,2", "16,3", "16,4", "17,4", "16,5", "17,5", "16,6", "17,6", "16,7"],"enabled": true}]}]};
+const STARTER_JOSEKIS = {"version":1,"groups":[{"name":"Existing Josekis","enabled":true,"josekis":[{"id":4,"comment":"Approach 3-4 high and settle facing in front of the 3-4.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"],"enabled":true},{"id":17,"comment":"Approach 3-4 high, settle facing to the side of the 3-4.","moves":["3,2","3,4","2,4","3,3","2,3","4,2","2,2","3,5"],"enabled":true},{"id":7,"comment":"Approach 3-4 low, get kicked, and settle low.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"],"enabled":true},{"id":14,"comment":"Approach 3-4 low, get kicked, settle high.","moves":["3,2","2,4","2,3","3,4","5,2","3,8"],"enabled":true},{"id":16,"comment":"Approach 3-4 low, make more fragile, faster extension.","moves":["16,3","14,2","15,5"],"enabled":true},{"id":15,"comment":"Approach 3-4 low, make solid, calm extension.","moves":["16,3","14,2","15,4"],"enabled":true},{"id":20,"comment":"Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves":["15,15","13,15","15,13","15,16","16,16","14,16","16,17","13,13"],"enabled":true},{"id":21,"comment":"Approach 4-4 high, back off high, trade corner potential for influence.","moves":["15,3","15,5","13,3","13,5"],"enabled":true},{"id":10,"comment":"Approach 4-4 low, back off, and settle calmly.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"],"enabled":true},{"id":19,"comment":"Approach 4-4 low, back off, force defender to split corner, develop sides.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","2,1","3,5"],"enabled":true},{"id":5,"comment":"Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"],"enabled":true},{"id":9,"comment":"Approach 4-4 low, get kicked, get side thickness.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","2,7","3,7","1,5","1,6","1,4","2,6"],"enabled":true},{"id":18,"comment":"Approach 4-4 low, get kicked, settle.","moves":["3,3","2,5","2,4","3,5","5,2","3,9"],"enabled":true},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"],"enabled":true},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"],"enabled":true},{"id":26,"comment":"Fuseki: Chinese.","moves":["15,3","3,15","15,16","3,3","16,10"],"enabled":true},{"id":27,"comment":"Fuseki: Orthodox.","moves":["15,15","3,3","16,3","3,15","14,2"],"enabled":true},{"id":25,"comment":"Fuseki: Sanrensei.","moves":["3,3","15,15","15,3","3,15","9,3"],"enabled":true},{"id":6,"comment":"Invade 4-4, defender double-hanes to retain corner.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"],"enabled":true},{"id":22,"comment":"Invade 4-4, defender emphasizes side and sente.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"],"enabled":true},{"id":13,"comment":"Invade 4-4, defender emphasizes side influence and sente.","moves":["3,3","2,2","3,2","2,3","2,5","1,5"],"enabled":true},{"id":23,"comment":"Invade 4-4, defender seals invader in with excellent influence.","moves":["15,3","16,2","16,3","15,2","14,2","14,1","13,2","13,1","12,2","17,3","17,4","17,2","16,5"],"enabled":true},{"id":12,"comment":"Invade 4-4, defender trades some corner territory for sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"],"enabled":true},{"id":24,"comment":"Invade 4-4, invader lives with sente.","moves":["15,3","16,2","15,2","16,3","16,4","17,4","16,5","17,5","16,6","17,6","16,7"],"enabled":true}]},{"name":"Automatic Stones","enabled":false,"josekis":[{"id":29,"comment":"3-3 Invasion - AI Joseki - Weaknesses","moves":["2,15,true","3,3,true","5,15,true","15,15,true","16,16,true","15,16,false","16,15,false","16,14,false","17,14,false","16,13,false","17,13,false","16,12,false","17,12,false","16,11,false","15,3,true","9,15,true","11,15,true","7,16,true","14,14,false","15,14,false","11,13,false"],"enabled":true},{"id":28,"comment":"Eternal Life","moves":["0,17,true","0,15,true","0,16,true","1,15,true","1,16,true","2,15,true","2,16,true","3,15,true","3,16,true","4,15,true","4,16,true","5,15,true","4,17,true","5,16,true","5,17,true","6,17,true","6,18,true","7,17,true","3,18,true","3,17,true","18,18,true","2,17,true","18,17,true","1,17,true","17,17,true","1,18,true","17,18,true","5,18,true","2,18,false","4,18,false","3,18,false","5,18,false","2,18,false","4,18,false","3,18,false","5,18,false"],"enabled":true}]}]};
 const EMPTY_SCORE = {
             sessionAttempts: 0,
             sessionSuccess: 0,
@@ -38,10 +38,11 @@ const EMPTY_SCORE = {
     var ghostStone;
     var lastMove;
     var msgObj;
+    var running = false;
 
     // Scoring
     var score;
-    var moves = 0;
+    var numPlayerMoves = 0;
     var streak = 0;
 
     var reloadDate = getDate();
@@ -300,11 +301,11 @@ const EMPTY_SCORE = {
 
     function parseMove(move) {
         let coords = move.split(",");
-        return [parseInt(coords[0]), parseInt(coords[1])];
+        return [parseInt(coords[0]), parseInt(coords[1]), "true" === coords[2]];
     }
 
-    function serMove(x,y) {
-        return x + "," + y;
+    function serMove(x,y, isAutomaticStone) {
+        return x + "," + y + "," + isAutomaticStone;
     }
 
     function xyToGrid(x,y) {
@@ -366,9 +367,9 @@ const EMPTY_SCORE = {
                 if (move == PASS) {
                     transformed.moves.push(PASS);
                 } else {
-                    let [x,y] = parseMove(move);
+                    let [x,y,isAuto] = parseMove(move);
                     let [newx, newy] = transform(x,y);
-                    let newMove = serMove(newx, newy);
+                    let newMove = serMove(newx, newy, isAuto);
 
                     transformed.moves.push(newMove);
                 }
@@ -550,8 +551,8 @@ const EMPTY_SCORE = {
                     if(move == PASS){
                         editPass();
                     } else {
-                        let [x,y] = parseMove(move);
-                        handleEditAdd(x,y);
+                        let [x,y,isAuto] = parseMove(move);
+                        editAdd(x,y,isAuto);
                     }
                 }
                 document.getElementById('comment').value = currentEditJoseki.comment;
@@ -561,13 +562,23 @@ const EMPTY_SCORE = {
     }
 
     function handleEditAdd(x,y) {
+        let stoneType = document.getElementById('editStoneType')?.value;
+        editAdd(x,y, stoneType === 'automatic');
+    }
+
+    function editAdd(x,y,isAutomaticStone) {
         clearGhostStone();
         let color = game.turn;
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
-            currentEditJoseki.moves.push(serMove(x,y));
+            currentEditJoseki.moves.push(serMove(x,y,isAutomaticStone));
             board.addObject({ x: x, y: y, c: color});
-            board.addObject({x: x, y: y, type: "LB", font: FONT, text: (currentEditJoseki.moves.length)});
+
+            if (!isAutomaticStone) {
+                let moveNumber = currentEditJoseki.moves.reduce((acc, m) => acc + (parseMove(m)[2] ? 0 : 1), 0);
+                board.addObject({x: x, y: y, type: "LB", font: FONT, text: moveNumber});
+            }
+
             board.removeObject(result);
             currentEditBoard.push(board.getState());
         }
@@ -751,22 +762,22 @@ const EMPTY_SCORE = {
         }else {
             document.getElementById('all-time').className += ' d-none';
         }
-        mainBoard(handleMove, true);
+        mainBoard(handlePlayMove, true);
         setupLogin();
         loadScores();
         loadJosekiData(reset);
     }
 
     async function reset() {
-
+        running = true;
         displayScore();
         buildTree();
-        mainBoard(handleMove);
+        mainBoard(handlePlayMove);
 
         game = new WGo.Game();
 
         // Update info/stats
-        document.getElementById('pass').addEventListener('click', handlePass);
+        document.getElementById('pass').addEventListener('click', handlePassMove);
         document.getElementById('fail-card').className = 'hide-card';
         document.getElementById('success-card').className = 'hide-card';
         document.getElementById('pass-card').className = 'hide-card';
@@ -775,13 +786,17 @@ const EMPTY_SCORE = {
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
-            await handlePass();
+            await passMove(true);
+        } else {
+            await playAutomaticMove();
         }
-    }
 
+        running = false;
+    }
 
     function play(color, x, y) {
         let result = game.play(x,y,color);
+
         if (Array.isArray(result)) {
             if (lastMove) {
                 board.removeObject(lastMove);
@@ -805,27 +820,54 @@ const EMPTY_SCORE = {
         }
     }
 
-    async function handleMove(x, y) {
+    async function handlePlayMove(x, y) {
+        if (running) return;
+        running = true;
+
+        await playMove(x,y,false);
+
+        running = false;
+    }
+
+    async function playMove(x, y, isAutomaticMove = false) {
         gtag("event", "move", {'event_category': 'joseki'});
         document.getElementById('pass-card').className = 'hide-card';
         clearBoardMsg();
-        moves += 1;
-        let move = serMove(x,y);
+        
+        if (!isAutomaticMove)
+            numPlayerMoves += 1;
 
-        if (play(WGo.B,x,y)) {
+        let automaticMove = serMove(x,y,true);
+        let normalMove = serMove(x,y,false);
 
-            if (move in tree) {
+        if (play(WGo.B, x,y)) {
+            if (automaticMove in tree) {
                 // Correct move
-                tree = tree[move];
+                tree = tree[automaticMove];
                 await respond();
-            }else{
-                fail(move); 
+            } else if (normalMove in tree) {
+                // Correct move
+                tree = tree[normalMove];
+                await respond();
+            } else{
+                fail(automaticMove); 
             }
         }
     }
 
-    async function handlePass() {
-        moves += 1;
+    async function handlePassMove() {
+        if (running) return;
+        running = true;
+
+        await passMove();
+
+        running = false;
+    }
+
+    async function passMove(isAutomaticMove = false) {
+        if (!isAutomaticMove)
+            numPlayerMoves += 1;
+
         if (PASS in tree) {
             game.pass();
             tree = tree[PASS];
@@ -877,7 +919,7 @@ const EMPTY_SCORE = {
 
             // # moves base * combo multi * unique multi * total multi
             score.score += Math.round(
-                moves *
+                numPlayerMoves *
                 Math.max(Math.log10(score.combo) * BIG_FACTOR, 1) *
                 Math.max(Math.log10(Object.keys(getJosekiArray((joseki, group) => group.enabled && joseki.enabled)).length) * FACTOR, 1) *
                 Math.max(Math.log10(Object.keys(score.unique).length) * FACTOR, 1)
@@ -902,7 +944,7 @@ const EMPTY_SCORE = {
             });
         }
 
-        moves = 0;
+        numPlayerMoves = 0;
         displayScore();
     }
 
@@ -920,26 +962,30 @@ const EMPTY_SCORE = {
     }
 
     function shutdown() {
-        document.getElementById('pass').removeEventListener('click', handlePass);
-        board.removeEventListener('click', handleMove);
+        document.getElementById('pass').removeEventListener('click', handlePassMove);
+        board.removeEventListener('click', handlePlayMove);
         board.removeEventListener('mousemove', handleHover);
         board.addEventListener('click', reset);
     }
 
     // Make a reply if we can
     async function respond() {
-        const possibleMoves = Object.keys(tree).filter(move => move != DONE);
+        const possibleMoves = getPossibleMoves();
         if (possibleMoves.length > 0){
-            await new Promise(r => setTimeout(r, DELAY_MS));
-            const chosenMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+            await delay();
+            const chosenMove = chooseRandomMove(possibleMoves);
             tree = tree[chosenMove];
 
             if (chosenMove == PASS){
                 pass();
             } else {
                 let [x,y] = parseMove(chosenMove);
+
                 play(WGo.W, x,y);
             }
+
+            if (await playAutomaticMove())
+                return;
         }
 
         // Joseki is done if nothing left
@@ -947,5 +993,31 @@ const EMPTY_SCORE = {
             succeed(tree[DONE]);
         }
     }
-}
 
+    function getPossibleMoves() {
+        return Object.keys(tree).filter(move => move != DONE);
+    }
+
+    function chooseRandomMove(possibleMoves) {
+        return possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+    }
+
+    // If the next stone in the joseki is an automatic stone, play it automatically.
+    async function playAutomaticMove() {
+        let possibleMoves = getPossibleMoves().filter(m => m != PASS);
+        if (possibleMoves.length <= 0)
+            return false;
+
+        let [x,y,isAuto] = parseMove(chooseRandomMove(possibleMoves));
+        if (isAuto) {
+            await delay();
+            await playMove(x,y,isAuto);
+        }
+
+        return isAuto;
+    }
+
+    function delay() {
+        return new Promise(r => setTimeout(r, DELAY_MS))
+    }
+}
