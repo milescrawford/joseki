@@ -766,7 +766,7 @@ const EMPTY_SCORE = {
         game = new WGo.Game();
 
         // Update info/stats
-        document.getElementById('pass').addEventListener('click', pass);
+        document.getElementById('pass').addEventListener('click', handlePass);
         document.getElementById('fail-card').className = 'hide-card';
         document.getElementById('success-card').className = 'hide-card';
         document.getElementById('pass-card').className = 'hide-card';
@@ -775,7 +775,7 @@ const EMPTY_SCORE = {
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
-            pass();
+            handlePass();
         }
     }
 
@@ -793,6 +793,15 @@ const EMPTY_SCORE = {
             return true;
         } else {
             return false;
+        }
+    }
+
+    function pass() {
+        game.pass();
+        document.getElementById('pass-card').className = "show-card";
+        boardMsg('White Passed')
+        if (lastMove) {
+            board.removeObject(lastMove);
         }
     }
 
@@ -815,7 +824,7 @@ const EMPTY_SCORE = {
         }
     }
 
-    function pass() {
+    function handlePass() {
         moves += 1;
         if (PASS in tree) {
             game.pass();
@@ -911,7 +920,7 @@ const EMPTY_SCORE = {
     }
 
     function shutdown() {
-        document.getElementById('pass').removeEventListener('click', pass);
+        document.getElementById('pass').removeEventListener('click', handlePass);
         board.removeEventListener('click', handleMove);
         board.removeEventListener('mousemove', handleHover);
         board.addEventListener('click', reset);
@@ -926,12 +935,7 @@ const EMPTY_SCORE = {
             tree = tree[chosenMove];
 
             if (chosenMove == PASS){
-                game.pass();
-                document.getElementById('pass-card').className = "show-card";
-                boardMsg('White Passed')
-                if (lastMove) {
-                    board.removeObject(lastMove);
-                }
+                pass();
             } else {
                 let [x,y] = parseMove(chosenMove);
                 play(WGo.W, x,y);
