@@ -56,13 +56,13 @@
                             <div class="row">
                                 <div class="col mt-2 p-2">
                                     Stone Type:
-                                    <select id="editStoneType">
+                                    <select id="editStoneType" onchange="handleEditStoneTypeChange()">
                                         <option value="normal">Normal</option>
-                                        <option value="automatic">Automatic</option>
+                                        <option value="automatic">Setup</option>
                                     </select>
                                 </div>
                                 <div class="col mt-2">
-                                    <button onClick="editPass()" class="btn btn-info border-primary" id="pass">Pass / Tenuki</button>
+                                    <button id="passButton" onClick="handleEditPass()" class="btn btn-info border-primary" id="pass">Pass / Tenuki</button>
                                 </div >
                                 <div class="col mt-2">
                                     <button class="btn btn-secondary border-primary" onClick="editRemove()">Delete Last Move</button>

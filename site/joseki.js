@@ -3,7 +3,8 @@ const FACTOR = 5;
 const BIG_FACTOR = 10;
 const PASS = 'pass';
 const DONE = 'done';
-const DELAY_MS = 250;
+const DELAY_INITIAL = 0;
+const DELAY_STANDARD = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
@@ -15,7 +16,7 @@ const DAY_KEY = 'day';
 const DAY_SCORE_KEY = 'dayScore';
 const WELCOME_KEY = 'welcomeSeen';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
-const STARTER_JOSEKIS = {"version":1,"groups":[{"name":"Existing Josekis","enabled":true,"josekis":[{"id":4,"comment":"Approach 3-4 high and settle facing in front of the 3-4.","moves":["3,2","3,4","2,4","2,5","2,3","3,5","5,2","3,9"],"enabled":true},{"id":17,"comment":"Approach 3-4 high, settle facing to the side of the 3-4.","moves":["3,2","3,4","2,4","3,3","2,3","4,2","2,2","3,5"],"enabled":true},{"id":7,"comment":"Approach 3-4 low, get kicked, and settle low.","moves":["3,2","2,4","2,3","3,4","5,2","2,8"],"enabled":true},{"id":14,"comment":"Approach 3-4 low, get kicked, settle high.","moves":["3,2","2,4","2,3","3,4","5,2","3,8"],"enabled":true},{"id":16,"comment":"Approach 3-4 low, make more fragile, faster extension.","moves":["16,3","14,2","15,5"],"enabled":true},{"id":15,"comment":"Approach 3-4 low, make solid, calm extension.","moves":["16,3","14,2","15,4"],"enabled":true},{"id":20,"comment":"Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves":["15,15","13,15","15,13","15,16","16,16","14,16","16,17","13,13"],"enabled":true},{"id":21,"comment":"Approach 4-4 high, back off high, trade corner potential for influence.","moves":["15,3","15,5","13,3","13,5"],"enabled":true},{"id":10,"comment":"Approach 4-4 low, back off, and settle calmly.","moves":["3,3","2,5","5,2","1,3","2,2","2,8"],"enabled":true},{"id":19,"comment":"Approach 4-4 low, back off, force defender to split corner, develop sides.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","2,1","3,5"],"enabled":true},{"id":5,"comment":"Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves":["3,3","2,5","5,2","2,3","2,2","1,2","2,4","1,3","3,4","1,4","3,5","2,6"],"enabled":true},{"id":9,"comment":"Approach 4-4 low, get kicked, get side thickness.","moves":["3,3","2,5","2,4","3,5","5,2","3,9","2,7","3,7","1,5","1,6","1,4","2,6"],"enabled":true},{"id":18,"comment":"Approach 4-4 low, get kicked, settle.","moves":["3,3","2,5","2,4","3,5","5,2","3,9"],"enabled":true},{"id":8,"comment":"Enclose 3-4.","moves":["3,2","pass","2,4"],"enabled":true},{"id":11,"comment":"Enclose 4-4.","moves":["3,3","pass","2,5"],"enabled":true},{"id":26,"comment":"Fuseki: Chinese.","moves":["15,3","3,15","15,16","3,3","16,10"],"enabled":true},{"id":27,"comment":"Fuseki: Orthodox.","moves":["15,15","3,3","16,3","3,15","14,2"],"enabled":true},{"id":25,"comment":"Fuseki: Sanrensei.","moves":["3,3","15,15","15,3","3,15","9,3"],"enabled":true},{"id":6,"comment":"Invade 4-4, defender double-hanes to retain corner.","moves":["3,3","2,2","2,3","3,2","4,2","4,1","5,1","5,2","4,3","6,1","3,1","5,0","2,1"],"enabled":true},{"id":22,"comment":"Invade 4-4, defender emphasizes side and sente.","moves":["3,3","2,2","3,2","2,3","2,5","2,4","3,4","1,5"],"enabled":true},{"id":13,"comment":"Invade 4-4, defender emphasizes side influence and sente.","moves":["3,3","2,2","3,2","2,3","2,5","1,5"],"enabled":true},{"id":23,"comment":"Invade 4-4, defender seals invader in with excellent influence.","moves":["15,3","16,2","16,3","15,2","14,2","14,1","13,2","13,1","12,2","17,3","17,4","17,2","16,5"],"enabled":true},{"id":12,"comment":"Invade 4-4, defender trades some corner territory for sente.","moves":["3,3","2,2","3,2","2,3","3,4","1,5"],"enabled":true},{"id":24,"comment":"Invade 4-4, invader lives with sente.","moves":["15,3","16,2","15,2","16,3","16,4","17,4","16,5","17,5","16,6","17,6","16,7"],"enabled":true}]},{"name":"Automatic Stones","enabled":false,"josekis":[{"id":29,"comment":"3-3 Invasion - AI Joseki - Weaknesses","moves":["2,15,true","3,3,true","5,15,true","15,15,true","16,16,true","15,16,false","16,15,false","16,14,false","17,14,false","16,13,false","17,13,false","16,12,false","17,12,false","16,11,false","15,3,true","9,15,true","11,15,true","7,16,true","14,14,false","15,14,false","11,13,false"],"enabled":true},{"id":28,"comment":"Eternal Life","moves":["0,17,true","0,15,true","0,16,true","1,15,true","1,16,true","2,15,true","2,16,true","3,15,true","3,16,true","4,15,true","4,16,true","5,15,true","4,17,true","5,16,true","5,17,true","6,17,true","6,18,true","7,17,true","3,18,true","3,17,true","18,18,true","2,17,true","18,17,true","1,17,true","17,17,true","1,18,true","17,18,true","5,18,true","2,18,false","4,18,false","3,18,false","5,18,false","2,18,false","4,18,false","3,18,false","5,18,false"],"enabled":true}]}]};
+const STARTER_JOSEKIS = {"version":2,"groups":[{"name":"Existing Josekis","enabled":true,"josekis":[{"id":4,"comment":"Approach 3-4 high and settle facing in front of the 3-4.","moves":["3,2,false","3,4,false","2,4,false","2,5,false","2,3,false","3,5,false","5,2,false","3,9,false"],"enabled":true},{"id":17,"comment":"Approach 3-4 high, settle facing to the side of the 3-4.","moves":["3,2,false","3,4,false","2,4,false","3,3,false","2,3,false","4,2,false","2,2,false","3,5,false"],"enabled":true},{"id":7,"comment":"Approach 3-4 low, get kicked, and settle low.","moves":["3,2,false","2,4,false","2,3,false","3,4,false","5,2,false","2,8,false"],"enabled":true},{"id":14,"comment":"Approach 3-4 low, get kicked, settle high.","moves":["3,2,false","2,4,false","2,3,false","3,4,false","5,2,false","3,8,false"],"enabled":true},{"id":16,"comment":"Approach 3-4 low, make more fragile, faster extension.","moves":["16,3,false","14,2,false","15,5,false"],"enabled":true},{"id":15,"comment":"Approach 3-4 low, make solid, calm extension.","moves":["16,3,false","14,2,false","15,4,false"],"enabled":true},{"id":20,"comment":"Approach 4-4 high, back off high, give defender large corner in exchange for influence.","moves":["15,15,false","13,15,false","15,13,false","15,16,false","16,16,false","14,16,false","16,17,false","13,13,false"],"enabled":true},{"id":21,"comment":"Approach 4-4 high, back off high, trade corner potential for influence.","moves":["15,3,false","15,5,false","13,3,false","13,5,false"],"enabled":true},{"id":10,"comment":"Approach 4-4 low, back off, and settle calmly.","moves":["3,3,false","2,5,false","5,2,false","1,3,false","2,2,false","2,8,false"],"enabled":true},{"id":19,"comment":"Approach 4-4 low, back off, force defender to split corner, develop sides.","moves":["3,3,false","2,5,false","5,2,false","2,3,false","2,2,false","1,2,false","2,4,false","1,3,false","3,4,false","1,4,false","2,1,false","3,5,false"],"enabled":true},{"id":5,"comment":"Approach 4-4 low, back off, force defender to split the corner, and keep side low.","moves":["3,3,false","2,5,false","5,2,false","2,3,false","2,2,false","1,2,false","2,4,false","1,3,false","3,4,false","1,4,false","3,5,false","2,6,false"],"enabled":true},{"id":9,"comment":"Approach 4-4 low, get kicked, get side thickness.","moves":["3,3,false","2,5,false","2,4,false","3,5,false","5,2,false","3,9,false","2,7,false","3,7,false","1,5,false","1,6,false","1,4,false","2,6,false"],"enabled":true},{"id":18,"comment":"Approach 4-4 low, get kicked, settle.","moves":["3,3,false","2,5,false","2,4,false","3,5,false","5,2,false","3,9,false"],"enabled":true},{"id":8,"comment":"Enclose 3-4.","moves":["3,2,false","p,false","2,4,false"],"enabled":true},{"id":11,"comment":"Enclose 4-4.","moves":["3,3,false","p,false","2,5,false"],"enabled":true},{"id":26,"comment":"Fuseki: Chinese.","moves":["15,3,false","3,15,false","15,16,false","3,3,false","16,10,false"],"enabled":true},{"id":27,"comment":"Fuseki: Orthodox.","moves":["15,15,false","3,3,false","16,3,false","3,15,false","14,2,false"],"enabled":true},{"id":25,"comment":"Fuseki: Sanrensei.","moves":["3,3,false","15,15,false","15,3,false","3,15,false","9,3,false"],"enabled":true},{"id":6,"comment":"Invade 4-4, defender double-hanes to retain corner.","moves":["3,3,false","2,2,false","2,3,false","3,2,false","4,2,false","4,1,false","5,1,false","5,2,false","4,3,false","6,1,false","3,1,false","5,0,false","2,1,false"],"enabled":true},{"id":22,"comment":"Invade 4-4, defender emphasizes side and sente.","moves":["3,3,false","2,2,false","3,2,false","2,3,false","2,5,false","2,4,false","3,4,false","1,5,false"],"enabled":true},{"id":13,"comment":"Invade 4-4, defender emphasizes side influence and sente.","moves":["3,3,false","2,2,false","3,2,false","2,3,false","2,5,false","1,5,false"],"enabled":true},{"id":23,"comment":"Invade 4-4, defender seals invader in with excellent influence.","moves":["15,3,false","16,2,false","16,3,false","15,2,false","14,2,false","14,1,false","13,2,false","13,1,false","12,2,false","17,3,false","17,4,false","17,2,false","16,5,false"],"enabled":true},{"id":12,"comment":"Invade 4-4, defender trades some corner territory for sente.","moves":["3,3,false","2,2,false","3,2,false","2,3,false","3,4,false","1,5,false"],"enabled":true},{"id":24,"comment":"Invade 4-4, invader lives with sente.","moves":["15,3,false","16,2,false","15,2,false","16,3,false","16,4,false","17,4,false","16,5,false","17,5,false","16,6,false","17,6,false","16,7,false"],"enabled":true}]},{"name":"Setup Stone Examples","enabled":false,"josekis":[{"id":29,"comment":"3-3 Approach with Support\nIf you have support in the nearby corner, a pincer is a good option","moves":["3,15,true","p,true","16,16,true","13,16,true","10,16,false","15,15,false","16,15,false","15,13,false","16,14,false","13,13,false","7,16,false"],"enabled":true},{"id":28,"comment":"Eternal Life","moves":["0,17,true","0,15,true","0,16,true","1,15,true","1,16,true","2,15,true","2,16,true","3,15,true","3,16,true","4,15,true","4,16,true","5,15,true","4,17,true","5,16,true","5,17,true","6,17,true","6,18,true","7,17,true","3,18,true","3,17,true","p,true","2,17,true","p,true","1,17,true","p,true","1,18,true","p,true","5,18,true","2,18,false","4,18,false","3,18,false","5,18,false","2,18,false","4,18,false","3,18,false","5,18,false"],"enabled":true}]}],"userSettings":{"allowUnrestrictedAutoStones":false}};
 const EMPTY_SCORE = {
             sessionAttempts: 0,
             sessionSuccess: 0,
@@ -26,6 +27,7 @@ const EMPTY_SCORE = {
         };
 
 {
+    var delay_ms = DELAY_INITIAL;
     var josekiData = {};
     var tree;
     var board;
@@ -171,27 +173,48 @@ const EMPTY_SCORE = {
         }
     }
 
-    function ensureBackwardsCompatibility(rawJosekiData)  {
+    function ensureBackwardsCompatibility()  {
         // Added Ability To Enable/Disable Josekis
-        function upgradeToPreVersion1(josekis) {
-            josekis.forEach(j => {
+        function upgradeToPreVersion1() {
+            josekiData.forEach(j => {
                 if (!Object.hasOwn(j, "enabled"))
                     j.enabled = true;
             });
         }
 
         // Added Ability to Group Josekis
-        function upgradeToVersion1(josekis) {
+        function upgradeToVersion1() {
             let newJosekiData = { version: 1, groups: []};
-            newJosekiData.groups.push(newJosekiGroup('Existing Josekis', true, josekis));
-            return newJosekiData;
+            newJosekiData.groups.push(newJosekiGroup('Existing Josekis', true, josekiData));
+            josekiData = newJosekiData;
         }
 
-        if (rawJosekiData.version)
-            return;
+        // Moves and passing can be manual or automatic.  Adds saved user settings.
+        function upgradeToVersion2() {
+            josekiData.version = 2;
+            josekiData.userSettings = {};
+            josekiData.userSettings.allowUnrestrictedAutoStones = false;
+            
+            let jArray = getJosekiArray();
+            for (const j of jArray) {
+                for (let i = 0; i < j.moves.length; i++) {
+                    if (j.moves[i] == PASS)
+                        j.moves[i] = serMove(true, null, null, false);
+                    else {
+                        let m = parseMove(j.moves[i]);
+                        j.moves[i] = serMove(false, m.x, m.y, m.isAuto);
+                    }
+                }
+            }
+        }
 
-        upgradeToPreVersion1(rawJosekiData);
-        josekiData = upgradeToVersion1(rawJosekiData);
+        if (!josekiData.version) {
+            upgradeToPreVersion1();
+            upgradeToVersion1();
+        }
+
+        if (josekiData.version < 2)
+            upgradeToVersion2();
     }
 
     function loadJosekiData(initFunc) {
@@ -205,14 +228,14 @@ const EMPTY_SCORE = {
                     // Joseki on server, use those
                     if (response.ok) {
                         josekiData = await response.json();
-                        ensureBackwardsCompatibility(josekiData);
+                        ensureBackwardsCompatibility();
                         initFunc();
 
                         // Nothing on server yet, pull local or init
                     } else if (response.status == 404) {
                         if (window.localStorage.getItem(STORAGE_KEY)){
                             josekiData = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-                            ensureBackwardsCompatibility(josekiData);
+                            ensureBackwardsCompatibility();
                             storeJosekiData(); // Write whatever they have locally to server
                         } else {
                             josekiData = STARTER_JOSEKIS;
@@ -228,7 +251,7 @@ const EMPTY_SCORE = {
             // Not logged in, pull local or init
             if (window.localStorage.getItem(STORAGE_KEY)){
                 josekiData = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-                ensureBackwardsCompatibility(josekiData);
+                ensureBackwardsCompatibility();
             } else {
                 josekiData = STARTER_JOSEKIS;
             }
@@ -303,13 +326,26 @@ const EMPTY_SCORE = {
     }
     window.addEventListener('resize', boardResize);
 
-    function parseMove(move) {
-        let coords = move.split(",");
-        return [parseInt(coords[0]), parseInt(coords[1]), "true" === coords[2]];
+    function parseMove(moveStr) {
+        let moveArr = moveStr.split(",");
+
+        let move = {};
+        
+        if (moveArr[0] === 'p') {
+            move.type = PASS;
+            move.isAuto = "true" === moveArr[1];
+        } else {
+            move.type = "move";
+            move.x = parseInt(moveArr[0]);
+            move.y = parseInt(moveArr[1]);
+            move.isAuto = "true" === moveArr[2];
+        }
+        
+        return move;
     }
 
-    function serMove(x,y, isAutomaticStone) {
-        return x + "," + y + "," + isAutomaticStone;
+    function serMove(isPass, x,y, isAuto) {
+        return isPass ? "p," + isAuto : x + "," + y + "," + isAuto;
     }
 
     function xyToGrid(x,y) {
@@ -367,13 +403,13 @@ const EMPTY_SCORE = {
         for (const joseki of toTransform){
             let transformed = clone(joseki); 
             transformed.moves = [];
-            for (const move of joseki.moves){
-                if (move == PASS) {
-                    transformed.moves.push(PASS);
+            for (const moveStr of joseki.moves){
+                let move = parseMove(moveStr);
+                if (move.type == PASS) {
+                    transformed.moves.push(moveStr);
                 } else {
-                    let [x,y,isAuto] = parseMove(move);
-                    let [newx, newy] = transform(x,y);
-                    let newMove = serMove(newx, newy, isAuto);
+                    let [newx, newy] = transform(move.x, move.y);
+                    let newMove = serMove(false, newx, newy, move.isAuto);
 
                     transformed.moves.push(newMove);
                 }
@@ -398,7 +434,8 @@ const EMPTY_SCORE = {
         let whiteBegins = [];
         for (const joseki of original.concat(ltr, ttb, diag)){
             let wb = clone(joseki);
-            wb.moves.unshift(PASS);
+            let passStr = serMove(true, null, null, false);
+            wb.moves.unshift(passStr);
             whiteBegins.push(wb);
         }
 
@@ -530,8 +567,9 @@ const EMPTY_SCORE = {
                 let existingBoard = newBoard(menuBoardEl, SMALL_SIZE, false);
                 let color = WGo.B;
                 for (const move of joseki.moves) {
-                    let [x,y] = parseMove(move);
-                    existingBoard.addObject({ x: x, y: y, c: color});
+                    let m = parseMove(move);
+                    if (m.type != PASS)
+                        existingBoard.addObject({ x: m.x, y: m.y, c: color});
                     color = color == WGo.B ? WGo.W : WGo.B;
                 }
             }
@@ -551,17 +589,51 @@ const EMPTY_SCORE = {
                 currentEditGroupIndex = groupIndex;
                 let moves = currentEditJoseki.moves;
                 currentEditJoseki.moves = [];
-                for (const move of moves){
-                    if(move == PASS){
-                        editPass();
+                for (const moveStr of moves){
+                    let move = parseMove(moveStr);
+                    if(move.type == PASS){
+                        editPass(move.isAuto);
                     } else {
-                        let [x,y,isAuto] = parseMove(move);
-                        editAdd(x,y,isAuto);
+                        editAdd(move.x, move.y, move.isAuto);
                     }
                 }
                 document.getElementById('comment').value = currentEditJoseki.comment;
                 josekiGroupSelectEl.value = groupIndex;
             }
+        }
+
+        setAllowAutoStone();
+    }
+
+    function handleEditStoneTypeChange() {
+        let stoneType = document.getElementById('editStoneType')?.value;
+        let isAuto = stoneType === 'automatic';
+        editStoneTypeChange(isAuto);
+    }
+
+    function editStoneTypeChange(isAuto) {
+        let passButton = document.getElementById('passButton');
+        passButton.innerText = isAuto ? 'Automatic Pass' : 'Pass / Tenuki';
+    }
+
+    function setAllowAutoStone() {
+        if (josekiData?.userSettings?.allowUnrestrictedAutoStones)
+            return;
+
+        // Setup/Auto stones can only start a joseki.  They cannot be after a non-automatic move.
+        let allowAutoStones = true;
+        if (currentEditJoseki.moves.some(m => !parseMove(m).isAuto))
+            allowAutoStones = false;
+
+        let stoneTypeElem = document.getElementById('editStoneType');
+        stoneTypeElem.disabled = !allowAutoStones;
+        
+        if (!allowAutoStones) {
+            stoneTypeElem.value = 'normal';
+            editStoneTypeChange(false)
+            stoneTypeElem.parentElement.setAttribute('data-tooltip', 'Setup stones can only start a joseki!');
+        } else {
+            stoneTypeElem.parentElement.removeAttribute('data-tooltip');
         }
     }
 
@@ -570,22 +642,23 @@ const EMPTY_SCORE = {
         editAdd(x,y, stoneType === 'automatic');
     }
 
-    function editAdd(x,y,isAutomaticStone) {
+    function editAdd(x,y,isAuto) {
         clearGhostStone();
         let color = game.turn;
         let result = game.play(x,y,color);
         if (Array.isArray(result)) {
-            currentEditJoseki.moves.push(serMove(x,y,isAutomaticStone));
+            currentEditJoseki.moves.push(serMove(false, x,y,isAuto));
             board.addObject({ x: x, y: y, c: color});
 
-            if (!isAutomaticStone) {
-                let moveNumber = currentEditJoseki.moves.reduce((acc, m) => acc + (parseMove(m)[2] ? 0 : 1), 0);
+            if (!isAuto) {
+                let moveNumber = currentEditJoseki.moves.reduce((acc, m) => acc + (parseMove(m).isAuto ? 0 : 1), 0);
                 board.addObject({x: x, y: y, type: "LB", font: FONT, text: moveNumber});
             }
 
             board.removeObject(result);
             currentEditBoard.push(board.getState());
         }
+        setAllowAutoStone();
     }
 
     function editRemove() {
@@ -597,15 +670,23 @@ const EMPTY_SCORE = {
             // keep it safe.
             board.restoreState(clone(currentEditBoard[currentEditBoard.length - 1]));
         }
+        setAllowAutoStone();
     }
 
-    function editPass() {
-        if( currentEditJoseki.moves.length > 0){
+    function handleEditPass() {
+        let stoneType = document.getElementById('editStoneType')?.value;
+        editPass(stoneType === 'automatic');
+    }
+
+    function editPass(isAuto) {
+        // If you are adding a pass, the pass can't be the first automatic or first normal move in the joseki.
+        if( currentEditJoseki.moves.filter(m => parseMove(m).isAuto === isAuto).length > 0){
             clearGhostStone();
-            currentEditJoseki.moves.push(PASS);
+            currentEditJoseki.moves.push(serMove(true, null, null, isAuto));
             currentEditBoard.push(board.getState());
             game.pass();
         }
+        setAllowAutoStone();
     }
 
     function editSave() {
@@ -774,6 +855,7 @@ const EMPTY_SCORE = {
 
     async function reset() {
         running = true;
+        delay_ms = DELAY_INITIAL;
         displayScore();
         buildTree();
         mainBoard(handlePlayMove);
@@ -790,7 +872,7 @@ const EMPTY_SCORE = {
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
-            await passMove(true);
+            await passMove(false);
         } else {
             await playAutomaticMove();
         }
@@ -817,8 +899,12 @@ const EMPTY_SCORE = {
 
     function pass() {
         game.pass();
-        document.getElementById('pass-card').className = "show-card";
-        boardMsg('White Passed')
+
+        if (delay_ms !== DELAY_INITIAL) {
+            document.getElementById('pass-card').className = "show-card";
+            boardMsg('White Passed')
+        }
+
         if (lastMove) {
             board.removeObject(lastMove);
         }
@@ -827,6 +913,7 @@ const EMPTY_SCORE = {
     async function handlePlayMove(x, y) {
         if (running) return;
         running = true;
+        delay_ms = DELAY_STANDARD;
 
         await playMove(x,y,false);
 
@@ -841,8 +928,8 @@ const EMPTY_SCORE = {
         if (!isAutomaticMove)
             numPlayerMoves += 1;
 
-        let automaticMove = serMove(x,y,true);
-        let normalMove = serMove(x,y,false);
+        let automaticMove = serMove(false, x,y,true);
+        let normalMove = serMove(false, x,y,false);
 
         if (play(WGo.B, x,y)) {
             if (automaticMove in tree) {
@@ -862,6 +949,7 @@ const EMPTY_SCORE = {
     async function handlePassMove() {
         if (running) return;
         running = true;
+        delay_ms = DELAY_STANDARD;
 
         await passMove();
 
@@ -872,12 +960,19 @@ const EMPTY_SCORE = {
         if (!isAutomaticMove)
             numPlayerMoves += 1;
 
-        if (PASS in tree) {
+        let autoPass = serMove(true, null, null, true);
+        let manualPass = serMove(true, null, null, false);
+
+        if (autoPass in tree) {
             game.pass();
-            tree = tree[PASS];
+            tree = tree[autoPass];
+            await respond();
+        } else if (manualPass in tree) {
+            game.pass();
+            tree = tree[manualPass];
             await respond();
         } else {
-            fail(PASS);
+            fail(autoPass);
         }
     }
 
@@ -886,17 +981,18 @@ const EMPTY_SCORE = {
         boardMsg("Failed", 'red');
         document.getElementById('fail-card').className = "show-card";
 
-        if(move != PASS){
-            let [x,y] = parseMove(move);
-            board.removeObjectsAt(x, y);
-            board.addObject({ x: x, y: y, type: 'MA' });
+        let m = parseMove(move);
+        if(m.type != PASS){
+            board.removeObjectsAt(m.x, m.y);
+            board.addObject({ x: m.x, y: m.y, type: 'MA' });
         }
         for (const correct of Object.keys(tree)) {
-            if (correct == PASS) {
+            let c = parseMove(correct);
+
+            if (c.type == PASS) {
                 document.getElementById('pass-msg').className = "d-block";
             } else {
-                let [x,y] = parseMove(correct);
-                board.addObject({x: x, y:y, type: 'outline'});
+                board.addObject({x: c.x, y:c.y, type: 'outline'});
             }
         }
 
@@ -980,12 +1076,11 @@ const EMPTY_SCORE = {
             const chosenMove = chooseRandomMove(possibleMoves);
             tree = tree[chosenMove];
 
-            if (chosenMove == PASS){
+            let m = parseMove(chosenMove);
+            if (m.type == PASS){
                 pass();
             } else {
-                let [x,y] = parseMove(chosenMove);
-
-                play(WGo.W, x,y);
+                play(WGo.W, m.x,m.y);
             }
 
             if (await playAutomaticMove())
@@ -1008,20 +1103,25 @@ const EMPTY_SCORE = {
 
     // If the next stone in the joseki is an automatic stone, play it automatically.
     async function playAutomaticMove() {
-        let possibleMoves = getPossibleMoves().filter(m => m != PASS);
+        let possibleMoves = getPossibleMoves();
         if (possibleMoves.length <= 0)
             return false;
 
-        let [x,y,isAuto] = parseMove(chooseRandomMove(possibleMoves));
-        if (isAuto) {
-            await delay();
-            await playMove(x,y,isAuto);
+        let m = parseMove(chooseRandomMove(possibleMoves));
+
+        if (m.isAuto) {
+            if (m.type === PASS) {
+                await passMove(m.isAuto);
+            } else {
+                await delay();
+                await playMove(m.x, m.y, m.isAuto);
+            }
         }
 
-        return isAuto;
+        return m.isAuto;
     }
 
     function delay() {
-        return new Promise(r => setTimeout(r, DELAY_MS))
+        return new Promise(r => setTimeout(r, delay_ms));
     }
 }
