@@ -133,6 +133,10 @@ const EMPTY_SCORE = {
         return window.location.hostname == 'localhost' ? 'http://localhost:8000' : 'https://api.joseki.cat';
     }
 
+    function urlBase() {
+        return window.location.hostname == 'localhost' ? 'http://localhost:8000' : 'https://joseki.cat';
+    }
+
     function getJosekiArray(filter) {
         const result = [];
 
@@ -276,7 +280,7 @@ const EMPTY_SCORE = {
         let emailEl = document.getElementById('email');
 
         let base = "https://login.joseki.cat/oauth2/authorize?client_id=24mjbjvra3522lff13op0dnvhm&response_type=code&scope=email+openid&redirect_uri=";
-        let relativeLogin = window.location.hostname == 'localhost' ? 'http://localhost:8000/login/' : 'https://joseki.cat/login/';
+        let relativeLogin = urlBase() + '/login/';
         let loginUrl = base + encodeURIComponent(relativeLogin);
         loginEl.href = loginUrl;
 
