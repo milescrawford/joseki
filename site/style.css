@@ -3,6 +3,7 @@
     --board-color: #ffe498;
     --bg-light: #00000008;
     --small-board: 150px;
+    --border-radius: 4px 4px 4px 4px/17px 17px 17px 4px;
 }
 
 body {
@@ -151,7 +152,7 @@ td {
 .joseki-group__overlay--true {
     width: 100%;
     height: 100%;
-    border-radius: 4px 4px 4px 4px/17px 17px 17px 4px
+    border-radius: var(--border-radius);
 }
 
 .joseki-group__name-overlay--true {
@@ -193,3 +194,28 @@ td {
     margin-top: 0!important;
     margin-bottom: 0!important;
 }
+<<<<<<< HEAD
+=======
+
+[data-tooltip]::before {
+    position: absolute;
+    content: attr(data-tooltip);
+    opacity: 0;
+    color: var(--bs-white);
+    background-color: var(--bs-info);
+    border-radius: var(--border-radius);
+    line-height: 1.5;
+    border:1px solid black;
+    padding: .375rem .75rem;
+    margin-top:-.45rem;
+    margin-left:-1rem;
+}
+
+[data-tooltip]:hover::before {
+    opacity: 1;
+}
+
+[data-tooltip] {
+    color: #aaa;
+}
+>>>>>>> 6d79a45 (PR Review - Updates Automatic Stone feature based on PR comments)
