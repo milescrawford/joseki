@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 
 RUN apt update && apt-get upgrade -y 
-RUN apt install -y npm awscli
+RUN apt install -y npm
 run npm install terser -g
 
 COPY . /joseki/
