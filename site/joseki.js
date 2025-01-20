@@ -434,7 +434,7 @@ const EMPTY_SCORE = {
         let whiteBegins = [];
         for (const joseki of original.concat(ltr, ttb, diag)){
             let wb = clone(joseki);
-            let passStr = serMove(true, null, null, false);
+            let passStr = serMove(true, null, null, true);
             wb.moves.unshift(passStr);
             whiteBegins.push(wb);
         }
@@ -1108,7 +1108,6 @@ const EMPTY_SCORE = {
             return false;
 
         let m = parseMove(chooseRandomMove(possibleMoves));
-
         if (m.isAuto) {
             if (m.type === PASS) {
                 await passMove(m.isAuto);
