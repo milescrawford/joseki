@@ -843,6 +843,7 @@ const EMPTY_SCORE = {
         document.getElementById('fail-card').className = 'hide-card';
         document.getElementById('success-card').className = 'hide-card';
         document.getElementById('pass-card').className = 'hide-card';
+        document.getElementById('empty-point-card').className = 'hide-card';
         document.getElementById('pass-msg').className = 'd-none';
         clearBoardMsg();
 
@@ -882,7 +883,11 @@ const EMPTY_SCORE = {
                 // Correct move
                 tree = tree[move];
                 respond();
-            }else{
+            } else if (moves === 1) {
+                // can't fail on the first move
+                emptyStartPoint();
+                moves = 0;
+            } else {
                 fail(move); 
             }
         }
@@ -897,6 +902,12 @@ const EMPTY_SCORE = {
         } else {
             fail(PASS);
         }
+    }
+
+    function emptyStartPoint() {
+        shutdown();
+        boardMsg("No josekis yet!", 'black');
+        document.getElementById('empty-point-card').className = "show-card";
     }
 
     function fail(move) {
