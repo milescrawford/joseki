@@ -99,7 +99,7 @@ const EMPTY_SCORE = {
             this.textAlign="center";
             this.font = (board.stoneRadius * 3)+"px "+(board.font || "");
             if(smallBoard) {
-                this.fillText(text, board.getX(13), board.getY(5));
+                this.fillText(text, board.getX(13), board.getY(9));
             } else {
                 this.fillText(text, board.getX(9), board.getY(9));
             }
@@ -885,7 +885,7 @@ const EMPTY_SCORE = {
 
     function succeed(msg) {
         shutdown();
-        boardMsg("Correct", 'green');
+        boardMsg("Correct!", 'green');
         document.getElementById('success-msg').innerText = msg;
         document.getElementById('success-card').className = "show-card";
         updateScore(true, msg);
