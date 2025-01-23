@@ -7,6 +7,7 @@ const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
+const SMALL_THRESH = 600;
 const FONT = 'Cabin Sketch';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
@@ -35,6 +36,7 @@ const EMPTY_SCORE = {
     var currentEditGroupIndex;
     var groupHiddenState = {};
     var gridOption = false;
+    var smallBoard = false;
     var ghostStone;
     var lastMove;
     var msgObj;
@@ -95,8 +97,12 @@ const EMPTY_SCORE = {
             this.fillStyle = fillStyle;
             this.textBaseline="middle";
             this.textAlign="center";
-            this.font = (board.stoneRadius * 4)+"px "+(board.font || "");
-            this.fillText(text, board.getX(9), board.getY(9));
+            this.font = (board.stoneRadius * 3)+"px "+(board.font || "");
+            if(smallBoard) {
+                this.fillText(text, board.getX(13), board.getY(5));
+            } else {
+                this.fillText(text, board.getX(9), board.getY(9));
+            }
         }}};
         board.addCustomObject(msgObj);
     }
@@ -293,6 +299,11 @@ const EMPTY_SCORE = {
         if(board) {
             board.setWidth(width);
         }
+        if (width < SMALL_THRESH) {
+            smallBoard = true;
+        } else {
+            smallBoard = false;
+        }
         return width;
     }
     window.addEventListener('resize', boardResize);
@@ -312,10 +323,15 @@ const EMPTY_SCORE = {
 
     function newBoard(element, width=boardResize(), grid=gridOption) {
         let adjust = grid ? 0.5 : 0;
+        let section = {top: 0, right: 0, bottom: 0, left: 0};
+        if (smallBoard) {
+            section = {top: 0, right: 0, bottom: 8.5, left: 8.5};
+        }
         let b = new WGo.Board(element, {
             width: width,
             background: "",
             font: FONT,
+            section: section,
         });
 
         if(grid){
@@ -396,9 +412,28 @@ const EMPTY_SCORE = {
             whiteBegins.push(wb);
         }
 
+        let all = original.concat(ltr, ttb, diag, whiteBegins);
+
+        // Filter joseki if board is small
+        let filtered = [];
+        if(smallBoard) {
+            filtered = all.filter((x) => {
+                let ret = true;
+                for (const mv of x.moves){
+                    let [x,y] = parseMove(mv);
+                    if(x != 'pass' && (x < 9 || y > 9)) {
+                        ret = false;
+                    }
+                }
+                return ret;
+            })
+        }else {
+            filtered = all;
+        }
+
         // Build move tree
         tree = {};
-        for (const joseki of original.concat(ltr, ttb, diag, whiteBegins)){
+        for (const joseki of filtered){
             let cur_tree = tree;
             for (const move of joseki.moves) {
                 if (! (move in cur_tree)) {
