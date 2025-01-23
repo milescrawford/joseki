@@ -6,8 +6,10 @@ const DONE = 'done';
 const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
-const SMALL_SIZE = 120;
+const SMALL_SIZE = 150;
 const SMALL_THRESH = 600;
+const SMALL_SECTION = {top: 0, right: 0, bottom: 8.5, left: 8.5};
+const FULL_SECTION = {top: 0, right: 0, bottom: 0, left: 0};
 const FONT = 'Cabin Sketch';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
@@ -123,7 +125,7 @@ const EMPTY_SCORE = {
         boardElement.id = "board";
         cont.insertBefore(boardElement, cont.firstChild);
 
-        board = newBoard(document.getElementById('board'));
+        board = newBoard(document.getElementById('board'), boardResize(), (smallBoard ? SMALL_SECTION : FULL_SECTION));
         if (disabled) {
             boardMsg("Loading...");
         }else{
@@ -321,12 +323,7 @@ const EMPTY_SCORE = {
         return [LETTERS[x], 19 - y];
     }
 
-    function newBoard(element, width=boardResize(), grid=gridOption) {
-        let adjust = grid ? 0.5 : 0;
-        let section = {top: 0, right: 0, bottom: 0, left: 0};
-        if (smallBoard) {
-            section = {top: 0, right: 0, bottom: 8.5, left: 8.5};
-        }
+    function newBoard(element, width, section) {
         let b = new WGo.Board(element, {
             width: width,
             background: "",
@@ -334,7 +331,8 @@ const EMPTY_SCORE = {
             section: section,
         });
 
-        if(grid){
+        if(gridOption){
+            let adjust = 0.5;
             b.addCustomObject( { grid: { draw: function(args, board) {
                 var ch, t, xright, xleft, ytop, ybottom;
 
@@ -553,10 +551,51 @@ const EMPTY_SCORE = {
                 rowEl.appendChild(commentEl);
     
                 josekiCont.appendChild(rowEl);
+
+                //Determine board icon section
+                
+                //find min/max stones
+                let minX = 18;
+                let minY = 18;
+                let maxX = 0;
+                let maxY = 0;
+                for (const mv of joseki.moves) {
+                    let [x,y] = parseMove(mv);
+                    if(x != 'pass') {
+                        minX = x < minX ? x : minX;
+                        minY = y < minY ? y : minY;
+                        maxX = x > maxX ? x : maxX;
+                        maxY = y > maxY ? y : maxY;
+                    }
+                }
+
+                // If we're close enough, include the corner 
+                minX = minX < 5 ? 0 : minX -1
+                minY = minY < 5 ? 0 : minY -1
+                maxX = maxX > 13 ? 18 : maxX+1
+                maxY = maxY > 13 ? 18 : maxY+1
+
+
+                // Must be square, find side length and adjust min/max based on
+                // aspect ratio
+                let sqSide = Math.max(maxX - minX, maxY - minY)
+                if(maxX-minX > maxY-minY && minY==0){
+                    maxY = sqSide
+                }else if(maxX-minX > maxY-minY && maxY==18){
+                    minY = maxY - sqSide
+                }else if(maxX-minX < maxY-minY && minX==0){
+                    maxX = sqSide
+                }else if(maxX-minX < maxY-minY && maxX==18){
+                    minX = maxX - sqSide
+                }
+
+                // Translate min/max to board section
+                let section = {top: minY, right: 18-maxX, bottom: 18-maxY, left: minX};
     
+                // Create icon
                 let existing = document.getElementById('joseki-group-' + groupIndex + '-content');
                 existing.appendChild(josekiCont);
-                let existingBoard = newBoard(menuBoardEl, SMALL_SIZE, false);
+                let existingBoard = newBoard(menuBoardEl, SMALL_SIZE, section);
                 let color = WGo.B;
                 for (const move of joseki.moves) {
                     let [x,y] = parseMove(move);
