@@ -7,7 +7,7 @@ const DELAY_MS = 250;
 const STORAGE_KEY = 'josekis';
 const BOARD_SIZE = 600;
 const SMALL_SIZE = 120;
-const SMALL_THRESH = 500;
+const SMALL_THRESH = 600;
 const FONT = 'Cabin Sketch';
 const TOKEN_KEY = 'token'
 const EMAIL_KEY = 'email';
@@ -97,7 +97,7 @@ const EMPTY_SCORE = {
             this.fillStyle = fillStyle;
             this.textBaseline="middle";
             this.textAlign="center";
-            this.font = (board.stoneRadius * 4)+"px "+(board.font || "");
+            this.font = (board.stoneRadius * 3)+"px "+(board.font || "");
             if(smallBoard) {
                 this.fillText(text, board.getX(13), board.getY(5));
             } else {
