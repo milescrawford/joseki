@@ -904,10 +904,23 @@ const EMPTY_SCORE = {
         }
     }
 
+    // displays each valid move as a "ghost" stone
+    function displayGhostStones() {
+        for (const correct of Object.keys(tree)) {
+            if (correct == PASS) {
+                document.getElementById('pass-msg').className = "d-block";
+            } else {
+                let [x,y] = parseMove(correct);
+                board.addObject({x: x, y:y, type: 'outline'});
+            }
+        }
+    }
+
     function emptyStartPoint() {
         shutdown();
-        boardMsg("No josekis yet!", 'black');
+        boardMsg("No joseki yet!", 'black');
         document.getElementById('empty-point-card').className = "show-card";
+        displayGhostStones()
     }
 
     function fail(move) {
@@ -920,14 +933,7 @@ const EMPTY_SCORE = {
             board.removeObjectsAt(x, y);
             board.addObject({ x: x, y: y, type: 'MA' });
         }
-        for (const correct of Object.keys(tree)) {
-            if (correct == PASS) {
-                document.getElementById('pass-msg').className = "d-block";
-            } else {
-                let [x,y] = parseMove(correct);
-                board.addObject({x: x, y:y, type: 'outline'});
-            }
-        }
+        displayGhostStones()
 
         updateScore(false);
         gtag("event", "practice", {'event_category': 'joseki', 'event_label': 'fail'});
