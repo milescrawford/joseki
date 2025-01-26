@@ -194,8 +194,6 @@ td {
     margin-top: 0!important;
     margin-bottom: 0!important;
 }
-<<<<<<< HEAD
-=======
 
 [data-tooltip]::before {
     position: absolute;
@@ -218,4 +216,3 @@ td {
 [data-tooltip] {
     color: #aaa;
 }
->>>>>>> 6d79a45 (PR Review - Updates Automatic Stone feature based on PR comments)
