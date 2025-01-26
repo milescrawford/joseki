@@ -460,8 +460,8 @@ const EMPTY_SCORE = {
             filtered = all.filter((x) => {
                 let ret = true;
                 for (const mv of x.moves){
-                    let [x,y] = parseMove(mv);
-                    if(x != 'pass' && (x < 9 || y > 9)) {
+                    let m = parseMove(mv);
+                    if(m.type != PASS && (m.x < 9 || m.y > 9)) {
                         ret = false;
                     }
                 }
