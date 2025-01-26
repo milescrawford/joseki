@@ -602,13 +602,13 @@ const EMPTY_SCORE = {
                 let minY = 18;
                 let maxX = 0;
                 let maxY = 0;
-                for (const mv of joseki.moves) {
-                    let [x,y] = parseMove(mv);
-                    if(x != 'pass') {
-                        minX = x < minX ? x : minX;
-                        minY = y < minY ? y : minY;
-                        maxX = x > maxX ? x : maxX;
-                        maxY = y > maxY ? y : maxY;
+                for (const move of joseki.moves) {
+                    let m = parseMove(move);
+                    if(m.type != PASS) {
+                        minX = m.x < minX ? m.x : minX;
+                        minY = m.y < minY ? m.y : minY;
+                        maxX = m.x > maxX ? m.x : maxX;
+                        maxY = m.y > maxY ? m.y : maxY;
                     }
                 }
 
