@@ -917,8 +917,6 @@ const EMPTY_SCORE = {
 
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
-        }else {
-            document.getElementById('all-time').className += ' d-none';
         }
         mainBoard(handlePlayMove, true);
         setupLogin();
@@ -1134,9 +1132,14 @@ const EMPTY_SCORE = {
         document.getElementById('streak').innerText = streak;
 
         // animated ones
-        document.getElementById('score').style.setProperty('--score', score.score);
-        document.getElementById('highScore').style.setProperty('--highScore', getHighScore());
+        animateScore('score', score.score)
+        animateScore('highScore', getHighScore())
+    }
 
+    function animateScore(id, newScore) {
+        let curScore = parseInt(document.getElementById(id).innerHTML.replace(/,/g, '') || 0)
+        let startScore = curScore || 0;
+        new CountUp(id, newScore, {startVal: curScore}).start();
     }
 
     function shutdown() {

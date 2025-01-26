@@ -14,6 +14,7 @@
         <meta name="description" content="Practice and learn a collection of joseki for the game of go.">
         <script src="/wgo.min.js"></script>
         <script src="/starter.js"></script>
+        <script src="/countup.js"></script>
         <script src="/joseki.js"></script>
         <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" href="/bootstrap.min.css">
@@ -61,7 +62,7 @@
 
 
                         <div class="card border-info mb-2">
-                            <div class="card-header h5">Today's Score</div>
+                            <div class="card-header h5">Score</div>
                             <div class="card-body">
                                 <table>
                                     <tr>
@@ -78,23 +79,8 @@
                                     </tr>
                                     <tr>
                                         <th>Successful:</th>
-                                        <td><span id="ratio"></span>%</td>
+                                        <td><span id="ratio"></span> %</td>
                                     </tr>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="card border-warning mb-2" id="save-warning">
-                            <div class="card-header h5">All Time</div>
-                            <div class="card-body">
-                                Log in to save high score and daily streak.
-                            </div>
-                        </div>
-
-                        <div class="card border-success mb-2" id="all-time">
-                            <div class="card-header h5">All Time</div>
-                            <div class="card-body">
-                                <table>
                                     <tr>
                                         <th>High Score:</th>
                                         <td id="highScore"></td>
@@ -107,6 +93,12 @@
                             </div>
                         </div>
 
+                        <div class="card border-warning mb-2" id="save-warning">
+                            <div class="card-header h5">All Time</div>
+                            <div class="card-body">
+                                Log in to save high score and daily streak.
+                            </div>
+                        </div>
 
 
                         <div id="pass-card" class="hide-card">
