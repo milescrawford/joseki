@@ -1,0 +1,77 @@
+{
+  "name": "TestGroupforMiles",
+  "enabled": true,
+  "josekis": [
+      {
+          "id": 78,
+          "comment": "Automatic",
+          "moves": [
+              "15,3,true",
+              "16,5,true",
+              "13,2,true",
+              "16,3,true",
+              "16,2,true",
+              "17,2,true",
+              "16,4,true",
+              "17,3,true",
+              "17,4,true",
+              "15,4,true",
+              "17,5,false",
+              "15,2,false",
+              "14,3,false",
+              "15,1,false",
+              "16,6,false",
+              "15,5,false",
+              "15,7,false"
+          ],
+          "enabled": true
+      },
+      {
+          "id": 79,
+          "comment": "Automatic With Automatic Continuation 1",
+          "moves": [
+              "15,3,true",
+              "16,5,true",
+              "13,2,true",
+              "16,3,true",
+              "16,2,true",
+              "17,2,true",
+              "16,4,true",
+              "17,3,true",
+              "17,4,true",
+              "15,4,true",
+              "17,5,false",
+              "17,6,false",
+              "17,7,true",
+              "17,8,true",
+              "17,9,true",
+              "17,10,true"
+          ],
+          "enabled": true
+      },
+      {
+          "id": 77,
+          "comment": "Manual",
+          "moves": [
+              "15,3,false",
+              "16,5,false",
+              "13,2,false",
+              "16,3,false",
+              "16,2,false",
+              "17,2,false",
+              "16,4,false",
+              "17,3,false",
+              "17,4,false",
+              "15,4,false",
+              "17,5,false",
+              "15,2,false",
+              "14,3,false",
+              "15,1,false",
+              "16,6,false",
+              "15,5,false",
+              "15,7,false"
+          ],
+          "enabled": false
+      }
+  ]
+}

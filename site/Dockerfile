@@ -10,5 +10,6 @@ RUN npm install terser -g
 
 COPY . /joseki/
 WORKDIR /joseki/
+RUN rm -rf ./tests/
 
 CMD ["./deploy.sh"]
