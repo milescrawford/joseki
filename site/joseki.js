@@ -1127,14 +1127,12 @@ const EMPTY_SCORE = {
 
     function displayScore() {
         let ratio = score.sessionAttempts == 0 ? 0 : Math.round((score.sessionSuccess / score.sessionAttempts) * 100.0);
-        document.getElementById('ratio').innerHTML = ratio;
-        document.getElementById('unique').innerHTML = Object.keys(score.unique).length;
-        document.getElementById('combo').innerHTML = score.combo;
-        document.getElementById('streak').innerText = streak;
-
-        // animated ones
         animateScore('score', 2, score.score)
+        animateScore('ratio', 2, ratio)
+        animateScore('unique', 2, Object.keys(score.unique).length)
+        animateScore('combo', 3, score.combo)
         animateScore('highScore', 4, getHighScore())
+        animateScore('streak', 5, streak)
     }
 
     function animateScore(id, dur, newScore) {
