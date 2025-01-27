@@ -44,6 +44,7 @@ const EMPTY_SCORE = {
     var lastMove;
     var msgObj;
     var running = false;
+    var scoreCounters = {};
 
     // Scoring
     var score;
@@ -1132,14 +1133,18 @@ const EMPTY_SCORE = {
         document.getElementById('streak').innerText = streak;
 
         // animated ones
-        animateScore('score', score.score)
-        animateScore('highScore', getHighScore())
+        animateScore('score', 2, score.score)
+        animateScore('highScore', 4, getHighScore())
     }
 
-    function animateScore(id, newScore) {
-        let curScore = parseInt(document.getElementById(id).innerHTML.replace(/,/g, '') || 0)
-        let startScore = curScore || 0;
-        new CountUp(id, newScore, {startVal: curScore}).start();
+    function animateScore(id, dur, newScore) {
+        if(id in scoreCounters) {
+            scoreCounters[id].update(newScore);
+        }else{
+            let counter = new CountUp(id, newScore, {duration: dur});
+            scoreCounters[id] = counter
+            counter.start();
+        }
     }
 
     function shutdown() {
