@@ -24,10 +24,10 @@ body {
 }
 
 .navbar {
-    background-image: url('cat.png');
+    background-image: url('cat-logo.png');
     background-repeat: no-repeat;
-    background-position: 98% -50%;
-    background-size: auto 120%;
+    background-position: 98% 50%;
+    background-size: auto 85%;
 }
 
 .container-fluid {
