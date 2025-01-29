@@ -48,7 +48,6 @@ const EMPTY_SCORE = {
     // Scoring
     var score;
     var numPlayerMoves = 0;
-    var streak = 0;
 
     var reloadDate = getDate();
     setInterval(function() {
@@ -304,7 +303,7 @@ const EMPTY_SCORE = {
                     if (response.ok) {
                         let scores = await response.json();
                         updateHighScore(scores['highScore']);
-                        streak = scores['streak'];
+                        score.streak = scores['streak'];
                         displayScore();
 
                     } else if (response.status == 404) {
@@ -1112,6 +1111,11 @@ const EMPTY_SCORE = {
             score.sessionSuccess +=1;
             score.combo += 1;
             score.unique[msg] = true;
+            if(score.score == 0){
+                // If this is the first success today, it means the
+                // streak will increase
+                score.streak += 1;
+            }
 
             // # moves base * combo multi * unique multi * total multi
             score.score += Math.round(
@@ -1149,9 +1153,9 @@ const EMPTY_SCORE = {
         animateScore('score', 2, score.score)
         animateScore('ratio', 2, ratio)
         animateScore('unique', 2, Object.keys(score.unique).length)
-        animateScore('combo', 3, score.combo)
-        animateScore('highScore', 4, getHighScore())
-        animateScore('streak', 5, streak)
+        animateScore('combo', 2, score.combo)
+        animateScore('highScore', 2, getHighScore())
+        animateScore('streak', 2, score.streak)
     }
 
     function animateScore(id, dur, newScore) {

@@ -15,4 +15,5 @@ aws s3 cp --cache-control max-age=3600 bootstrap.min.css s3://joseki.milescrawfo
 aws s3 cp --cache-control max-age=3600 cat.png s3://joseki.milescrawford.com/
 aws s3 cp --cache-control max-age=3600 favicon.png s3://joseki.milescrawford.com/
 aws s3 cp --cache-control max-age=3600 cat-logo.png s3://joseki.milescrawford.com/
+aws s3 cp --cache-control max-age=3600 menu.png s3://joseki.milescrawford.com/
 aws s3 cp --cache-control max-age=3600 manifest.json s3://joseki.milescrawford.com/
