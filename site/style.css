@@ -11,7 +11,17 @@ body {
 }
 
 .navbar-title {
+    font-family: "Cabin Sketch";
+    font-size: 1.7em;
     text-decoration:none;
+    color:white;
+    margin-left:0.3em;
+    margin-right:0.3em;
+    font-weight:500;
+}
+
+.navbar-title:hover {
+    color:white;
 }
 
 .about-cat {
@@ -28,6 +38,26 @@ body {
     background-repeat: no-repeat;
     background-position: 98% 50%;
     background-size: auto 85%;
+}
+
+.nav-menu {
+    display:none;
+    height:40px;
+}
+
+@media screen and (max-width: 700px) {
+  .nav-pills {display:none;}
+  .nav-menu {display:inline;}
+  .nav-pills.responsive {
+    position: absolute;
+    top:1em;
+    left:170px;
+    display: block;
+    background-color: rgba(var(--bs-info-rgb),var(--bs-bg-opacity))!important;
+    border: 3px black solid;
+    padding:0.5em;
+    z-index:999;
+  }
 }
 
 .container-fluid {

@@ -6,7 +6,6 @@ const DONE = 'done';
 const DELAY_INITIAL = 0;
 const DELAY_STANDARD = 250;
 const STORAGE_KEY = 'josekis';
-const BOARD_SIZE = 600;
 const SMALL_SIZE = 150;
 const SMALL_THRESH = 600;
 const SMALL_SECTION = {top: 0, right: 0, bottom: 8.5, left: 8.5};
@@ -59,7 +58,22 @@ const EMPTY_SCORE = {
 
     }, 1000 * 60);
 
+
     ////////// Common ///////////
+
+    function commonInit() {
+        document.getElementById('nav-menu').onclick = handleMenu
+        setupLogin();
+    }
+
+    function handleMenu() {
+        var x = document.getElementById("nav-pills");
+        if (x.className === "nav nav-pills") {
+            x.className += " responsive";
+        } else {
+            x.className = "nav nav-pills";
+        }
+    }
 
     function getDate() {
         let date = new Date();
@@ -488,7 +502,7 @@ const EMPTY_SCORE = {
 
     ////////// about ///////////
     function initAbout() {
-        setupLogin();
+        commonInit();
     }
 
     ////////// login ///////////
@@ -510,11 +524,11 @@ const EMPTY_SCORE = {
     ////////// Edit ///////////
 
     function initEdit() {
+        commonInit();
         if (window.localStorage.getItem(TOKEN_KEY)) {
             document.getElementById('save-warning').className += ' d-none';
         }
         mainBoard(handleEditAdd, true);
-        setupLogin();
         loadJosekiData(resetEdit);
     }
 
@@ -911,6 +925,7 @@ const EMPTY_SCORE = {
 
 
     function init() {
+        commonInit();
         if(!window.localStorage.getItem(WELCOME_KEY)){
             $('#welcomeModal').modal()
             window.localStorage.setItem(WELCOME_KEY, 'seen');
@@ -920,7 +935,6 @@ const EMPTY_SCORE = {
             document.getElementById('save-warning').className += ' d-none';
         }
         mainBoard(handlePlayMove, true);
-        setupLogin();
         loadScores();
         loadJosekiData(reset);
     }
