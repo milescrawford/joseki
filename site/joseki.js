@@ -998,8 +998,13 @@ const EMPTY_SCORE = {
         document.getElementById('pass-card').className = 'hide-card';
         clearBoardMsg();
         
-        if (!isAutomaticMove)
+        // all automatic moves count as one player move for purposes of scoring
+        // and checking for failure
+        if (isAutomaticMove && numPlayerMoves == 0) {
+            numPlayerMoves = 1;
+        }else{
             numPlayerMoves += 1;
+        }
 
         let move = serMove(false, x,y,isAutomaticMove);
 
@@ -1011,8 +1016,8 @@ const EMPTY_SCORE = {
             } else if (numPlayerMoves === 1) {
                 // can't fail on the first move
                 emptyStartPoint();
-                moves = 0;
             } else{
+                // whups
                 fail(move); 
             }
         }
@@ -1044,7 +1049,7 @@ const EMPTY_SCORE = {
     }
 
     // displays each valid move as a "ghost" stone
-    function displayGhostStones() {
+    function displayCorrectGhostStones() {
         for (const correct of Object.keys(tree)) {
             let c = parseMove(correct);
             if (c.type == PASS) {
@@ -1057,14 +1062,14 @@ const EMPTY_SCORE = {
 
     function emptyStartPoint() {
         shutdown();
-        boardMsg("No joseki yet!", 'black');
+        boardMsg("False start!", 'black');
         document.getElementById('empty-point-card').className = "show-card";
-        displayGhostStones()
+        displayCorrectGhostStones()
     }
 
     function fail(move) {
         shutdown();
-        boardMsg("Failed", 'red');
+        boardMsg("Oops!", 'red');
         document.getElementById('fail-card').className = "show-card";
 
         let m = parseMove(move);
@@ -1072,7 +1077,7 @@ const EMPTY_SCORE = {
             board.removeObjectsAt(m.x, m.y);
             board.addObject({ x: m.x, y: m.y, type: 'MA' });
         }
-        displayGhostStones()
+        displayCorrectGhostStones()
         updateScore(false);
         gtag("event", "practice", {'event_category': 'joseki', 'event_label': 'fail'});
     }
