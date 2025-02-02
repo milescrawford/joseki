@@ -47,7 +47,7 @@ body {
 
 @media screen and (max-width: 700px) {
   .nav-pills {display:none;}
-  .nav-menu {display:inline;}
+  .nav-menu {display:inline-block;}
   .nav-pills.responsive {
     position: absolute;
     top:1em;
