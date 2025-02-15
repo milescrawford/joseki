@@ -19,13 +19,13 @@ const DAY_SCORE_KEY = 'dayScore';
 const WELCOME_KEY = 'welcomeSeen';
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"];
 const EMPTY_SCORE = {
-            sessionAttempts: 0,
-            sessionSuccess: 0,
-            combo: 0,
-            score: 0,
-            streak: 0,
-            unique: {},
-        };
+    sessionAttempts: 0,
+    sessionSuccess: 0,
+    combo: 0,
+    score: 0,
+    streak: 0,
+    unique: {},
+};
 
 {
     var delay_ms = DELAY_INITIAL;
@@ -48,6 +48,7 @@ const EMPTY_SCORE = {
     // Scoring
     var score;
     var numPlayerMoves = 0;
+    var movesPlayed = [];
 
     var reloadDate = getDate();
     setInterval(function() {
@@ -215,7 +216,7 @@ const EMPTY_SCORE = {
             josekiData.version = 2;
             josekiData.userSettings = {};
             josekiData.userSettings.allowUnrestrictedAutoStones = false;
-            
+
             let jArray = getJosekiArray();
             for (const j of jArray) {
                 for (let i = 0; i < j.moves.length; i++) {
@@ -356,7 +357,6 @@ const EMPTY_SCORE = {
         let moveArr = moveStr.split(",");
 
         let move = {};
-        
         if (moveArr[0] === 'p') {
             move.type = PASS;
             move.isAuto = "true" === moveArr[1];
@@ -366,7 +366,7 @@ const EMPTY_SCORE = {
             move.y = parseInt(moveArr[1]);
             move.isAuto = "true" === moveArr[2];
         }
-        
+
         return move;
     }
 
@@ -529,6 +529,20 @@ const EMPTY_SCORE = {
         }
         mainBoard(handleEditAdd, true);
         loadJosekiData(resetEdit);
+
+        // Initialize with moves from url if present
+        let movesParam = new URLSearchParams(window.location.search).get('moves')
+        if (movesParam) {
+            movesPlayed = JSON.parse(decodeURIComponent(movesParam))
+            for(const mv of movesPlayed){
+                let move = parseMove(mv)
+                if( move.type == PASS ){
+                    handleEditPass()
+                }else{
+                    handleEditAdd(move.x, move.y)
+                }
+            }
+        }
     }
 
     function resetEdit(id) {
@@ -588,28 +602,28 @@ const EMPTY_SCORE = {
                 } else {
                     josekiCont.addEventListener('click', function() { resetEdit(joseki.id);});
                 }
-    
+
                 let overlayEl = document.createElement('div');
                 overlayEl.className = `overlay--${!joseki.enabled} joseki__overlay--${!joseki.enabled}`;
                 josekiCont.appendChild(overlayEl);
-    
+
                 let rowEl = document.createElement('div');
                 rowEl.className = "row g-2";
                 josekiCont.appendChild(rowEl);
-    
+
                 let menuBoardEl = document.createElement("div");
                 menuBoardEl.className = 'menu-board col';
                 rowEl.appendChild(menuBoardEl);
-    
+
                 let commentEl = document.createElement("div");
                 commentEl.className = 'col';
                 commentEl.appendChild(document.createTextNode(joseki.comment));
                 rowEl.appendChild(commentEl);
-    
+
                 josekiCont.appendChild(rowEl);
 
                 //Determine board icon section
-                
+
                 //find min/max stones
                 let minX = 18;
                 let minY = 18;
@@ -647,7 +661,7 @@ const EMPTY_SCORE = {
 
                 // Translate min/max to board section
                 let section = {top: minY, right: 18-maxX, bottom: 18-maxY, left: minX};
-    
+
                 // Create icon
                 let existing = document.getElementById('joseki-group-' + groupIndex + '-content');
                 existing.appendChild(josekiCont);
@@ -666,7 +680,7 @@ const EMPTY_SCORE = {
             groupContentEl.style['max-height'] = groupContentEl.clientHeight + 'px';
             if (groupHiddenState[groupIndex])
                 groupContentEl.classList.add('joseki-group__content--hidden');
-    
+
             if(id) {
                 let tmpJoseki = group.josekis.find(function(a){ return a.id == id});
                 if (!tmpJoseki)
@@ -690,6 +704,7 @@ const EMPTY_SCORE = {
         }
 
         setAllowAutoStone();
+
     }
 
     function handleEditStoneTypeChange() {
@@ -714,7 +729,7 @@ const EMPTY_SCORE = {
 
         let stoneTypeElem = document.getElementById('editStoneType');
         stoneTypeElem.disabled = !allowAutoStones;
-        
+
         if (!allowAutoStones) {
             stoneTypeElem.value = 'normal';
             editStoneTypeChange(false)
@@ -792,7 +807,7 @@ const EMPTY_SCORE = {
         resetEdit();
     }
 
-        ////////// Edit Joseki Actions ///////////
+    ////////// Edit Joseki Actions ///////////
 
     function newJoseki() {
         let maxId = 0;
@@ -820,14 +835,14 @@ const EMPTY_SCORE = {
 
         if (!confirm("Are you sure you want to delete this joseki?"))
             return;
-            
+
         josekiData.groups.forEach(group => {
             let index = group.josekis.findIndex(function(a){ return a.id == currentEditJoseki.id});
             if (index > -1) {
                 group.josekis.splice(index, 1);
             }
         });
-        
+
         storeJosekiData();
         resetEdit();
     }
@@ -855,7 +870,7 @@ const EMPTY_SCORE = {
 
     function saveJosekiGroup() {
         let groupName = prompt('Please enter a name for the new group');
-        
+
         if (groupName === null)
             return;
 
@@ -881,7 +896,7 @@ const EMPTY_SCORE = {
     function deleteJosekiGroup(deleteGroupIndex) {
         if (josekiData.groups.length <= 1)
             return alert('Cannot delete only Joseki Group');
-        
+
         if (getJosekiArray((joseki, group, groupIndex) => joseki.enabled && group.enabled && groupIndex !== deleteGroupIndex).length < 1)
             return alert ('Cannot delete all remaining enabled josekis');
 
@@ -889,7 +904,7 @@ const EMPTY_SCORE = {
             return;
 
         josekiData.groups.splice(deleteGroupIndex, 1);
-                
+
         storeJosekiData();
         resetEdit();
     }
@@ -945,6 +960,9 @@ const EMPTY_SCORE = {
         buildTree();
         mainBoard(handlePlayMove);
 
+        numPlayerMoves = 0;
+        movesPlayed = [];
+
         game = new WGo.Game();
 
         // Update info/stats
@@ -967,6 +985,7 @@ const EMPTY_SCORE = {
     }
 
     function play(color, x, y) {
+        movesPlayed.push(serMove(false, x, y, false));
         let result = game.play(x,y,color);
 
         if (Array.isArray(result)) {
@@ -984,6 +1003,7 @@ const EMPTY_SCORE = {
     }
 
     function pass() {
+        movesPlayed.push(serMove(true, 0, 0, false));
         game.pass();
 
         if (delay_ms !== DELAY_INITIAL) {
@@ -1010,7 +1030,8 @@ const EMPTY_SCORE = {
         gtag("event", "move", {'event_category': 'joseki'});
         document.getElementById('pass-card').className = 'hide-card';
         clearBoardMsg();
-        
+
+
         // all automatic moves count as one player move for purposes of scoring
         // and checking for failure
         if (isAutomaticMove && numPlayerMoves == 0) {
@@ -1031,7 +1052,7 @@ const EMPTY_SCORE = {
                 emptyStartPoint();
             } else{
                 // whups
-                fail(move); 
+                fail(move);
             }
         }
     }
@@ -1053,6 +1074,7 @@ const EMPTY_SCORE = {
         let passMove = serMove(true, null, null, isAutomaticMove);
 
         if (passMove in tree) {
+            movesPlayed.push(serMove(true, 0, 0, false));
             game.pass();
             tree = tree[passMove];
             await respond();
@@ -1076,6 +1098,7 @@ const EMPTY_SCORE = {
     function emptyStartPoint() {
         shutdown();
         boardMsg("False start!", 'black');
+        document.getElementById('false-link').href = "/edit?moves=" + encodeURIComponent(JSON.stringify(movesPlayed));
         document.getElementById('empty-point-card').className = "show-card";
         displayCorrectGhostStones()
     }
@@ -1083,6 +1106,7 @@ const EMPTY_SCORE = {
     function fail(move) {
         shutdown();
         boardMsg("Oops!", 'red');
+        document.getElementById('fail-link').href = "/edit?moves=" + encodeURIComponent(JSON.stringify(movesPlayed));
         document.getElementById('fail-card').className = "show-card";
 
         let m = parseMove(move);
@@ -1119,10 +1143,10 @@ const EMPTY_SCORE = {
 
             // # moves base * combo multi * unique multi * total multi
             score.score += Math.round(
-                numPlayerMoves *
-                Math.max(Math.log10(score.combo) * BIG_FACTOR, 1) *
-                Math.max(Math.log10(Object.keys(getJosekiArray((joseki, group) => group.enabled && joseki.enabled)).length) * FACTOR, 1) *
-                Math.max(Math.log10(Object.keys(score.unique).length) * FACTOR, 1)
+                                      numPlayerMoves *
+                                      Math.max(Math.log10(score.combo) * BIG_FACTOR, 1) *
+                                      Math.max(Math.log10(Object.keys(getJosekiArray((joseki, group) => group.enabled && joseki.enabled)).length) * FACTOR, 1) *
+                                      Math.max(Math.log10(Object.keys(score.unique).length) * FACTOR, 1)
             );
             updateHighScore(score.score);
         } else {
@@ -1144,7 +1168,6 @@ const EMPTY_SCORE = {
             });
         }
 
-        numPlayerMoves = 0;
         displayScore();
     }
 
