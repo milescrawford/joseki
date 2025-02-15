@@ -529,6 +529,20 @@ const EMPTY_SCORE = {
         }
         mainBoard(handleEditAdd, true);
         loadJosekiData(resetEdit);
+
+        // Initialize with moves from url if present
+        let movesParam = new URLSearchParams(window.location.search).get('moves')
+        if (movesParam) {
+            movesPlayed = JSON.parse(movesParam)
+            for(const mv of movesPlayed){
+                let move = parseMove(mv)
+                if( move.type == PASS ){
+                    handleEditPass()
+                }else{
+                    handleEditAdd(move.x, move.y)
+                }
+            }
+        }
     }
 
     function resetEdit(id) {
@@ -691,14 +705,6 @@ const EMPTY_SCORE = {
 
         setAllowAutoStone();
 
-        // Initialize with moves from url if present
-        let movesParam = new URLSearchParams(window.location.search).get('moves')
-        if (movesParam) {
-            movesPlayed = JSON.parse(movesParam)
-            for(const move of movesPlayed){
-                handleEditAdd(move[0], move[1])
-            }
-        }
     }
 
     function handleEditStoneTypeChange() {
@@ -979,7 +985,7 @@ const EMPTY_SCORE = {
     }
 
     function play(color, x, y) {
-        movesPlayed.push([x,y]);
+        movesPlayed.push(serMove(false, x, y, false));
         let result = game.play(x,y,color);
 
         if (Array.isArray(result)) {
@@ -997,6 +1003,7 @@ const EMPTY_SCORE = {
     }
 
     function pass() {
+        movesPlayed.push(serMove(true, 0, 0, false));
         game.pass();
 
         if (delay_ms !== DELAY_INITIAL) {
@@ -1067,6 +1074,7 @@ const EMPTY_SCORE = {
         let passMove = serMove(true, null, null, isAutomaticMove);
 
         if (passMove in tree) {
+            movesPlayed.push(serMove(true, 0, 0, false));
             game.pass();
             tree = tree[passMove];
             await respond();
