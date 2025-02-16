@@ -1098,7 +1098,7 @@ const EMPTY_SCORE = {
     function emptyStartPoint() {
         shutdown();
         boardMsg("False start!", 'black');
-        document.getElementById('false-link').href = "/edit?moves=" + encodeURIComponent(JSON.stringify(movesPlayed));
+        document.getElementById('false-link').href = "/edit/?moves=" + encodeURIComponent(JSON.stringify(movesPlayed));
         document.getElementById('empty-point-card').className = "show-card";
         displayCorrectGhostStones()
     }
@@ -1106,7 +1106,7 @@ const EMPTY_SCORE = {
     function fail(move) {
         shutdown();
         boardMsg("Oops!", 'red');
-        document.getElementById('fail-link').href = "/edit?moves=" + encodeURIComponent(JSON.stringify(movesPlayed));
+        document.getElementById('fail-link').href = "/edit/?moves=" + encodeURIComponent(JSON.stringify(movesPlayed));
         document.getElementById('fail-card').className = "show-card";
 
         let m = parseMove(move);
